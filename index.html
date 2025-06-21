@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eğitim Video Paneli</title>
+    <title>Eğitim Video Serileri</title>
     <style>
         :root{--primary:#4361ee;--secondary:#3f37c9;--success:#4cc9f0;--danger:#f72585;--warning:#f8961e;--dark:#1d3557;--light:#f8f9fa;--gray:#6c757d}
         *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
@@ -67,8 +67,16 @@
         footer{margin-top:30px;text-align:center;color:#fff;font-size:1rem;padding:20px;width:100%}
         #top-btn-wrapper{position:fixed;bottom:20px;right:0;z-index:99;margin:0 30px;display:flex;justify-content:flex-end;max-width:100%}
         #top-btn{display:none;padding:10px 20px;font-size:14px;background-color:#333;color:#fff;border:none;cursor:pointer}
+
+        .menu-wrapper{display:flex;flex-direction:column;gap:15px;align-items:center;width:100%;margin-bottom:30px}
+        .menu-buttons{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+        .menu-buttons button{padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:50px;font-size:15px;font-weight:500;cursor:pointer;transition:all .3s ease;box-shadow:0 3px 8px rgba(0,0,0,.1)}
+        .menu-buttons button:hover{background:var(--secondary);transform:translateY(-2px)}
+        .category-buttons{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+        .gray-btn{padding:10px 20px;background:var(--gray);color:#fff;border:none;border-radius:50px;font-size:15px;font-weight:500;cursor:pointer;transition:all .3s ease;box-shadow:0 3px 8px rgba(0,0,0,.1)}
+        .gray-btn:hover{background:#495057;transform:translateY(-2px)}
  
-        @media (max-width:600px){
+        @media (max-width:900px){
             body{padding: 5px}
             .video-panel{flex-direction:column}
             .video-player{order:1;padding: 10px;}
@@ -84,15 +92,58 @@
             .quality-selector select{width:100%}
             #top-btn-wrapper{position:relative;width:100%;right:0;margin:0;bottom: -20px;justify-content:center}
             footer {font-size: 11px;}
+
+            .category-buttons,.menu-buttons{flex-direction:column;align-items:stretch;width: 100%;}
+            .gray-btn,.menu-buttons button{width:100%;margin-bottom:0px;width: 100%;}
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div id="giris-panel" class="w-100">
-            <header><a onclick="location.reload();"><h1>Tüm Eğitimler</h1></a></header>
+            <header><a onclick="location.reload();"><h1>Eğitim Video Serileri</h1></a></header>
             <textarea id="sourceCodeInput" style="display: none;"></textarea>
             <button id="generateBtn" style="display: none;">Video Paneli Oluştur</button>
+
+
+
+              
+
+
+            <div class="menu-wrapper">
+                <div class="menu-buttons">
+                  <button onclick="fonk('kategoriler/yeni-eklenenler')">Yeni Eklenenler</button>
+                  <button onclick="fonk('kategoriler/tum-egitimler')">Tüm Eğitimler</button>
+                  <button onclick="fonk('kategoriler/en-cok-izlenenler')">En Çok İzlenenler</button>
+                </div>
+              
+                <div class="category-buttons">
+                  <!-- Success kategorileri -->
+                  <button class="gray-btn" onclick="fonk('/kategoriler/success/finans')">Finans</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/success/girisimcilik')">Girişimcilik</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/success/satis')">Satış</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/success/pazarlama')">Pazarlama</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/success/liderlik')">Liderlik</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/success/yetkinlik-gelisimi')">Yetkinlik</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/success/surdurulebilirlik')">Sürdürülebilirlik</button>
+              
+                  <!-- Culture kategorileri -->
+                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/sinema')">Sinema</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/tarih')">Tarih</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/saglik')">Sağlık</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/muzik')">Müzik</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/gastronomi')">Gastronomi</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/yasam-kulturu')">Yaşam</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/sanat')">Sanat</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/bilim')">Bilim</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/surdurulebilirlik')">Sürdürülebilirlik</button>
+                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/cocuk-gelisimi')">Çocuk</button>
+                </div>
+              </div>
+
+
+
+              
             <div class="egitimler" id="egitimler">Eğitimler Yükleniyor...</div>
             <div id="url-solution" class="solution-section">
                 <div class="solution-title">
@@ -160,57 +211,63 @@
         function topFunction() {window.scrollTo({ top: 0, behavior: 'smooth' });}
     </script>
 
-    <script>
-        async function fetchSourceCode(url) {alert("fetchSourceCode çalıştı:\n" + url);}
-    
-        window.onload = async function () {
-          const egitimlerDiv = document.getElementById('egitimler');
-    
-          try {
-            const proxyUrl = "https://api.codetabs.com/v1/proxy/?quest=https://www.neoskola.com/kategoriler/tum-egitimler";
-            const response = await fetch(proxyUrl);
-            if (!response.ok) throw new Error("HTTP Hatası: " + response.status);
-    
-            const html = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, "text/html");
-    
-            const container = doc.querySelector('.css-te3jdc');
-            if (!container) {
-              egitimlerDiv.textContent = "css-te3jdc sınıfı bulunamadı.";
-              return;
-            }
-    
-            const links = container.querySelectorAll('.chakra-link');
-            egitimlerDiv.innerHTML = ''; // Temizle
-    
-            links.forEach(link => {
-              const href = link.getAttribute('href') || '#';
-              const fullHref = href.startsWith('http') ? href : 'https://www.neoskola.com' + href;
-              const img = link.querySelector('.chakra-image');
-              const text = link.querySelector('.chakra-text');
-    
-              const imgSrc = img?.src || '';
-              const label = text?.textContent?.trim() || '';
-    
-              const cardHTML = `
-                <div class="card" onclick="fetchSourceCode('${fullHref}')">
-                  <img src="${imgSrc}" alt="Resim">
-                  <div class="card-text">${label}</div>
-                </div>
-              `;
-              egitimlerDiv.insertAdjacentHTML('beforeend', cardHTML);
-            });
-    
-            if (!links.length) {
-              egitimlerDiv.textContent = "Hiç .chakra-link bulunamadı.";
-            }
-    
-          } catch (error) {
-            egitimlerDiv.textContent = "Hata: " + error.message;
-          }
-        };
-      </script>
+<script>
+    async function fetchSourceCode(url) {
+      alert("fetchSourceCode çalıştı:\n" + url);
+    }
+  
+    async function fonk(kategori = "kategoriler/yeni-eklenenler") {
+      const egitimlerDiv = document.getElementById('egitimler');
+  
+      try {
+        const baseUrl = "https://www.neoskola.com/";
+        const proxyUrl = "https://api.codetabs.com/v1/proxy/?quest=" + baseUrl + kategori;
+  
+        const response = await fetch(proxyUrl);
+        if (!response.ok) throw new Error("HTTP Hatası: " + response.status);
+  
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+  
+        const container = doc.querySelector('.css-te3jdc');
+        if (!container) {
+          egitimlerDiv.textContent = "css-te3jdc sınıfı bulunamadı.";
+          return;
+        }
+  
+        const links = container.querySelectorAll('.chakra-link');
+        egitimlerDiv.innerHTML = ''; // Temizle
+  
+        links.forEach(link => {
+          const href = link.getAttribute('href') || '#';
+          const fullHref = href.startsWith('http') ? href : baseUrl + href;
+          const img = link.querySelector('.chakra-image');
+          const text = link.querySelector('.chakra-text');
+  
+          const imgSrc = img?.src || '';
+          const label = text?.textContent?.trim() || '';
+  
+          const cardHTML = `
+            <div class="card" onclick="fetchSourceCode('${fullHref}')">
+              <img src="${imgSrc}" alt="Resim">
+              <div class="card-text">${label}</div>
+            </div>
+          `;
+          egitimlerDiv.insertAdjacentHTML('beforeend', cardHTML);
+        });
+  
+        if (!links.length) {
+          egitimlerDiv.textContent = "Hiç .chakra-link bulunamadı.";
+        }
+  
+      } catch (error) {
+        egitimlerDiv.textContent = "Hata: " + error.message;
+      }
+    }
+  
+    window.onload = () => fonk(); // Sayfa yüklenince varsayılan "kategoriler/yeni-eklenenler"
+</script>
 
         <script>
             async function fetchSourceCode(url) {
