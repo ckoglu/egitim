@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Panel Generator</title>
+    <style>
+        :root{--primary:#4361ee;--secondary:#3f37c9;--success:#4cc9f0;--danger:#f72585;--warning:#f8961e;--dark:#1d3557;--light:#f8f9fa;--gray:#6c757d}
+        *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+        body{background:linear-gradient(135deg,#1a2a6c,#b21f1f,#1a2a6c);min-height:100vh;padding:20px;display:flex;flex-direction:column;align-items:center;color:#333}
+        .container{width:100%;max-width:1200px;background:linear-gradient(to bottom right,rgba(255,255,255,.95),rgba(245,247,250,.95));border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,.25);padding:30px;margin-top:20px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3)}
+        .container{display:flex;flex-direction:column;align-items:center;max-width:1280px;margin:0 auto;background-color:#fff;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:30px;position:relative;overflow:hidden}
+        .container::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(to right,#4caf50,#2196f3,#9c27b0)}
+        textarea{width:97%;height:250px;margin:20px 0;padding:20px;border:2px solid #ddd;border-radius:10px;font-family:Consolas,'Courier New',monospace;font-size:15px;box-shadow:0 4px 10px rgba(0,0,0,.05);transition:all .3s ease}
+        textarea:focus{border-color:#4caf50;box-shadow:0 4px 15px rgba(76,175,80,.2);outline:0}
+        .url-input{flex:1;padding:16px 20px;border:2px solid #e0e0e0;border-radius:10px;font-size:17px;transition:all .3s;box-shadow:inset 0 1px 3px rgba(0,0,0,.1);width:97%;margin:20px 0}
+        .url-input:focus{border-color:var(--primary);outline:0;box-shadow:0 0 0 3px rgba(67,97,238,.2)}
+        button{padding:14px 28px;background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius:50px;cursor:pointer;font-size:18px;margin-bottom:20px;font-weight:600;transition:all .3s ease;box-shadow:0 4px 15px rgba(76,175,80,.3);display:flex;align-items:center;gap:10px}
+        button:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(76,175,80,.4)}
+        .video-container{display:none;width:100%;animation:fadeIn .5s ease}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)}}
+        .video-panel{display:flex;width:100%;gap:25px}
+        .video-list{flex:1;max-width:350px;background-color:#fff;border-radius:12px;padding:20px;box-shadow:0 5px 15px rgba(0,0,0,.08);max-height:75vh;overflow-y:auto;border:1px solid #eee}
+        .video-player{flex:3;background-color:#fff;border-radius:12px;padding:25px;box-shadow:0 5px 15px rgba(0,0,0,.08);border:1px solid #eee}
+        .video-item{display:flex;align-items:center;margin-bottom:15px;padding:5px;border-radius:8px;cursor:pointer;transition:all .3s ease;border:1px solid #f0f0f0}
+        .video-item:hover{background-color:#f8fff8;transform:translateX(5px);border-color:#4caf50}
+        .video-item.active{background-color:#e8f5e9;border-left:4px solid #4caf50}
+        .video-thumbnail{width:100px;height:60px;object-fit:cover;border-radius:6px;margin-right:15px;box-shadow:0 3px 6px rgba(0,0,0,.1)}
+        .video-title{font-weight:600;font-size:15px;flex-grow:1;color:#2c3e50}
+        .current-video{margin-bottom:25px;border-radius:10px;overflow:hidden}
+        .current-video iframe{width:100%;height:465px;border:none;border-radius:10px}
+        .video-info h2{margin-top:0;color:#2c3e50;border-bottom:2px solid #4caf50;padding-bottom:10px;margin-bottom:20px}
+        .video-info p{color:#555;line-height:1.7;white-space:pre-line;font-size:16px;background:#f9f9f9;padding:20px;border-radius:0;border-left:4px solid #4caf50}
+        .quality-selector{margin-top:25px;display:flex;align-items:center;gap:15px;background:#f0f7ff;padding:15px;border-radius:8px}
+        .quality-selector label{font-weight:600;color:#2c3e50}
+        .quality-selector select{padding:10px 15px;border-radius:8px;border:2px solid #ddd;font-size:16px;background:#fff;box-shadow:0 3px 6px rgba(0,0,0,.05);transition:all .3s ease}
+        .quality-selector select:focus{border-color:#2196f3;outline:0}
+        .controls{display:flex;justify-content:space-between;margin-top:30px;width:100%}
+        #resetBtn{background:linear-gradient(135deg,#f44336,#d32f2f);box-shadow:0 4px 15px rgba(244,67,54,.3)}
+        #showSourceBtn{background:linear-gradient(135deg,#2196f3,#0d47a1);box-shadow:0 4px 15px rgba(33,150,243,.3)}
+        .source-code{display:none;width:100%;background-color:#2c3e50;border-radius:12px;padding:25px;margin-top:30px;position:relative;color:#fff;box-shadow:0 8px 25px rgba(0,0,0,.2)}
+        .source-code textarea{width:96%;height:450px;margin:0;background:#1a252f;color:#f8f8f8;border:1px solid #34495e;font-size:14px}
+        .source-code-buttons{position:absolute;top:-85px;right:55px;display:flex;gap:15px}
+        .source-code-buttons button{margin:0;padding:15px 30px;font-size:15px;border-radius:999px}
+        #copySourceBtn{background:linear-gradient(135deg,#2196f3,#0d47a1)}
+        #hideSourceBtn{background:linear-gradient(135deg,#9c27b0,#6a1b9a)}
+        .page-title{font-size:28px;margin-bottom:25px;text-align:left;font-weight:700;color:#2c3e50;display:flex;align-items:center;gap:15px;padding-bottom:15px;border-bottom:2px solid #eee}
+        .solution-section{background:#fff8e1;border-left:4px solid #ffc107;padding:20px;border-radius:0 8px 8px 0;margin:20px 0;width:100%}
+        .solution-title{display:flex;align-items:center;gap:10px;margin-bottom:15px;color:#856404;font-size:1.3rem;font-weight:600}
+        .solution-content{color:#5a4b02;line-height:1.7}
+        .solution-content ol{margin-left:20px;margin-top:10px}
+        .solution-content li{margin-bottom:2px}
+        .solution-content code{background:rgba(0,0,0,.05);padding:2px 6px;border-radius:4px;font-family:monospace}
+        @media (max-width:900px){
+        .video-panel{flex-direction:column}
+        .video-list{max-width:100%}
+        .current-video iframe{height:350px}
+        }
+        @media (max-width:600px){
+        .container{padding:15px}
+        .current-video iframe{height:250px}
+        .controls{flex-direction:column;gap:15px}
+        button{width:100%;justify-content:center}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="url-input" class="url-input" placeholder="https://www.neoskola.com/egitimler/..." value="">
+        <button id="url-button" onclick="fetchSourceCode()">Eğitimi Gör</button>
+        <textarea id="sourceCodeInput" style="display: none;"></textarea>
+        <button id="generateBtn" style="display: none;">Video Paneli Oluştur</button>
+
+        <div id="url-solution" class="solution-section">
+            <div class="solution-title">
+                <span>Hızlı Bağlantılar</span>
+            </div>
+            <div class="solution-content">
+                <p>Aşağıdaki bağlantılara tıklayıp, ilgili eğitimin URL adreslerini kopyalayıp yukarıdaki kutucuğa yapıştırınız.</p>
+                <ol>
+                    <li><a href="https://www.neoskola.com/kategoriler/tum-egitimler" target="_blank">Tüm Neoskola Eğitimleri</a></li>
+                    <li><a href="https://www.neoskola.com/kategoriler/yeni-eklenenler" target="_blank">Yeni Eklenen Neoskola Eğitimleri</a></li>
+                    <li><a href="https://www.neoskola.com/kategoriler/en-cok-izlenenler" target="_blank">En Çok İzlenen Neoskola Eğitimleri</a></li>
+                    <li><a href="https://www.neoskola.com/kategoriler/success" target="_blank">Kategori: Success</a></li>
+                    <li><a href="https://www.neoskola.com/kategoriler/culture" target="_blank">Kategori: Culture</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="video-container" id="videoContainer">
+            <div class="page-title" id="pageTitle"></div>
+            <div class="video-panel">
+                <div class="video-list" id="videoList"></div>
+                <div class="video-player" id="videoPlayer">
+                    <div class="current-video" id="currentVideo">
+                        <p>Listeden bir video seçin</p>
+                    </div>
+                    <div class="video-info" id="videoInfo"></div>
+                    <div class="quality-selector" id="qualitySelector"></div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="resetBtn">Temizle</button>
+                <button id="showSourceBtn">Kaynak Kodunu Göster</button>
+            </div>
+            
+            <div class="source-code" id="sourceCodeDisplay">
+                <div class="source-code-buttons">
+                    <button id="copySourceBtn">Tümünü Kopyala</button>
+                    <button id="hideSourceBtn">Kodu Gizle</button>
+                </div>
+                <textarea id="sourceCodeTextarea" readonly></textarea>
+            </div>
+        </div>
+    </div>
+    <script>
+        async function fetchSourceCode() {
+            const url = document.getElementById('url-input').value.trim();
+            if (!url) {
+                alert('Lütfen bir URL girin!!');
+                return;
+            }
+
+            try {
+                const proxyUrl = `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(url)}`;
+                const response = await fetch(proxyUrl);
+                if (!response.ok) {throw new Error(`HTTP Hatası! Durum: ${response.status}`);}
+                const html = await response.text();
+                document.getElementById('sourceCodeInput').value = html;
+                document.getElementById("generateBtn").click();
+            } catch (error) {
+                alert( `Hata: ${error.message}`);
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sourceCodeInput = document.getElementById('sourceCodeInput');
+            const generateBtn = document.getElementById('generateBtn');
+            const videoContainer = document.getElementById('videoContainer');
+            const videoList = document.getElementById('videoList');
+            const currentVideo = document.getElementById('currentVideo');
+            const videoInfo = document.getElementById('videoInfo');
+            const qualitySelector = document.getElementById('qualitySelector');
+            const resetBtn = document.getElementById('resetBtn');
+            const showSourceBtn = document.getElementById('showSourceBtn');
+            const sourceCodeDisplay = document.getElementById('sourceCodeDisplay');
+            const sourceCodeTextarea = document.getElementById('sourceCodeTextarea');
+            const copySourceBtn = document.getElementById('copySourceBtn');
+            const hideSourceBtn = document.getElementById('hideSourceBtn');
+            const pageTitle = document.getElementById('pageTitle');
+            
+            let videosData = [];
+            let currentVideoIndex = -1;
+            let pageTitleText = '';
+            
+            generateBtn.addEventListener('click', function() {
+                try {
+                    const sourceCode = sourceCodeInput.value.trim();
+                    if (!sourceCode) {
+                        alert('Lütfen önce kaynak kodunu yapıştırın!');
+                        return;
+                    }
+                    
+                    // Extract page title from <title> tags
+                    const titleMatch = sourceCode.match(/<title>(.*?)<\/title>/i);
+                    pageTitleText = titleMatch ? titleMatch[1] : 'Video Paneli';
+                    pageTitle.textContent = pageTitleText;
+                    
+                    // "content":[ ile "title":"Sertifika Testi" arasındaki kodu çek
+                    const contentStart = sourceCode.indexOf('"content":[');
+                    const contentEnd = sourceCode.indexOf('"title":"Sertifika Testi"');
+                    
+                    if (contentStart === -1 || contentEnd === -1) {
+                        alert('Kaynak kodunda gerekli işaretleyiciler bulunamadı!');
+                        return;
+                    }
+                    
+                    const contentSection = sourceCode.substring(contentStart + 10, contentEnd - 1);
+                    
+                    // Videoları içerik bölümünden çıkar
+                    videosData = [];
+                    let currentPos = 0;
+                    
+                    while (currentPos < contentSection.length) {
+                        const idStart = contentSection.indexOf('"_id":', currentPos);
+                        const titleStart = contentSection.indexOf('"title":', idStart);
+                        const bodyStart = contentSection.indexOf('"body":', titleStart);
+                        const detailStart = contentSection.indexOf('"detail":', bodyStart);
+                        const thumbStart = contentSection.indexOf('"thumbnail":', currentPos);
+
+                        // Gerekli verilerden biri bulunamazsa döngüyü bitir
+                        if (idStart === -1 || titleStart === -1 || bodyStart === -1 || detailStart === -1) break;
+
+                        // title verisini al
+                        const titleValueStart = contentSection.indexOf('"', titleStart + 8) + 1;
+                        const titleValueEnd = contentSection.indexOf('"', titleValueStart);
+                        const title = contentSection.substring(titleValueStart, titleValueEnd);
+
+                        if (title.includes('Ara Test')) {
+                            // currentPos'u titleValueEnd sonrası yap, yani atlayalım
+                            currentPos = titleValueEnd + 1;
+                            continue; // döngünün başına dön
+                        }
+
+                        // body verisini al
+                        const bodyValueStart = contentSection.indexOf('"', bodyStart + 7) + 1;
+                        const bodyValueEnd = contentSection.indexOf('"', bodyValueStart);
+                        let body = contentSection.substring(bodyValueStart, bodyValueEnd).replace(/\\n/g, '');
+
+                        // detail verisini al (artık thumbnail gibi kullanılacak)
+                        const detailValueStart = contentSection.indexOf('"', detailStart + 9) + 1;
+                        const detailValueEnd = contentSection.indexOf('"', detailValueStart);
+                        const detail = contentSection.substring(detailValueStart, detailValueEnd);
+
+                        body = body + detail;
+                        // Thumbnail verisini çıkar
+                        const thumbValueStart = contentSection.indexOf('"', thumbStart + 12) + 1;
+                        const thumbValueEnd = contentSection.indexOf('"', thumbValueStart);
+                        const thumbnail = contentSection.substring(thumbValueStart, thumbValueEnd);
+
+                        // URL'leri çıkar
+                        const url360p = extractUrl(contentSection, thumbValueEnd, '"url360p":');
+                        const url540p = extractUrl(contentSection, thumbValueEnd, '"url540p":');
+                        const url720p = extractUrl(contentSection, thumbValueEnd, '"url720p":');
+                        const url1080p = extractUrl(contentSection, thumbValueEnd, '"url1080p":');
+
+                        // Video nesnesi oluştur
+                        videosData.push({
+                            title,
+                            body,
+                            thumbnail,
+                            url360p,
+                            url540p,
+                            url720p,
+                            url1080p
+                        });
+
+                        // Sonraki döngü için pozisyonu güncelle
+                        currentPos = Math.max(titleValueEnd, bodyValueEnd, detailValueEnd) + 1;
+                    }
+                    
+                    
+                    if (videosData.length === 0) {
+                        alert('Belirtilen işaretleyiciler arasında video verisi bulunamadı!');
+                        return;
+                    }
+                    
+                    renderVideoList();
+                    document.getElementById('url-input').style.display = 'none';
+                    document.getElementById('url-button').style.display = 'none';
+                    document.getElementById('url-solution').style.display = 'none';
+                    videoContainer.style.display = 'block';
+                    
+                } catch (error) {
+                    alert('Kaynak kodu işlenirken hata oluştu: ' + error.message);
+                    console.error(error);
+                }
+            });
+            
+            function extractUrl(content, startPos, key) {
+                const keyStart = content.indexOf(key, startPos);
+                if (keyStart === -1) return '';
+                
+                const urlStart = content.indexOf('"', keyStart + key.length) + 1;
+                const urlEnd = content.indexOf('"', urlStart);
+                return content.substring(urlStart, urlEnd);
+            }
+            
+            function renderVideoList() {
+                videoList.innerHTML = '';
+                
+                videosData.forEach((video, index) => {
+                    const videoItem = document.createElement('div');
+                    videoItem.className = 'video-item';
+                    videoItem.dataset.index = index;
+                    
+                    videoItem.innerHTML = `
+                        <img src="${video.thumbnail}" alt="Thumbnail" class="video-thumbnail" onerror="this.src='https://via.placeholder.com/80x45?text=No+Thumbnail'">
+                        <span class="video-title">${index + 1}. ${video.title}</span>
+                    `;
+                    
+                    videoItem.addEventListener('click', function() {
+                        selectVideo(index);
+                    });
+                    
+                    videoList.appendChild(videoItem);
+                });
+                
+                if (videosData.length > 0) {
+                    selectVideo(0);
+                }
+            }
+            
+            function selectVideo(index) {
+                currentVideoIndex = index;
+                const video = videosData[index];
+                
+                // Listede aktif durumu güncelle
+                document.querySelectorAll('.video-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector(`.video-item[data-index="${index}"]`).classList.add('active');
+                
+                // Oynatıcıyı güncelle
+                const defaultUrl = video.url1080p || video.url720p || video.url540p || video.url360p;
+                if (defaultUrl) {
+                    currentVideo.innerHTML = `
+                        <iframe src="${getEmbedUrl(defaultUrl)}" allowfullscreen></iframe>
+                    `;
+                } else {
+                    currentVideo.innerHTML = `<p>Bu video için URL bulunamadı</p>`;
+                }
+                
+                videoInfo.innerHTML = `
+                    <h2>${index + 1}. ${video.title}</h2>
+                    <p>${video.body}</p>
+                `;
+                
+                renderQualitySelector(video);
+            }
+            
+            function getEmbedUrl(url) {
+                if (!url) return '';
+                
+                // YouTube URL'leri
+                if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                    let videoId = '';
+                    if (url.includes('v=')) {
+                        videoId = url.split('v=')[1].split('&')[0];
+                    } else if (url.includes('youtu.be/')) {
+                        videoId = url.split('youtu.be/')[1].split('?')[0];
+                    }
+                    return `https://www.youtube.com/embed/${videoId}`;
+                }
+                
+                // Vimeo URL'leri
+                if (url.includes('vimeo.com')) {
+                    const videoId = url.split('vimeo.com/')[1].split('?')[0];
+                    return `https://player.vimeo.com/video/${videoId}`;
+                }
+                
+                // Diğer URL'ler doğrudan kullanılır
+                return url;
+            }
+            
+            function renderQualitySelector(video) {
+                qualitySelector.innerHTML = '';
+                
+                const select = document.createElement('select');
+                select.id = 'qualitySelect';
+                
+                const qualities = [
+                    { name: '1080p', url: video.url1080p },
+                    { name: '720p', url: video.url720p },
+                    { name: '540p', url: video.url540p },
+                    { name: '360p', url: video.url360p }
+                ];
+                
+                let hasQuality = false;
+                let defaultSelected = false;
+                
+                qualities.forEach(quality => {
+                    if (quality.url) {
+                        hasQuality = true;
+                        const option = document.createElement('option');
+                        option.value = quality.url;
+                        option.textContent = quality.name;
+                        
+                        // Set 1080p as default if available
+                        if (quality.name === '1080p' && video.url1080p && !defaultSelected) {
+                            option.selected = true;
+                            defaultSelected = true;
+                        }
+                        
+                        select.appendChild(option);
+                    }
+                });
+                
+                if (hasQuality) {
+                    select.addEventListener('change', function() {
+                        currentVideo.innerHTML = `
+                            <iframe src="${getEmbedUrl(this.value)}" allowfullscreen></iframe>
+                        `;
+                    });
+                    
+                    qualitySelector.appendChild(select);
+                    
+
+                } else {
+                    qualitySelector.innerHTML += '<p>Mevcut çözünürlük seçeneği yok</p>';
+                }
+            }
+            
+            function showSourceCode() {
+                sourceCodeTextarea.value = document.documentElement.outerHTML;
+                sourceCodeDisplay.style.display = 'block';
+                videoContainer.querySelector('.video-panel').style.display = 'none';
+                videoContainer.querySelector('.controls').style.display = 'none';
+            }
+            
+            function hideSourceCode() {
+                sourceCodeDisplay.style.display = 'none';
+                videoContainer.querySelector('.video-panel').style.display = 'flex';
+                videoContainer.querySelector('.controls').style.display = 'flex';
+            }
+            
+            resetBtn.addEventListener('click', function() {
+                document.getElementById('url-input').style.display = 'block';
+                document.getElementById('url-button').style.display = 'block';
+                document.getElementById('url-solution').style.display = 'block';
+                videoContainer.style.display = 'none';
+                document.getElementById('url-input').value = '';
+                sourceCodeDisplay.style.display = 'none';
+                videosData = [];
+                pageTitle.textContent = '';
+            });
+            
+            showSourceBtn.addEventListener('click', function() {
+                showSourceCode();
+            });
+            
+            hideSourceBtn.addEventListener('click', function() {
+                hideSourceCode();
+            });
+            
+            copySourceBtn.addEventListener('click', function() {
+                sourceCodeTextarea.select();
+                document.execCommand('copy');
+                alert('Kaynak kodu kopyalandı!');
+            });
+        });
+    </script>
+</body>
+</html>
