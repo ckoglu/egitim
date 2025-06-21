@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Panel Generator</title>
+    <title>Eğitim Video Paneli</title>
     <style>
         :root{--primary:#4361ee;--secondary:#3f37c9;--success:#4cc9f0;--danger:#f72585;--warning:#f8961e;--dark:#1d3557;--light:#f8f9fa;--gray:#6c757d}
         *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
@@ -11,6 +11,15 @@
         .container{width:100%;max-width:1200px;background:linear-gradient(to bottom right,rgba(255,255,255,.95),rgba(245,247,250,.95));border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,.25);padding:30px;margin-top:20px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3)}
         .container{display:flex;flex-direction:column;align-items:center;max-width:1280px;margin:0 auto;background-color:#fff;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:30px;position:relative;overflow:hidden}
         .container::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(to right,#4caf50,#2196f3,#9c27b0)}
+        header{text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:1px solid rgba(0,0,0,.1)}
+        h1{color:var(--dark);font-size:1.5rem;margin-bottom:10px;background:linear-gradient(45deg,#4361ee,#3a0ca3);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 2px 4px rgba(0,0,0,.1);text-decoration:none;cursor:pointer}
+        u{text-decoration:#3a0ca3 wavy underline}
+        .subtitle{color:var(--gray);font-size:1.2rem;max-width:800px;margin:0 auto;line-height:1.6}
+        .egitimler{display:flex;flex-wrap:wrap;justify-content:center;gap:45px;margin-top:20px}
+        .card{width:320px;height:170px;position:relative;border-radius:12px;overflow:hidden;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.2);transition:transform .2s;background:#000}
+        .card:hover{transform:scale(1.03)}
+        .card img{width:100%;height:100%;object-fit:cover;display:block}
+        .card-text{position:absolute;bottom:0;width:100%;padding:10px;color:#fff;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);font-size:16px;font-weight:700;text-shadow:1px 1px 4px rgba(0,0,0,.9);box-sizing:border-box}
         textarea{width:97%;height:250px;margin:20px 0;padding:20px;border:2px solid #ddd;border-radius:10px;font-family:Consolas,'Courier New',monospace;font-size:15px;box-shadow:0 4px 10px rgba(0,0,0,.05);transition:all .3s ease}
         textarea:focus{border-color:#4caf50;box-shadow:0 4px 15px rgba(76,175,80,.2);outline:0}
         .url-input{flex:1;padding:16px 20px;border:2px solid #e0e0e0;border-radius:10px;font-size:17px;transition:all .3s;box-shadow:inset 0 1px 3px rgba(0,0,0,.1);width:97%;margin:20px 0}
@@ -18,7 +27,10 @@
         button{padding:14px 28px;background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius:50px;cursor:pointer;font-size:18px;margin-bottom:20px;font-weight:600;transition:all .3s ease;box-shadow:0 4px 15px rgba(76,175,80,.3);display:flex;align-items:center;gap:10px}
         button:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(76,175,80,.4)}
         .video-container{display:none;width:100%;animation:fadeIn .5s ease}
-        @keyframes fadeIn{from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeIn{
+        from{opacity:0;transform:translateY(20px)}
+        to{opacity:1;transform:translateY(0)}
+        }
         .video-panel{display:flex;width:100%;gap:25px}
         .video-list{flex:1;max-width:350px;background-color:#fff;border-radius:12px;padding:20px;box-shadow:0 5px 15px rgba(0,0,0,.08);max-height:75vh;overflow-y:auto;border:1px solid #eee}
         .video-player{flex:3;background-color:#fff;border-radius:12px;padding:25px;box-shadow:0 5px 15px rgba(0,0,0,.08);border:1px solid #eee}
@@ -37,15 +49,15 @@
         .quality-selector select:focus{border-color:#2196f3;outline:0}
         .controls{display:flex;justify-content:space-between;margin-top:30px;width:100%}
         #resetBtn{background:linear-gradient(135deg,#f44336,#d32f2f);box-shadow:0 4px 15px rgba(244,67,54,.3)}
-        #showSourceBtn{background:linear-gradient(135deg,#2196f3,#0d47a1);box-shadow:0 4px 15px rgba(33,150,243,.3)}
+        #showSourceBtn{display:none;background:linear-gradient(135deg,#2196f3,#0d47a1);box-shadow:0 4px 15px rgba(33,150,243,.3)}
         .source-code{display:none;width:100%;background-color:#2c3e50;border-radius:12px;padding:25px;margin-top:30px;position:relative;color:#fff;box-shadow:0 8px 25px rgba(0,0,0,.2)}
         .source-code textarea{width:96%;height:450px;margin:0;background:#1a252f;color:#f8f8f8;border:1px solid #34495e;font-size:14px}
         .source-code-buttons{position:absolute;top:-85px;right:55px;display:flex;gap:15px}
         .source-code-buttons button{margin:0;padding:15px 30px;font-size:15px;border-radius:999px}
         #copySourceBtn{background:linear-gradient(135deg,#2196f3,#0d47a1)}
         #hideSourceBtn{background:linear-gradient(135deg,#9c27b0,#6a1b9a)}
-        .page-title{font-size:28px;margin-bottom:25px;text-align:left;font-weight:700;color:#2c3e50;display:flex;align-items:center;gap:15px;padding-bottom:15px;border-bottom:2px solid #eee}
-        .solution-section{background:#fff8e1;border-left:4px solid #ffc107;padding:20px;border-radius:0 8px 8px 0;margin:20px 0;width:100%}
+        .page-title{font-size:22px;margin-bottom:25px;text-align:left;font-weight:700;color:#2c3e50;display:flex;align-items:center;gap:15px;padding-bottom:15px;border-bottom:2px solid #eee}
+        .solution-section{display:none;background:#fff8e1;border-left:4px solid #ffc107;padding:20px;border-radius:0 8px 8px 0;margin:20px 0;width:100%}
         .solution-title{display:flex;align-items:center;gap:10px;margin-bottom:15px;color:#856404;font-size:1.3rem;font-weight:600}
         .solution-content{color:#5a4b02;line-height:1.7}
         .solution-content ol{margin-left:20px;margin-top:10px}
@@ -62,31 +74,34 @@
         .controls{flex-direction:column;gap:15px}
         button{width:100%;justify-content:center}
         }
+        .w-100{width:100%}
+        footer{margin-top:30px;text-align:center;color:#fff;font-size:1rem;padding:20px;width:100%}
+        #top-btn{display:none;position:fixed;bottom:20px;right:30px;z-index:99}
     </style>
 </head>
 <body>
     <div class="container">
-        <input type="text" id="url-input" class="url-input" placeholder="https://www.neoskola.com/egitimler/..." value="">
-        <button id="url-button" onclick="fetchSourceCode()">Eğitimi Gör</button>
-        <textarea id="sourceCodeInput" style="display: none;"></textarea>
-        <button id="generateBtn" style="display: none;">Video Paneli Oluştur</button>
-
-        <div id="url-solution" class="solution-section">
-            <div class="solution-title">
-                <span>Hızlı Bağlantılar</span>
-            </div>
-            <div class="solution-content">
-                <p>Aşağıdaki bağlantılara tıklayıp, ilgili eğitimin URL adreslerini kopyalayıp yukarıdaki kutucuğa yapıştırınız.</p>
-                <ol>
-                    <li><a href="https://www.neoskola.com/kategoriler/tum-egitimler" target="_blank">Tüm Neoskola Eğitimleri</a></li>
-                    <li><a href="https://www.neoskola.com/kategoriler/yeni-eklenenler" target="_blank">Yeni Eklenen Neoskola Eğitimleri</a></li>
-                    <li><a href="https://www.neoskola.com/kategoriler/en-cok-izlenenler" target="_blank">En Çok İzlenen Neoskola Eğitimleri</a></li>
-                    <li><a href="https://www.neoskola.com/kategoriler/success" target="_blank">Kategori: Success</a></li>
-                    <li><a href="https://www.neoskola.com/kategoriler/culture" target="_blank">Kategori: Culture</a></li>
-                </ol>
+        <div id="giris-panel" class="w-100">
+            <header><a onclick="location.reload();"><h1>Tüm Eğitimler</h1></a></header>
+            <textarea id="sourceCodeInput" style="display: none;"></textarea>
+            <button id="generateBtn" style="display: none;">Video Paneli Oluştur</button>
+            <div class="egitimler" id="egitimler">Eğitimler Yükleniyor...</div>
+            <div id="url-solution" class="solution-section">
+                <div class="solution-title">
+                    <span>Hızlı Bağlantılar</span>
+                </div>
+                <div class="solution-content">
+                    <p>Aşağıdaki bağlantılara tıklayıp, ilgili eğitimin URL adreslerini kopyalayıp yukarıdaki kutucuğa yapıştırınız.</p>
+                    <ol>
+                        <li><a href="https://www.neoskola.com/kategoriler/tum-egitimler" target="_blank">Tüm Neoskola Eğitimleri</a></li>
+                        <li><a href="https://www.neoskola.com/kategoriler/yeni-eklenenler" target="_blank">Yeni Eklenen Neoskola Eğitimleri</a></li>
+                        <li><a href="https://www.neoskola.com/kategoriler/en-cok-izlenenler" target="_blank">En Çok İzlenen Neoskola Eğitimleri</a></li>
+                        <li><a href="https://www.neoskola.com/kategoriler/success" target="_blank">Kategori: Success</a></li>
+                        <li><a href="https://www.neoskola.com/kategoriler/culture" target="_blank">Kategori: Culture</a></li>
+                    </ol>
+                </div>
             </div>
         </div>
-        
         <div class="video-container" id="videoContainer">
             <div class="page-title" id="pageTitle"></div>
             <div class="video-panel">
@@ -101,7 +116,7 @@
             </div>
             
             <div class="controls">
-                <button id="resetBtn">Temizle</button>
+                <button id="resetBtn">Kapat</button>
                 <button id="showSourceBtn">Kaynak Kodunu Göster</button>
             </div>
             
@@ -114,26 +129,104 @@
             </div>
         </div>
     </div>
+    <button onclick="topFunction()" id="top-btn" title="yukarı çık">yukarı</button>
+    <footer>
+        <p>Hayatın Her Alanından En İyi Eğitim Video Serileri &copy; <script>document.write(new Date().getFullYear());</script> | by <strong><u>ckoglu</u></strong></p>
+    </footer>
+
     <script>
-        async function fetchSourceCode() {
-            const url = document.getElementById('url-input').value.trim();
+        let mybutton = document.getElementById("top-btn");
+        window.onscroll = function() {scrollFunction()};
+        
+        function scrollFunction() {
+          if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+          } else {
+            mybutton.style.display = "none";
+          }
+        }
+
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }
+    </script>
+
+    <script>
+        async function fetchSourceCode(url) {alert("fetchSourceCode çalıştı:\n" + url);}
+    
+        window.onload = async function () {
+          const egitimlerDiv = document.getElementById('egitimler');
+    
+          try {
+            const proxyUrl = "https://api.codetabs.com/v1/proxy/?quest=https://www.neoskola.com/kategoriler/tum-egitimler";
+            const response = await fetch(proxyUrl);
+            if (!response.ok) throw new Error("HTTP Hatası: " + response.status);
+    
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
+    
+            const container = doc.querySelector('.css-te3jdc');
+            if (!container) {
+              egitimlerDiv.textContent = "css-te3jdc sınıfı bulunamadı.";
+              return;
+            }
+    
+            const links = container.querySelectorAll('.chakra-link');
+            egitimlerDiv.innerHTML = ''; // Temizle
+    
+            links.forEach(link => {
+              const href = link.getAttribute('href') || '#';
+              const fullHref = href.startsWith('http') ? href : 'https://www.neoskola.com' + href;
+              const img = link.querySelector('.chakra-image');
+              const text = link.querySelector('.chakra-text');
+    
+              const imgSrc = img?.src || '';
+              const label = text?.textContent?.trim() || '';
+    
+              const cardHTML = `
+                <div class="card" onclick="fetchSourceCode('${fullHref}')">
+                  <img src="${imgSrc}" alt="Resim">
+                  <div class="card-text">${label}</div>
+                </div>
+              `;
+              egitimlerDiv.insertAdjacentHTML('beforeend', cardHTML);
+            });
+    
+            if (!links.length) {
+              egitimlerDiv.textContent = "Hiç .chakra-link bulunamadı.";
+            }
+    
+          } catch (error) {
+            egitimlerDiv.textContent = "Hata: " + error.message;
+          }
+        };
+      </script>
+
+        <script>
+            async function fetchSourceCode(url) {
             if (!url) {
-                alert('Lütfen bir URL girin!!');
+                alert('URL geçersiz!');
                 return;
             }
-
+        
             try {
                 const proxyUrl = `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(url)}`;
                 const response = await fetch(proxyUrl);
-                if (!response.ok) {throw new Error(`HTTP Hatası! Durum: ${response.status}`);}
+                if (!response.ok) {
+                throw new Error(`HTTP Hatası! Durum: ${response.status}`);
+                }
+        
                 const html = await response.text();
                 document.getElementById('sourceCodeInput').value = html;
                 document.getElementById("generateBtn").click();
             } catch (error) {
-                alert( `Hata: ${error.message}`);
+                alert(`Hata: ${error.message}`);
             }
-        }
-    </script>
+            }
+        </script>
+        
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const sourceCodeInput = document.getElementById('sourceCodeInput');
@@ -248,9 +341,7 @@
                     }
                     
                     renderVideoList();
-                    document.getElementById('url-input').style.display = 'none';
-                    document.getElementById('url-button').style.display = 'none';
-                    document.getElementById('url-solution').style.display = 'none';
+                    document.getElementById('giris-panel').style.display = 'none';
                     videoContainer.style.display = 'block';
                     
                 } catch (error) {
@@ -407,11 +498,8 @@
             }
             
             resetBtn.addEventListener('click', function() {
-                document.getElementById('url-input').style.display = 'block';
-                document.getElementById('url-button').style.display = 'block';
-                document.getElementById('url-solution').style.display = 'block';
+                document.getElementById('giris-panel').style.display = 'block';
                 videoContainer.style.display = 'none';
-                document.getElementById('url-input').value = '';
                 sourceCodeDisplay.style.display = 'none';
                 videosData = [];
                 pageTitle.textContent = '';
