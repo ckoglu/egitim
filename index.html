@@ -19,36 +19,36 @@
         <!-- Fallback for older browsers -->
         <meta name="msapplication-TileColor" content="#3498db">
         <meta name="theme-color" content="#3498db">
-
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic,600&subset=latin,latin-ext">
         <style>
             :root{--primary:#4361ee;--secondary:#3f37c9;--success:#4cc9f0;--danger:#f72585;--warning:#f8961e;--dark:#1d3557;--light:#f8f9fa;--gray:#6c757d}
-            *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+            *{box-sizing:border-box;margin:0;padding:0;font-family: 'Source Sans Pro', sans-serif;font-size: 16px; font-weight: normal;font-display: swap;line-height: 1.618;letter-spacing: .0125rem;}
             body{text-transform:lowercase;background:linear-gradient(135deg,#1a2a6c,#b21f1f,#1a2a6c);min-height:100vh;padding-top:110px;display:flex;flex-direction:column;align-items:center;color:#333}
             .container{width:100%;max-width:1200px;background:linear-gradient(to bottom right,rgba(255,255,255,.95),rgba(245,247,250,.95));border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,.25);padding:40px;margin-top:20px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3)}
             .container{display:flex;flex-direction:column;align-items:center;max-width:1280px;margin:0 auto;background-color:#fff;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:30px;position:relative;overflow:hidden}
             .container::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(to right,#4caf50,#2196f3,#9c27b0)}
             header{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);box-shadow:0 4px 15px rgba(0,0,0,.1);padding:15px 30px;display:flex;justify-content:space-between;align-items:center;z-index:1000;border-bottom:1px solid rgba(0,0,0,.1)}
-            header h1{color:var(--dark);font-size:1.3rem;margin:0;text-shadow:0 2px 4px rgba(0,0,0,.1);text-decoration:none;cursor:pointer;border-radius: 999px;padding: 5px 15px;}
+            header h1{color:var(--dark);font-size:21px;font-weight:700;margin:0;text-shadow:0 2px 4px rgba(0,0,0,.1);text-decoration:none;cursor:pointer;border-radius: 999px;padding: 5px 15px;}
             header h1:hover {background-color:#0000001f}
             .main-nav{display:flex;align-items:center;gap:15px}
-            .nav-button{padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:50px;font-size:15px;font-weight:500;cursor:pointer;transition:all .3s ease}
+            .nav-button{padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:50px;font-size:16px;font-weight:500;cursor:pointer;transition:all .3s ease}
             .nav-button:hover{background:var(--secondary);transform:translateY(-2px)}
             .dropdown{position:relative;display:inline-block}
             .dropdown .nav-button{background-color:var(--gray)}
             .dropdown-content{display:none;position:absolute;background-color:#f1f1f1;min-width:180px;box-shadow:0 8px 16px 0 rgba(0,0,0,.4);z-index:1;border-radius:8px;overflow:hidden;animation:fadeIn .3s ease;right:0;border:1px solid #c2c2c2}
-            .dropdown-content a{color:#000;padding:12px 16px;text-decoration:none;display:block;font-size:14px;cursor:pointer}
+            .dropdown-content a{color:#000;padding:12px 16px;text-decoration:none;display:block;font-size:17px;font-weight:600;cursor:pointer}
             .dropdown-content a:hover{background-color:#ddd}
             .dropdown:hover .dropdown-content{display:block}
             .egitimler{display:flex;flex-wrap:wrap;justify-content:center;gap:45px;margin-top:30px}
             .card{width:320px;height:170px;position:relative;border-radius:12px;overflow:hidden;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.2);transition:transform .2s;background:#000}
             .card:hover{transform:scale(1.03)}
             .card img{width:100%;height:100%;object-fit:cover;display:block}
-            .card-text{position:absolute;bottom:0;width:100%;padding:10px;color:#fff;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);font-size:16px;font-weight:700;text-shadow:1px 1px 4px rgba(0,0,0,.9);box-sizing:border-box}
+            .card-text{position:absolute;bottom:0;width:100%;padding:10px;color:#fff;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);font-size:18px;background:#00000091;font-weight:600;text-shadow:1px 1px 4px rgba(0,0,0,.9);box-sizing:border-box}
             textarea{width:97%;height:250px;margin:20px 0;padding:20px;border:2px solid #ddd;border-radius:10px;font-family:Consolas,'Courier New',monospace;font-size:15px;box-shadow:0 4px 10px rgba(0,0,0,.05);transition:all .3s ease}
             textarea:focus{border-color:#4caf50;box-shadow:0 4px 15px rgba(76,175,80,.2);outline:0}
             .url-input{flex:1;padding:16px 20px;border:2px solid #e0e0e0;border-radius:10px;font-size:17px;transition:all .3s;box-shadow:inset 0 1px 3px rgba(0,0,0,.1);width:97%;margin:20px 0}
             .url-input:focus{border-color:var(--primary);outline:0;box-shadow:0 0 0 3px rgba(67,97,238,.2)}
-            button{padding:10px 20px;font-size:14px;text-transform:lowercase;background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius:50px;cursor:pointer;font-weight:600;transition:all .3s ease;box-shadow:0 4px 15px rgba(76,175,80,.3);display:flex;align-items:center;gap:10px}
+            button{padding:10px 20px;font-size:17px;text-transform:lowercase;background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius:50px;cursor:pointer;font-weight:600;transition:all .3s ease;box-shadow:0 4px 15px rgba(76,175,80,.3);display:flex;align-items:center;gap:10px}
             button:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(76,175,80,.4)}
             .video-container{display:none;width:100%;animation:fadeIn .5s ease}
             @keyframes fadeIn{
@@ -62,26 +62,27 @@
             .video-item:hover{background-color:#f8fff8;transform:translateX(5px);border-color:#4caf50}
             .video-item.active{background-color:#e8f5e9;border-left:4px solid #4caf50}
             .video-thumbnail{width:100px;height:60px;object-fit:cover;border-radius:6px;margin-right:15px;box-shadow:0 3px 6px rgba(0,0,0,.1)}
-            .video-title{font-weight:600;font-size:15px;flex-grow:1;color:#2c3e50}
+            .video-title{font-weight:500;font-size:16px;line-height: 1.1;flex-grow:1;color:#2c3e50}
             .current-video{margin-bottom:25px;border-radius:10px;overflow:hidden;width:100%}
             .current-video iframe,.current-video video{width:100%;height:465px;border:none;border-radius:10px;display:block;object-fit:cover}
             .current-video source{width:100%;height:465px;border:none;border-radius:10px}
-            .video-info h2{margin-top:0;color:#2c3e50;border-bottom:2px solid #4caf50;padding-bottom:10px;margin-bottom:20px}
-            .video-info p{color:#555;line-height:1.7;white-space:pre-line;font-size:16px;background:#f9f9f9;padding:20px;border-radius:0;border-left:4px solid #4caf50}
+            .video-info h2{font-weight:700;font-size:18px;margin-top:0;color:#2c3e50;border-bottom:2px solid #4caf50;padding-bottom:10px;margin-bottom:20px}
+            .video-info p{color:#555;line-height:1.6;white-space:pre-line;font-size:16px;background:#f9f9f9;padding:20px;border-radius:0;border-left:4px solid #4caf50}
             .quality-selector{margin-top:25px;display:flex;align-items:center;gap:15px;background:#f0f7ff;padding:15px;border-radius:8px}
             .quality-selector label{font-weight:600;color:#2c3e50}
             .quality-selector select{padding:10px 15px;border-radius:8px;border:2px solid #ddd;font-size:16px;background:#fff;box-shadow:0 3px 6px rgba(0,0,0,.05);transition:all .3s ease}
             .quality-selector select:focus{border-color:#2196f3;outline:0}
-            .controls{display:flex;justify-content:flex-end;margin-top:30px;width:100%;position:fixed;bottom:70px;right:0;z-index:99;margin:0 30px;display:flex;justify-content:flex-end;max-width:100%}
-            #resetBtn{display:none;background:linear-gradient(135deg,#36cef4,#3f2fd3);box-shadow:0 4px 15px rgba(244,67,54,.3);font-size:16px;}
-            .page-title{font-size:1rem;margin-bottom:25px;text-align:left;font-weight:700;color:#2c3e50;display:flex;align-items:center;gap:15px;padding-bottom:15px;border-bottom:2px solid #eee}
+            .controls{display: flex;flex-direction: column;align-items: flex-end;position: fixed;bottom: 90px;right: 30px;z-index: 99;gap: 10px;max-width:100%}
+            #resetBtn{background:linear-gradient(135deg,#f43636,#d35d2f);box-shadow:0 4px 15px rgba(244,67,54,.3);}
+            .page-title{font-size:19px;margin-bottom:25px;text-align:left;font-weight:600;color:#2c3e50;display:flex;align-items:center;gap:15px;padding-bottom:15px;border-bottom:2px solid #eee}
             .w-100{width:100%}
             .mt0{margin-top:0}
+            .mb10{margin-bottom:10px}
             .category-div{margin-top:0;margin-bottom:25px;display:flex;justify-content:center}
             .category-text{width:fit-content;text-align:center;font-size:1rem;font-weight:500;color:#333;padding:5px 15px;border-radius:999px;background-color:#0000001f}
             footer{margin-top:30px;text-align:center;color:#fff;font-size:.9rem;padding:20px;width:100%}
-            #top-btn-wrapper{position:fixed;bottom:20px;right:0;z-index:99;margin:0 30px;display:flex;justify-content:flex-end;max-width:100%}
-            #top-btn{display:none;padding:10px 20px;font-size:16px;background-color:#333;color:#fff;border:none;cursor:pointer}
+            #top-btn-wrapper{position:fixed;bottom:30px;right:0;z-index:99;margin:0 30px;display:flex;justify-content:flex-end;max-width:100%}
+            #top-btn{display:none;padding:10px 20px;background:#5f5f5f;color:#fff;border:none;cursor:pointer}
             .menu-toggle{display:none;background:var(--primary);color:#fff;font-size:19px;padding:8px 14px;border:none;cursor:pointer;transition:all .3s ease;z-index:1001}
             .hidden {display: none;}
             
@@ -95,7 +96,7 @@
                 .video-info p{font-size:11px}
                 .container{padding:15px}
                 .current-video source{height:200px}
-                .controls{flex-direction:column;gap:15px;position:initial;margin: 0;margin-top: 15px;}
+                .controls{flex-direction:column;gap:15px;position:initial;margin: 0;margin-top: 15px;width: 100%;margin-left:10px;margin-right:10px}
                 button{width:100%;justify-content:center}
                 .quality-selector{width:100%;flex-direction:column;align-items:stretch}
                 .quality-selector select{width:100%}
@@ -141,6 +142,7 @@
             body.dark .category-text{background-color:#444;color:#fff}
             body.dark .page-title {color:#f0f0f0;border-bottom:2px solid #434343;}
             body.dark .video-info h2{color:#f0f0f0;}
+            body.dark #top-btn{background:#999999;color:#000}
         </style>
     </head>
     <body>
@@ -209,8 +211,10 @@
             </div>
 
         </div>
-        <div class="controls">
-            <button id="resetBtn" style="display: none;">eğitimi kapat</button>
+        <div class="controls" id="controls">
+            <button id="onceki-video" class="mb10">önceki</button>
+            <button id="sonraki-video" class="mb10">sonraki</button>
+            <button id="resetBtn">eğitimi kapat</button>
         </div>
         <div id="top-btn-wrapper">
             <button onclick="topFunction()" id="top-btn" title="Yukarı çık">yukarı</button>
@@ -230,7 +234,7 @@
             async function fonk(kategori = "kategoriler/yeni-eklenenler") {
 
                 const egitimlerDiv = document.getElementById('egitimler');
-                document.getElementById('resetBtn').style.display = 'none';
+                document.getElementById('controls').style.display = 'none';
                 egitimlerDiv.innerHTML ="eğitimler yükleniyor...";
                 document.getElementById('giris-panel').style.display = 'block';
                 videoContainer.style.display = 'none';
@@ -352,7 +356,6 @@
             }
         </script>
 
-        
         <script>
             window.onscroll = function() {
                 const btn = document.getElementById("top-btn");
@@ -363,7 +366,6 @@
                 }
             };
             function topFunction() {window.scrollTo({ top: 0, behavior: 'smooth' });}
-
             function toggleMenu() {document.querySelector('.main-nav').classList.toggle('show');}
 
             function toggleC() {
@@ -419,6 +421,9 @@
         </script>
             
         <script>
+             // Global değişkenler olarak tanımla
+            let videosData = [];
+            let currentVideoIndex = -1;
             document.addEventListener('DOMContentLoaded', function() {
                 const sourceCodeInput = document.getElementById('sourceCodeInput');
                 const generateBtn = document.getElementById('generateBtn');
@@ -430,9 +435,7 @@
                 const resetBtn = document.getElementById('resetBtn');
                 const showSourceBtn = document.getElementById('showSourceBtn');
                 const pageTitle = document.getElementById('pageTitle');
-                
-                let videosData = [];
-                let currentVideoIndex = -1;
+                // videosData ve currentVideoIndex artık globalde tanımlı, burada tekrar tanımlamaya gerek yok
                 let pageTitleText = '';
                 
                 generateBtn.addEventListener('click', function() {
@@ -531,7 +534,7 @@
                         renderVideoList();
                         document.getElementById('giris-panel').style.display = 'none';
                         videoContainer.style.display = 'block';
-                        document.getElementById('resetBtn').style.display = 'block';
+                        document.getElementById('controls').style.display = 'flex';
 
                         if (typeof window.targetVideoIndex !== 'undefined' && window.targetVideoIndex >= 0 && window.targetVideoIndex < videosData.length) {
                             selectVideo(window.targetVideoIndex);
@@ -588,102 +591,185 @@
                     }
                 }
                 
-                function selectVideo(index) {
-                    currentVideoIndex = index;
-                    const video = videosData[index];
-                    
-                    // Listede aktif durumu güncelle
-                    document.querySelectorAll('.video-item').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    document.querySelector(`.video-item[data-index="${index}"]`).classList.add('active');
-                    
-                    // Oynatıcıyı güncelle - FIXED: Use load() after setting source
-                    const defaultUrl = video.url1080p || video.url720p || video.url540p || video.url360p;
-                    if (defaultUrl) {
-                        currentVideo.innerHTML = `<source src="${getEmbedUrl(defaultUrl)}" type="video/mp4">`;
-                        currentVideo.load(); // Add this line to force video load
-                    } else {
-                        currentVideo.innerHTML = `<p>Bu video için URL bulunamadı</p>`;
-                    }
-                    
-                    videoInfo.innerHTML = `<h2>${index + 1}. ${video.title}</h2><p>${video.body}</p>`;
-                    renderQualitySelector(video);
-                    topFunction();
-                    
-                }
-                
-                function getEmbedUrl(url) {
-                    if (!url) return '';
-                    
-                    if (url.includes('youtube.com') || url.includes('youtu.be')) {
-                        let videoId = '';
-                        if (url.includes('v=')) {
-                            videoId = url.split('v=')[1].split('&')[0];
-                        } else if (url.includes('youtu.be/')) {
-                            videoId = url.split('youtu.be/')[1].split('?')[0];
-                        }
-                        return `https://www.youtube.com/embed/${videoId}`;
-                    }
-
-                    if (url.includes('vimeo.com')) {
-                        const videoId = url.split('vimeo.com/')[1].split('?')[0];
-                        return `https://player.vimeo.com/video/${videoId}`;
-                    }
-                    return url;
-                }
-                
-                function renderQualitySelector(video) {
-                    qualitySelector.innerHTML = '';
-                    const select = document.createElement('select');
-                    select.id = 'qualitySelect';
-                    const qualities = [
-                        { name: '1080p', url: video.url1080p },
-                        { name: '720p', url: video.url720p },
-                        { name: '540p', url: video.url540p },
-                        { name: '360p', url: video.url360p }
-                    ];
-                    let hasQuality = false;
-                    let defaultSelected = false;
-                    
-                    qualities.forEach(quality => {
-                        if (quality.url) {
-                            hasQuality = true;
-                            const option = document.createElement('option');
-                            option.value = quality.url;
-                            option.textContent = quality.name;
-                            if (quality.name === '1080p' && video.url1080p && !defaultSelected) {
-                                option.selected = true;
-                                defaultSelected = true;
-                            }
-                            select.appendChild(option);
-                        }
-                    });
-                    
-                    if (hasQuality) {
-                        select.addEventListener('change', function() {
-                            currentVideo.innerHTML = `<source src="${getEmbedUrl(this.value)}" type="video/mp4">`;
-                        });
-                        qualitySelector.appendChild(select);
-                        
-                    } else {
-                        qualitySelector.innerHTML += '<p>Mevcut çözünürlük seçeneği yok</p>';
-                    }
-                }
-                
                 resetBtn.addEventListener('click', function() {
                     fonk('kategoriler/yeni-eklenenler');
                     document.getElementById('egitimler').innerHTML ="eğitimler yükleniyor...";
                     document.getElementById('giris-panel').style.display = 'block';
                     videoContainer.style.display = 'none';
-                    document.getElementById('resetBtn').style.display = 'none';
+                    document.getElementById('controls').style.display = 'none';
                     videosData = [];
                     pageTitle.textContent = '';
                     document.querySelector('video').pause();
                     
                 });
+
+                // Klavye kısayolları
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && videoContainer.style.display === 'block') {
+                        document.getElementById('resetBtn').click();
+                    }
+
+                    if (videoContainer.style.display === 'block') {
+                        if (e.key === 'ArrowLeft') {
+                            document.getElementById('onceki-video').click();
+                        } else if (e.key === 'ArrowRight') {
+                            document.getElementById('sonraki-video').click();
+                        }
+                    }
+                });
                 
             });
+        </script>
+
+        <script>
+            // Önceki ve sonraki video butonları için fonksiyonlar
+            document.getElementById('onceki-video').addEventListener('click', function() {
+                if (videosData.length === 0) return;
+                
+                let newIndex = currentVideoIndex - 1;
+                if (newIndex < 0) {
+                    newIndex = videosData.length - 1; // Son videoya git
+                }
+                
+                // URL'yi güncelle
+                const params = new URLSearchParams(window.location.search);
+                const egitimParam = params.get('e');
+                let slug = egitimParam;
+                if (egitimParam && egitimParam.includes('--')) {
+                    slug = egitimParam.split('--')[0]; // sadece slug'ı al
+                }
+                
+                const newUrl = `${window.location.pathname}?e=${slug}--${newIndex + 1}`;
+                history.pushState({}, '', newUrl);
+                
+                // Videoyu seç
+                selectVideo(newIndex);
+            });
+
+            document.getElementById('sonraki-video').addEventListener('click', function() {
+                if (videosData.length === 0) return;
+                
+                let newIndex = currentVideoIndex + 1;
+                if (newIndex >= videosData.length) {
+                    newIndex = 0; // İlk videoya dön
+                }
+                
+                // URL'yi güncelle
+                const params = new URLSearchParams(window.location.search);
+                const egitimParam = params.get('e');
+                let slug = egitimParam;
+                if (egitimParam && egitimParam.includes('--')) {
+                    slug = egitimParam.split('--')[0]; // sadece slug'ı al
+                }
+                
+                const newUrl = `${window.location.pathname}?e=${slug}--${newIndex + 1}`;
+                history.pushState({}, '', newUrl);
+                
+                // Videoyu seç
+                selectVideo(newIndex);
+            });
+
+            // selectVideo fonksiyonunu da global yap
+            function selectVideo(index) {
+                currentVideoIndex = index;
+                const video = videosData[index];
+                
+                // Listede aktif durumu güncelle
+                document.querySelectorAll('.video-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector(`.video-item[data-index="${index}"]`).classList.add('active');
+                
+                // Oynatıcıyı güncelle
+                const defaultUrl = video.url1080p || video.url720p || video.url540p || video.url360p;
+                if (defaultUrl) {
+                    document.getElementById('currentVideo').innerHTML = `<source src="${getEmbedUrl(defaultUrl)}" type="video/mp4">`;
+                    document.getElementById('currentVideo').load();
+                    document.getElementById('currentVideo').play().catch(e => console.log("Otomatik oynatma engellendi:", e));
+                } else {
+                    document.getElementById('currentVideo').innerHTML = `<p>Bu video için URL bulunamadı</p>`;
+                }
+                
+                document.getElementById('videoInfo').innerHTML = `<h2>${index + 1}. ${video.title}</h2><p>${video.body}</p>`;
+                renderQualitySelector(video);
+                topFunction();
+            }
+
+            function renderQualitySelector(video) {
+                const qualitySelector = document.getElementById('qualitySelector');
+                qualitySelector.innerHTML = '';
+                const select = document.createElement('select');
+                select.id = 'qualitySelect';
+                const qualities = [
+                    { name: '1080p', url: video.url1080p },
+                    { name: '720p', url: video.url720p },
+                    { name: '540p', url: video.url540p },
+                    { name: '360p', url: video.url360p }
+                ];
+                let hasQuality = false;
+                let defaultSelected = false;
+                
+                qualities.forEach(quality => {
+                    if (quality.url) {
+                        hasQuality = true;
+                        const option = document.createElement('option');
+                        option.value = quality.url;
+                        option.textContent = quality.name;
+                        if (quality.name === '1080p' && video.url1080p && !defaultSelected) {
+                            option.selected = true;
+                            defaultSelected = true;
+                        }
+                        select.appendChild(option);
+                    }
+                });
+                
+                if (hasQuality) {
+                    select.addEventListener('change', function() {
+                        const selectedUrl = this.value;
+                        if (selectedUrl) {
+                            // Video elementini tamamen yeniden oluşturmak yerine src özelliğini değiştir
+                            const videoElement = document.getElementById('currentVideo');
+                            videoElement.innerHTML = '';
+                            
+                            const sourceElement = document.createElement('source');
+                            sourceElement.src = getEmbedUrl(selectedUrl);
+                            sourceElement.type = 'video/mp4';
+                            
+                            videoElement.appendChild(sourceElement);
+                            videoElement.load();
+                            videoElement.play().catch(e => console.log("Video oynatma hatası:", e));
+                        }
+                    });
+                    qualitySelector.appendChild(select);
+                } else {
+                    qualitySelector.innerHTML += '<p>Mevcut çözünürlük seçeneği yok</p>';
+                }
+            }
+
+            function getEmbedUrl(url) {
+                if (!url) return '';
+                
+                // YouTube URL'leri için embed formatına çevir
+                if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                    let videoId = '';
+                    if (url.includes('v=')) {
+                        videoId = url.split('v=')[1].split('&')[0];
+                    } else if (url.includes('youtu.be/')) {
+                        videoId = url.split('youtu.be/')[1].split('?')[0];
+                    }
+                    return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                }
+                
+                // Vimeo URL'leri için embed formatına çevir
+                if (url.includes('vimeo.com')) {
+                    const videoId = url.split('vimeo.com/')[1].split('?')[0];
+                    return `https://player.vimeo.com/video/${videoId}?autoplay=1`;
+                }
+                
+                // Diğer URL'ler doğrudan kullanılabilir
+                return url;
+            }
+
         </script>
     </body>
 </html>
