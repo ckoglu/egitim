@@ -31,7 +31,7 @@
             header h1{color:var(--dark);font-size:21px;font-weight:700;margin:0;text-shadow:0 2px 4px rgba(0,0,0,.1);text-decoration:none;cursor:pointer;border-radius: 999px;padding: 5px 15px;}
             header h1:hover {background-color:#0000001f}
             .main-nav{display:flex;align-items:center;gap:15px}
-            .nav-button{padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:50px;font-size:16px;font-weight:500;cursor:pointer;transition:all .3s ease}
+            .nav-button{padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:50px;font-weight:500;cursor:pointer;transition:all .3s ease}
             .nav-button:hover{background:var(--secondary);transform:translateY(-2px)}
             .dropdown{position:relative;display:inline-block}
             .dropdown .nav-button{background-color:var(--gray)}
@@ -83,36 +83,42 @@
             footer{margin-top:30px;text-align:center;color:#fff;font-size:.9rem;padding:20px;width:100%}
             #top-btn-wrapper{position:fixed;bottom:30px;right:0;z-index:99;margin:0 30px;display:flex;justify-content:flex-end;max-width:100%}
             #top-btn{display:none;padding:10px 20px;background:#5f5f5f;color:#fff;border:none;cursor:pointer}
-            .menu-toggle{display:none;background:var(--primary);color:#fff;font-size:19px;padding:8px 14px;border:none;cursor:pointer;transition:all .3s ease;z-index:1001}
+            .menu-toggle{display:none;background:var(--primary);color:#fff;padding:8px 14px;border:none;cursor:pointer;transition:all .3s ease;z-index:1001}
             .hidden {display: none;}
-            
+            .nav-mobil{display: none;position:fixed;bottom:0;left:0;width:100%;max-height:300px;background-color:#fff;box-shadow:0 -2px 10px rgba(0,0,0,.2);overflow-y:auto;transition:transform .3s ease-in-out;transform:translateY(100%);z-index:99;padding:20px;display:flex;flex-direction:column;gap:5px}
+            .nav-mobil.show{transform:translateY(0)}
+            .nav-button{padding:5px;color:#fff;border:none;cursor:pointer}
+            hr {margin-top: 10px;margin-bottom: 10px;}
+            @media (min-width:900px){.nav-mobil{display: none;}}
             @media (max-width:900px){
-                body{padding:5px;padding-top:180px}
-                .video-panel{flex-direction:column}
+                header {padding: 10px;}
+                header h1{margin-bottom:0px;background-color:#0000001f}
+                body{padding:5px;padding-top:70px}
+                .video-panel{flex-direction:column;gap: 0px;}
                 .video-player{order:1;padding:10px}
-                .video-list{order:2;margin-top:15px;max-height:none;overflow-y:visible}
-                .page-title{font-size:15px}
-                .video-info h2{font-size:14px}
-                .video-info p{font-size:11px}
-                .container{padding:15px}
+                .video-list{order:2;margin-top:15px;max-height:none;overflow-y:visible;padding: 5px;}
+                .page-title{font-size:15px;margin-bottom: 5px;width: 100%;text-align:center;padding-top: 10px;padding-bottom: 5px;justify-content:center;border-bottom: 0px solid #eee;}
+                .video-info h2{font-size:16px;margin-bottom: 10px;}
+                .video-info p{font-size:15px}
+                .video-item {margin-bottom: 10px;}
+                .container{padding:5px;border-radius: 0px;}
+                .current-video {margin-bottom: 5px;}
                 .current-video source{height:200px}
-                .controls{flex-direction:column;gap:15px;position:initial;margin: 0;margin-top: 15px;width: 100%;margin-left:10px;margin-right:10px}
+                .controls{flex-direction:column;gap:0px;position:initial;margin: 0;margin-top: 10px;width: 100%;margin-left:20px;margin-right:20px}
                 button{width:100%;justify-content:center}
-                .quality-selector{width:100%;flex-direction:column;align-items:stretch}
+                .quality-selector{width:100%;flex-direction:column;align-items:stretch;margin-top: 10px;}
                 .quality-selector select{width:100%}
                 #top-btn-wrapper{position:relative;width:100%;right:0;margin:0;bottom:-20px;justify-content:center}
                 #top-btn{margin-left:10px;margin-right:10px}
-                footer{font-size:11px;font-size:11px}
-                header{flex-direction:column;align-items:stretch;text-align:center}
-                header h1{margin-bottom:15px;}
-                .main-nav{flex-direction:column;width:100%;gap:8px}
-                .dropdown .nav-button,.nav-button{width:100%}
-                .dropdown-content{width:100%}
-                .dropdown{width:100%}
-                .menu-toggle{display:block;align-self:flex-end;margin-bottom:10px}
-                .main-nav{display:none;flex-direction:column;width:100%;gap:8px;padding:15px 0;animation:slideDown .3s ease forwards;border-top:1px solid #ccc}
-                .main-nav.show{display:flex}
+                footer{font-size:10px;padding:10px}
+                footer p, footer u {font-size:12px;}
+                .main-nav{display: none;}
+                .theme-button{width:45px;height: 45px;display: flex;justify-content: center;align-items: center;}
+                .menu-toggle{display:flex;width:45px;height: 45px;display: flex;justify-content: center;align-items: center;}
                 .\!hidden {display: none!important;}
+                .card{width: 100%;}
+                .egitimler{width: 100%;gap:10px;}
+                .category-div{margin-top:10px;margin-bottom:10px;}
                 @keyframes slideDown{
                 0%{opacity:0;transform:translateY(-10px)}
                 100%{opacity:1;transform:translateY(0)}
@@ -124,8 +130,6 @@
             body.dark header{background:rgba(30,30,30,.95);border-bottom:1px solid rgba(255,255,255,.1)}
             body.dark header h1{color:var(--light);}
             body.dark header h1:hover {background-color:#ffffff1f}
-            body.dark .nav-button{background:var(--dark)}
-            body.dark .nav-button:hover{background:var(--secondary)}
             body.dark .dropdown-content{background-color:#333;border:1px solid #555}
             body.dark .dropdown-content a{color:#f0f0f0}
             body.dark .dropdown-content a:hover{background-color:#555}
@@ -143,6 +147,7 @@
             body.dark .page-title {color:#f0f0f0;border-bottom:2px solid #434343;}
             body.dark .video-info h2{color:#f0f0f0;}
             body.dark #top-btn{background:#999999;color:#000}
+            body.dark .nav-mobil{background-color:#444;color:#fff}
         </style>
     </head>
     <body>
@@ -151,7 +156,7 @@
             <a onclick="fonk();" style="text-decoration: none;">
                 <h1>🎞️ Eğitim Serisi</h1>
             </a>
-            <button class="menu-toggle" onclick="toggleMenu()">☰</button> <!-- YENİ -->
+            <button class="menu-toggle" onclick="toggleMenu()">✨</button> <!-- YENİ -->
             <nav class="main-nav">
                 <button class="nav-button" onclick="fonk('kategoriler/yeni-eklenenler')">Yeni Eklenenler</button>
                 <button class="nav-button" onclick="fonk('kategoriler/tum-egitimler')">Tüm Eğitimler</button>
@@ -186,7 +191,7 @@
                     </div>
                 </div>
             </nav>
-            <button id="themeToggleBtn" onclick="toggleDarkMode()" class="nav-button">🌙</button>
+            <button class="theme-button" id="themeToggleBtn" onclick="toggleDarkMode()">🌙</button>
         </header>
 
         <div class="container">
@@ -211,6 +216,34 @@
             </div>
 
         </div>
+
+
+        <div class="nav-mobil hidden" id="nav-mobil">
+            <button class="nav-button" onclick="fonk('kategoriler/yeni-eklenenler'); document.getElementById('nav-mobil').classList.remove('show');">Yeni Eklenenler</button>
+            <button class="nav-button" onclick="fonk('kategoriler/tum-egitimler'); document.getElementById('nav-mobil').classList.remove('show');">Tüm Eğitimler</button>
+            <button class="nav-button" onclick="fonk('kategoriler/en-cok-izlenenler'); document.getElementById('nav-mobil').classList.remove('show');">En Çok İzlenenler</button>
+            <hr>
+            <button class="nav-button" onclick="fonk('kategoriler/culture/sinema'); document.getElementById('nav-mobil').classList.remove('show');">Sinema</button>
+            <button class="nav-button" onclick="fonk('kategoriler/culture/tarih'); document.getElementById('nav-mobil').classList.remove('show');">Tarih</button>
+            <button class="nav-button" onclick="fonk('kategoriler/culture/saglik'); document.getElementById('nav-mobil').classList.remove('show');">Sağlık</button>
+            <button class="nav-button" onclick="fonk('kategoriler/culture/muzik'); document.getElementById('nav-mobil').classList.remove('show');">Müzik</button>
+            <button class="nav-button" onclick="fonk('kategoriler/culture/gastronomi'); document.getElementById('nav-mobil').classList.remove('show');">Gastronomi</button>
+            <button class="nav-button" onclick="fonk('kategoriler/culture/yasam-kulturu'); document.getElementById('nav-mobil').classList.remove('show');">Yaşam</button>
+            <button class="nav-button" onclick="fonk('kategoriler/culture/sanat'); document.getElementById('nav-mobil').classList.remove('show');">Sanat</button>
+            <button class="nav-button" onclick="fonk('kategoriler/culture/bilim'); document.getElementById('nav-mobil').classList.remove('show');">Bilim</button>
+            <button class="nav-button" onclick="fonk('kategoriler/culture/surdurulebilirlik'); document.getElementById('nav-mobil').classList.remove('show');">Sürdürülebilirlik</button>
+            <button class="nav-button" onclick="fonk('kategoriler/culture/cocuk-gelisimi'); document.getElementById('nav-mobil').classList.remove('show');">Çocuk</button>
+            <hr>
+            <button class="nav-button" onclick="fonk('kategoriler/success/finans'); document.getElementById('nav-mobil').classList.remove('show');">Finans</button>
+            <button class="nav-button" onclick="fonk('kategoriler/success/girisimcilik'); document.getElementById('nav-mobil').classList.remove('show');">Girişimcilik</button>
+            <button class="nav-button" onclick="fonk('kategoriler/success/satis'); document.getElementById('nav-mobil').classList.remove('show');">Satış</button>
+            <button class="nav-button" onclick="fonk('kategoriler/success/pazarlama'); document.getElementById('nav-mobil').classList.remove('show');">Pazarlama</button>
+            <button class="nav-button" onclick="fonk('kategoriler/success/liderlik'); document.getElementById('nav-mobil').classList.remove('show');">Liderlik</button>
+            <button class="nav-button" onclick="fonk('kategoriler/success/yetkinlik-gelisimi'); document.getElementById('nav-mobil').classList.remove('show');">Yetkinlik</button>
+            <button class="nav-button" onclick="fonk('kategoriler/success/surdurulebilirlik'); document.getElementById('nav-mobil').classList.remove('show');">Sürdürülebilirlik</button>
+
+        </div>
+
         <div class="controls" id="controls">
             <button id="onceki-video" class="mb10">önceki</button>
             <button id="sonraki-video" class="mb10">sonraki</button>
@@ -224,7 +257,6 @@
             <p>Hayatın Her Alanından En İyi Eğitim Video Serileri &copy; <script>document.write(new Date().getFullYear());</script> | by <strong><u>ckoglu</u></strong></p>
         </footer>
         <textarea id="sourceCodeInput" style="display: none;"></textarea><button id="generateBtn" style="display: none;"></button>
-
 
         <script>
             async function fetchSourceCode(url) {
@@ -366,31 +398,10 @@
                 }
             };
             function topFunction() {window.scrollTo({ top: 0, behavior: 'smooth' });}
-            function toggleMenu() {document.querySelector('.main-nav').classList.toggle('show');}
 
-            function toggleC() {
-                if (window.innerWidth <= 900) {
-                    document.getElementById('culture-drop').classList.toggle('!hidden');
-                }
+            function toggleMenu() {
+                document.getElementById('nav-mobil').classList.toggle('show');
             }
-
-            function toggleS() {
-                if (window.innerWidth <= 900) {
-                    document.getElementById('success-drop').classList.toggle('!hidden');
-                }
-            }
-
-            document.addEventListener('DOMContentLoaded', function () {
-            // Sadece dropdown-content içindeki bağlantılara tıklanınca menüyü kapat
-                const dropdownLinks = document.querySelectorAll('.dropdown-content a, .main-nav > button');
-                dropdownLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        if (window.innerWidth <= 900) {
-                            document.querySelector('.main-nav').classList.remove('show');
-                        }
-                    });
-                });
-            });
 
             // Sayfa açılışında temayı yükle
             function updateToggleIcon() {
