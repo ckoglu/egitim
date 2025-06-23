@@ -83,6 +83,8 @@
             #top-btn-wrapper{position:fixed;bottom:20px;right:0;z-index:99;margin:0 30px;display:flex;justify-content:flex-end;max-width:100%}
             #top-btn{display:none;padding:10px 20px;font-size:16px;background-color:#333;color:#fff;border:none;cursor:pointer}
             .menu-toggle{display:none;background:var(--primary);color:#fff;font-size:19px;padding:8px 14px;border:none;cursor:pointer;transition:all .3s ease;z-index:1001}
+            .hidden {display: none;}
+            
             @media (max-width:900px){
                 body{padding:5px;padding-top:180px}
                 .video-panel{flex-direction:column}
@@ -109,6 +111,7 @@
                 .menu-toggle{display:block;align-self:flex-end;margin-bottom:10px}
                 .main-nav{display:none;flex-direction:column;width:100%;gap:8px;padding:15px 0;animation:slideDown .3s ease forwards;border-top:1px solid #ccc}
                 .main-nav.show{display:flex}
+                .\!hidden {display: none!important;}
                 @keyframes slideDown{
                 0%{opacity:0;transform:translateY(-10px)}
                 100%{opacity:1;transform:translateY(0)}
@@ -153,8 +156,8 @@
                 <button class="nav-button" onclick="fonk('kategoriler/en-cok-izlenenler')">En Çok İzlenenler</button>
                 
                 <div class="dropdown">
-                    <button class="nav-button">Success</button>
-                    <div class="dropdown-content">
+                    <button id="success-button" onclick="toggleS()" class="nav-button">Success</button>
+                    <div class="dropdown-content" id="success-drop">
                         <a onclick="fonk('kategoriler/success/finans')">Finans</a>
                         <a onclick="fonk('kategoriler/success/girisimcilik')">Girişimcilik</a>
                         <a onclick="fonk('kategoriler/success/satis')">Satış</a>
@@ -166,8 +169,8 @@
                 </div>
                 
                 <div class="dropdown">
-                    <button class="nav-button">Culture</button>
-                    <div class="dropdown-content">
+                    <button id="culture-button" onclick="toggleC()" class="nav-button">Culture</button>
+                    <div class="dropdown-content" id="culture-drop">
                         <a onclick="fonk('kategoriler/culture/sinema')">Sinema</a>
                         <a onclick="fonk('kategoriler/culture/tarih')">Tarih</a>
                         <a onclick="fonk('kategoriler/culture/saglik')">Sağlık</a>
@@ -361,9 +364,18 @@
             };
             function topFunction() {window.scrollTo({ top: 0, behavior: 'smooth' });}
 
-            function toggleMenu() {
-                const nav = document.querySelector('.main-nav');
-                nav.classList.toggle('show');
+            function toggleMenu() {document.querySelector('.main-nav').classList.toggle('show');}
+
+            function toggleC() {
+                if (window.innerWidth <= 900) {
+                    document.getElementById('culture-drop').classList.toggle('!hidden');
+                }
+            }
+
+            function toggleS() {
+                if (window.innerWidth <= 900) {
+                    document.getElementById('success-drop').classList.toggle('!hidden');
+                }
             }
 
             document.addEventListener('DOMContentLoaded', function () {
