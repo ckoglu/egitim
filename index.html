@@ -1,589 +1,677 @@
 <!DOCTYPE html>
 <html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eğitim Video Serileri</title>
-    <style>
-        :root{--primary:#4361ee;--secondary:#3f37c9;--success:#4cc9f0;--danger:#f72585;--warning:#f8961e;--dark:#1d3557;--light:#f8f9fa;--gray:#6c757d}
-        *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
-        body{background:linear-gradient(135deg,#1a2a6c,#b21f1f,#1a2a6c);min-height:100vh;padding:20px;display:flex;flex-direction:column;align-items:center;color:#333}
-        .container{width:100%;max-width:1200px;background:linear-gradient(to bottom right,rgba(255,255,255,.95),rgba(245,247,250,.95));border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,.25);padding:30px;margin-top:20px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3)}
-        .container{display:flex;flex-direction:column;align-items:center;max-width:1280px;margin:0 auto;background-color:#fff;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:30px;position:relative;overflow:hidden}
-        .container::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(to right,#4caf50,#2196f3,#9c27b0)}
-        header{text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:1px solid rgba(0,0,0,.1)}
-        h1{color:var(--dark);font-size:1.5rem;margin-bottom:10px;background:linear-gradient(45deg,#4361ee,#3a0ca3);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 2px 4px rgba(0,0,0,.1);text-decoration:none;cursor:pointer}
-        u{text-decoration:#3a0ca3 wavy underline}
-        .subtitle{color:var(--gray);font-size:1.2rem;max-width:800px;margin:0 auto;line-height:1.6}
-        .egitimler{display:flex;flex-wrap:wrap;justify-content:center;gap:45px;margin-top:20px}
-        .card{width:320px;height:170px;position:relative;border-radius:12px;overflow:hidden;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.2);transition:transform .2s;background:#000}
-        .card:hover{transform:scale(1.03)}
-        .card img{width:100%;height:100%;object-fit:cover;display:block}
-        .card-text{position:absolute;bottom:0;width:100%;padding:10px;color:#fff;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);font-size:16px;font-weight:700;text-shadow:1px 1px 4px rgba(0,0,0,.9);box-sizing:border-box}
-        textarea{width:97%;height:250px;margin:20px 0;padding:20px;border:2px solid #ddd;border-radius:10px;font-family:Consolas,'Courier New',monospace;font-size:15px;box-shadow:0 4px 10px rgba(0,0,0,.05);transition:all .3s ease}
-        textarea:focus{border-color:#4caf50;box-shadow:0 4px 15px rgba(76,175,80,.2);outline:0}
-        .url-input{flex:1;padding:16px 20px;border:2px solid #e0e0e0;border-radius:10px;font-size:17px;transition:all .3s;box-shadow:inset 0 1px 3px rgba(0,0,0,.1);width:97%;margin:20px 0}
-        .url-input:focus{border-color:var(--primary);outline:0;box-shadow:0 0 0 3px rgba(67,97,238,.2)}
-        button{padding:14px 28px;background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius:50px;cursor:pointer;font-size:18px;margin-bottom:20px;font-weight:600;transition:all .3s ease;box-shadow:0 4px 15px rgba(76,175,80,.3);display:flex;align-items:center;gap:10px}
-        button:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(76,175,80,.4)}
-        .video-container{display:none;width:100%;animation:fadeIn .5s ease}
-        @keyframes fadeIn{
-        from{opacity:0;transform:translateY(20px)}
-        to{opacity:1;transform:translateY(0)}
-        }
-        .video-panel{display:flex;width:100%;gap:25px}
-        .video-list{flex:1;max-width:350px;background-color:#fff;border-radius:12px;padding:20px;box-shadow:0 5px 15px rgba(0,0,0,.08);max-height:75vh;overflow-y:auto;border:1px solid #eee}
-        .video-player{flex:3;background-color:#fff;border-radius:12px;padding:25px;box-shadow:0 5px 15px rgba(0,0,0,.08);border:1px solid #eee}
-        .video-item{display:flex;align-items:center;margin-bottom:15px;padding:5px;border-radius:8px;cursor:pointer;transition:all .3s ease;border:1px solid #f0f0f0}
-        .video-item:hover{background-color:#f8fff8;transform:translateX(5px);border-color:#4caf50}
-        .video-item.active{background-color:#e8f5e9;border-left:4px solid #4caf50}
-        .video-thumbnail{width:100px;height:60px;object-fit:cover;border-radius:6px;margin-right:15px;box-shadow:0 3px 6px rgba(0,0,0,.1)}
-        .video-title{font-weight:600;font-size:15px;flex-grow:1;color:#2c3e50}
-        .current-video{margin-bottom:25px;border-radius:10px;overflow:hidden}
-        .current-video iframe{width:100%;height:465px;border:none;border-radius:10px}
-        .video-info h2{margin-top:0;color:#2c3e50;border-bottom:2px solid #4caf50;padding-bottom:10px;margin-bottom:20px}
-        .video-info p{color:#555;line-height:1.7;white-space:pre-line;font-size:16px;background:#f9f9f9;padding:20px;border-radius:0;border-left:4px solid #4caf50}
-        .quality-selector{margin-top:25px;display:flex;align-items:center;gap:15px;background:#f0f7ff;padding:15px;border-radius:8px}
-        .quality-selector label{font-weight:600;color:#2c3e50}
-        .quality-selector select{padding:10px 15px;border-radius:8px;border:2px solid #ddd;font-size:16px;background:#fff;box-shadow:0 3px 6px rgba(0,0,0,.05);transition:all .3s ease}
-        .quality-selector select:focus{border-color:#2196f3;outline:0}
-        .controls{display:flex;justify-content:space-between;margin-top:30px;width:100%}
-        #resetBtn{background:linear-gradient(135deg,#f44336,#d32f2f);box-shadow:0 4px 15px rgba(244,67,54,.3)}
-        #showSourceBtn{display:none;background:linear-gradient(135deg,#2196f3,#0d47a1);box-shadow:0 4px 15px rgba(33,150,243,.3)}
-        .source-code{display:none;width:100%;background-color:#2c3e50;border-radius:12px;padding:25px;margin-top:30px;position:relative;color:#fff;box-shadow:0 8px 25px rgba(0,0,0,.2)}
-        .source-code textarea{width:96%;height:450px;margin:0;background:#1a252f;color:#f8f8f8;border:1px solid #34495e;font-size:14px}
-        .source-code-buttons{position:absolute;top:-85px;right:55px;display:flex;gap:15px}
-        .source-code-buttons button{margin:0;padding:15px 30px;font-size:15px;border-radius:999px}
-        #copySourceBtn{background:linear-gradient(135deg,#2196f3,#0d47a1)}
-        #hideSourceBtn{background:linear-gradient(135deg,#9c27b0,#6a1b9a)}
-        .page-title{font-size:22px;margin-bottom:25px;text-align:left;font-weight:700;color:#2c3e50;display:flex;align-items:center;gap:15px;padding-bottom:15px;border-bottom:2px solid #eee}
-        .solution-section{display:none;background:#fff8e1;border-left:4px solid #ffc107;padding:20px;border-radius:0 8px 8px 0;margin:20px 0;width:100%}
-        .solution-title{display:flex;align-items:center;gap:10px;margin-bottom:15px;color:#856404;font-size:1.3rem;font-weight:600}
-        .solution-content{color:#5a4b02;line-height:1.7}
-        .solution-content ol{margin-left:20px;margin-top:10px}
-        .solution-content li{margin-bottom:2px}
-        .solution-content code{background:rgba(0,0,0,.05);padding:2px 6px;border-radius:4px;font-family:monospace}
-        .w-100{width:100%}
-        footer{margin-top:30px;text-align:center;color:#fff;font-size:1rem;padding:20px;width:100%}
-        #top-btn-wrapper{position:fixed;bottom:20px;right:0;z-index:99;margin:0 30px;display:flex;justify-content:flex-end;max-width:100%}
-        #top-btn{display:none;padding:10px 20px;font-size:14px;background-color:#333;color:#fff;border:none;cursor:pointer}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Primary Meta Tags -->
+        <title>Eğitim Serisi - Hayatın Her Alanından En İyi Eğitimler</title>
+        <meta name="title" content="Eğitim Serisi - Hayatın Her Alanından En İyi Eğitimler">
+        <meta name="description" content="Success ve Culture kategorilerinde yüzlerce eğitim videosu. Yeni eklenenler, en çok izlenenler ve tüm eğitimler tek platformda!">
+        <meta name="keywords" content="eğitim, video, success, culture, finans, girişimcilik, satış, pazarlama, liderlik, sinema, tarih, sağlık, müzik">
+        <meta name="author" content="ckoglu">
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f39e.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f39e.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f39e.png">
+        <!-- Using a simple film reel emoji as mask icon -->
+        <link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f39e.svg" color="#3498db">
+        <!-- Fallback for older browsers -->
+        <meta name="msapplication-TileColor" content="#3498db">
+        <meta name="theme-color" content="#3498db">
 
-        .menu-wrapper{display:flex;flex-direction:column;gap:15px;align-items:center;width:100%;margin-bottom:30px}
-        .menu-buttons{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-        .menu-buttons button{padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:50px;font-size:15px;font-weight:500;cursor:pointer;transition:all .3s ease;box-shadow:0 3px 8px rgba(0,0,0,.1)}
-        .menu-buttons button:hover{background:var(--secondary);transform:translateY(-2px)}
-        .category-buttons{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-        .gray-btn{padding:10px 20px;background:var(--gray);color:#fff;border:none;border-radius:50px;font-size:15px;font-weight:500;cursor:pointer;transition:all .3s ease;box-shadow:0 3px 8px rgba(0,0,0,.1)}
-        .gray-btn:hover{background:#495057;transform:translateY(-2px)}
- 
-        @media (max-width:900px){
-            body{padding: 5px}
-            .video-panel{flex-direction:column}
-            .video-player{order:1;padding: 10px;}
-            .video-list{order:2;margin-top:15px;max-height:none;overflow-y:visible}
-            .page-title{font-size:15px;}
-            .video-info h2{font-size: 14px;}
-            .video-info p{font-size: 11px;}
-            .container{padding:15px}
-            .current-video iframe{height:200px}
-            .controls{flex-direction:column;gap:15px}
-            button{width:100%;justify-content:center}
-            .quality-selector{width:100%;flex-direction:column;align-items:stretch}
-            .quality-selector select{width:100%}
-            #top-btn-wrapper{position:relative;width:100%;right:0;margin:0;bottom: -20px;justify-content:center}
-            footer {font-size: 11px;}
-
-            .category-buttons,.menu-buttons{flex-direction:column;align-items:stretch;width: 100%;}
-            .gray-btn,.menu-buttons button{width:100%;margin-bottom:0px;width: 100%;}
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div id="giris-panel" class="w-100">
-            <header><a onclick="location.reload();"><h1>Eğitim Video Serileri</h1></a></header>
-            <textarea id="sourceCodeInput" style="display: none;"></textarea>
-            <button id="generateBtn" style="display: none;">Video Paneli Oluştur</button>
-
-
-
-              
-
-
-            <div class="menu-wrapper">
-                <div class="menu-buttons">
-                  <button onclick="fonk('kategoriler/yeni-eklenenler')">Yeni Eklenenler</button>
-                  <button onclick="fonk('kategoriler/tum-egitimler')">Tüm Eğitimler</button>
-                  <button onclick="fonk('kategoriler/en-cok-izlenenler')">En Çok İzlenenler</button>
-                </div>
-              
-                <div class="category-buttons">
-                  <!-- Success kategorileri -->
-                  <button class="gray-btn" onclick="fonk('/kategoriler/success/finans')">Finans</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/success/girisimcilik')">Girişimcilik</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/success/satis')">Satış</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/success/pazarlama')">Pazarlama</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/success/liderlik')">Liderlik</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/success/yetkinlik-gelisimi')">Yetkinlik</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/success/surdurulebilirlik')">Sürdürülebilirlik</button>
-              
-                  <!-- Culture kategorileri -->
-                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/sinema')">Sinema</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/tarih')">Tarih</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/saglik')">Sağlık</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/muzik')">Müzik</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/gastronomi')">Gastronomi</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/yasam-kulturu')">Yaşam</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/sanat')">Sanat</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/bilim')">Bilim</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/surdurulebilirlik')">Sürdürülebilirlik</button>
-                  <button class="gray-btn" onclick="fonk('/kategoriler/culture/cocuk-gelisimi')">Çocuk</button>
-                </div>
-              </div>
-
-
-
-              
-            <div class="egitimler" id="egitimler">Eğitimler Yükleniyor...</div>
-            <div id="url-solution" class="solution-section">
-                <div class="solution-title">
-                    <span>Hızlı Bağlantılar</span>
-                </div>
-                <div class="solution-content">
-                    <p>Aşağıdaki bağlantılara tıklayıp, ilgili eğitimin URL adreslerini kopyalayıp yukarıdaki kutucuğa yapıştırınız.</p>
-                    <ol>
-                        <li><a href="https://www.neoskola.com/kategoriler/tum-egitimler" target="_blank">Tüm Neoskola Eğitimleri</a></li>
-                        <li><a href="https://www.neoskola.com/kategoriler/yeni-eklenenler" target="_blank">Yeni Eklenen Neoskola Eğitimleri</a></li>
-                        <li><a href="https://www.neoskola.com/kategoriler/en-cok-izlenenler" target="_blank">En Çok İzlenen Neoskola Eğitimleri</a></li>
-                        <li><a href="https://www.neoskola.com/kategoriler/success" target="_blank">Kategori: Success</a></li>
-                        <li><a href="https://www.neoskola.com/kategoriler/culture" target="_blank">Kategori: Culture</a></li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-        <div class="video-container" id="videoContainer">
-            <div class="page-title" id="pageTitle"></div>
-            <div class="video-panel">
-                <div class="video-list" id="videoList"></div>
-                <div class="video-player" id="videoPlayer">
-                    <div class="current-video" id="currentVideo">
-                        <p>Listeden bir video seçin</p>
-                    </div>
-                    <div class="video-info" id="videoInfo"></div>
-                    <div class="quality-selector" id="qualitySelector"></div>
-                </div>
-            </div>
-            
-            <div class="controls">
-                <button id="resetBtn">Kapat</button>
-                <button id="showSourceBtn">Kaynak Kodunu Göster</button>
-            </div>
-            
-            <div class="source-code" id="sourceCodeDisplay">
-                <div class="source-code-buttons">
-                    <button id="copySourceBtn">Tümünü Kopyala</button>
-                    <button id="hideSourceBtn">Kodu Gizle</button>
-                </div>
-                <textarea id="sourceCodeTextarea" readonly></textarea>
-            </div>
-        </div>
-    </div>
-
-    <div id="top-btn-wrapper">
-        <button onclick="topFunction()" id="top-btn" title="Yukarı çık">Yukarı</button>
-    </div>
-    
-    <footer>
-        <p>Hayatın Her Alanından En İyi Eğitim Video Serileri &copy; <script>document.write(new Date().getFullYear());</script> | by <strong><u>ckoglu</u></strong></p>
-    </footer>
-
-    <script>
-        // Sayfa scroll edildiğinde butonu göster/gizle
-        window.onscroll = function() {
-            const btn = document.getElementById("top-btn");
-            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                btn.style.display = "block";
-            } else {
-                btn.style.display = "none";
+        <style>
+            :root{--primary:#4361ee;--secondary:#3f37c9;--success:#4cc9f0;--danger:#f72585;--warning:#f8961e;--dark:#1d3557;--light:#f8f9fa;--gray:#6c757d}
+            *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+            body{text-transform:lowercase;background:linear-gradient(135deg,#1a2a6c,#b21f1f,#1a2a6c);min-height:100vh;padding-top:110px;display:flex;flex-direction:column;align-items:center;color:#333}
+            .container{width:100%;max-width:1200px;background:linear-gradient(to bottom right,rgba(255,255,255,.95),rgba(245,247,250,.95));border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,.25);padding:40px;margin-top:20px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3)}
+            .container{display:flex;flex-direction:column;align-items:center;max-width:1280px;margin:0 auto;background-color:#fff;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:30px;position:relative;overflow:hidden}
+            .container::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(to right,#4caf50,#2196f3,#9c27b0)}
+            header{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);box-shadow:0 4px 15px rgba(0,0,0,.1);padding:15px 30px;display:flex;justify-content:space-between;align-items:center;z-index:1000;border-bottom:1px solid rgba(0,0,0,.1)}
+            header h1{color:var(--dark);font-size:1.3rem;margin:0;text-shadow:0 2px 4px rgba(0,0,0,.1);text-decoration:none;cursor:pointer;border-radius: 999px;padding: 5px 15px;}
+            header h1:hover {background-color:#0000001f}
+            .main-nav{display:flex;align-items:center;gap:15px}
+            .nav-button{padding:10px 20px;background:var(--primary);color:#fff;border:none;border-radius:50px;font-size:15px;font-weight:500;cursor:pointer;transition:all .3s ease}
+            .nav-button:hover{background:var(--secondary);transform:translateY(-2px)}
+            .dropdown{position:relative;display:inline-block}
+            .dropdown .nav-button{background-color:var(--gray)}
+            .dropdown-content{display:none;position:absolute;background-color:#f1f1f1;min-width:180px;box-shadow:0 8px 16px 0 rgba(0,0,0,.4);z-index:1;border-radius:8px;overflow:hidden;animation:fadeIn .3s ease;right:0;border:1px solid #c2c2c2}
+            .dropdown-content a{color:#000;padding:12px 16px;text-decoration:none;display:block;font-size:14px;cursor:pointer}
+            .dropdown-content a:hover{background-color:#ddd}
+            .dropdown:hover .dropdown-content{display:block}
+            .egitimler{display:flex;flex-wrap:wrap;justify-content:center;gap:45px;margin-top:30px}
+            .card{width:320px;height:170px;position:relative;border-radius:12px;overflow:hidden;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.2);transition:transform .2s;background:#000}
+            .card:hover{transform:scale(1.03)}
+            .card img{width:100%;height:100%;object-fit:cover;display:block}
+            .card-text{position:absolute;bottom:0;width:100%;padding:10px;color:#fff;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);font-size:16px;font-weight:700;text-shadow:1px 1px 4px rgba(0,0,0,.9);box-sizing:border-box}
+            textarea{width:97%;height:250px;margin:20px 0;padding:20px;border:2px solid #ddd;border-radius:10px;font-family:Consolas,'Courier New',monospace;font-size:15px;box-shadow:0 4px 10px rgba(0,0,0,.05);transition:all .3s ease}
+            textarea:focus{border-color:#4caf50;box-shadow:0 4px 15px rgba(76,175,80,.2);outline:0}
+            .url-input{flex:1;padding:16px 20px;border:2px solid #e0e0e0;border-radius:10px;font-size:17px;transition:all .3s;box-shadow:inset 0 1px 3px rgba(0,0,0,.1);width:97%;margin:20px 0}
+            .url-input:focus{border-color:var(--primary);outline:0;box-shadow:0 0 0 3px rgba(67,97,238,.2)}
+            button{padding:10px 20px;font-size:14px;text-transform:lowercase;background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius:50px;cursor:pointer;font-weight:600;transition:all .3s ease;box-shadow:0 4px 15px rgba(76,175,80,.3);display:flex;align-items:center;gap:10px}
+            button:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(76,175,80,.4)}
+            .video-container{display:none;width:100%;animation:fadeIn .5s ease}
+            @keyframes fadeIn{
+            from{opacity:0;transform:translateY(20px)}
+            to{opacity:1;transform:translateY(0)}
             }
-        };
-        // Yukarı çıkma fonksiyonu
-        function topFunction() {window.scrollTo({ top: 0, behavior: 'smooth' });}
-    </script>
+            .video-panel{display:flex;width:100%;gap:25px}
+            .video-list{flex:1;max-width:450px;background-color:#fff;border-radius:12px;padding:20px;box-shadow:0 5px 15px rgba(0,0,0,.08);overflow-y:auto;border:1px solid #eee}
+            .video-player{flex:3;background-color:#fff;border-radius:12px;padding:25px;box-shadow:0 5px 15px rgba(0,0,0,.08);border:1px solid #eee}
+            .video-item{display:flex;align-items:center;margin-bottom:15px;padding:5px;border-radius:8px;cursor:pointer;transition:all .3s ease;border:1px solid #f0f0f0}
+            .video-item:hover{background-color:#f8fff8;transform:translateX(5px);border-color:#4caf50}
+            .video-item.active{background-color:#e8f5e9;border-left:4px solid #4caf50}
+            .video-thumbnail{width:100px;height:60px;object-fit:cover;border-radius:6px;margin-right:15px;box-shadow:0 3px 6px rgba(0,0,0,.1)}
+            .video-title{font-weight:600;font-size:15px;flex-grow:1;color:#2c3e50}
+            .current-video{margin-bottom:25px;border-radius:10px;overflow:hidden;width:100%}
+            .current-video iframe,.current-video video{width:100%;height:465px;border:none;border-radius:10px;display:block;object-fit:cover}
+            .current-video source{width:100%;height:465px;border:none;border-radius:10px}
+            .video-info h2{margin-top:0;color:#2c3e50;border-bottom:2px solid #4caf50;padding-bottom:10px;margin-bottom:20px}
+            .video-info p{color:#555;line-height:1.7;white-space:pre-line;font-size:16px;background:#f9f9f9;padding:20px;border-radius:0;border-left:4px solid #4caf50}
+            .quality-selector{margin-top:25px;display:flex;align-items:center;gap:15px;background:#f0f7ff;padding:15px;border-radius:8px}
+            .quality-selector label{font-weight:600;color:#2c3e50}
+            .quality-selector select{padding:10px 15px;border-radius:8px;border:2px solid #ddd;font-size:16px;background:#fff;box-shadow:0 3px 6px rgba(0,0,0,.05);transition:all .3s ease}
+            .quality-selector select:focus{border-color:#2196f3;outline:0}
+            .controls{display:flex;justify-content:flex-end;margin-top:30px;width:100%;position:fixed;bottom:70px;right:0;z-index:99;margin:0 30px;display:flex;justify-content:flex-end;max-width:100%}
+            #resetBtn{display:none;background:linear-gradient(135deg,#36cef4,#3f2fd3);box-shadow:0 4px 15px rgba(244,67,54,.3);font-size:16px;}
+            .page-title{font-size:1rem;margin-bottom:25px;text-align:left;font-weight:700;color:#2c3e50;display:flex;align-items:center;gap:15px;padding-bottom:15px;border-bottom:2px solid #eee}
+            .w-100{width:100%}
+            .mt0{margin-top:0}
+            .category-div{margin-top:0;margin-bottom:25px;display:flex;justify-content:center}
+            .category-text{width:fit-content;text-align:center;font-size:1rem;font-weight:500;color:#333;padding:5px 15px;border-radius:999px;background-color:#0000001f}
+            footer{margin-top:30px;text-align:center;color:#fff;font-size:.9rem;padding:20px;width:100%}
+            #top-btn-wrapper{position:fixed;bottom:20px;right:0;z-index:99;margin:0 30px;display:flex;justify-content:flex-end;max-width:100%}
+            #top-btn{display:none;padding:10px 20px;font-size:16px;background-color:#333;color:#fff;border:none;cursor:pointer}
+            .menu-toggle{display:none;background:var(--primary);color:#fff;font-size:19px;padding:8px 14px;border:none;cursor:pointer;transition:all .3s ease;z-index:1001}
+            @media (max-width:900px){
+                body{padding:5px;padding-top:180px}
+                .video-panel{flex-direction:column}
+                .video-player{order:1;padding:10px}
+                .video-list{order:2;margin-top:15px;max-height:none;overflow-y:visible}
+                .page-title{font-size:15px}
+                .video-info h2{font-size:14px}
+                .video-info p{font-size:11px}
+                .container{padding:15px}
+                .current-video source{height:200px}
+                .controls{flex-direction:column;gap:15px;position:initial;margin: 0;margin-top: 15px;}
+                button{width:100%;justify-content:center}
+                .quality-selector{width:100%;flex-direction:column;align-items:stretch}
+                .quality-selector select{width:100%}
+                #top-btn-wrapper{position:relative;width:100%;right:0;margin:0;bottom:-20px;justify-content:center}
+                #top-btn{margin-left:10px;margin-right:10px}
+                footer{font-size:11px;font-size:11px}
+                header{flex-direction:column;align-items:stretch;text-align:center}
+                header h1{margin-bottom:15px;}
+                .main-nav{flex-direction:column;width:100%;gap:8px}
+                .dropdown .nav-button,.nav-button{width:100%}
+                .dropdown-content{width:100%}
+                .dropdown{width:100%}
+                .menu-toggle{display:block;align-self:flex-end;margin-bottom:10px}
+                .main-nav{display:none;flex-direction:column;width:100%;gap:8px;padding:15px 0;animation:slideDown .3s ease forwards;border-top:1px solid #ccc}
+                .main-nav.show{display:flex}
+                @keyframes slideDown{
+                0%{opacity:0;transform:translateY(-10px)}
+                100%{opacity:1;transform:translateY(0)}
+                }
+            }
 
-<script>
-    async function fetchSourceCode(url) {
-      alert("fetchSourceCode çalıştı:\n" + url);
-    }
-  
-    async function fonk(kategori = "kategoriler/yeni-eklenenler") {
-      const egitimlerDiv = document.getElementById('egitimler');
-  
-      try {
-        const baseUrl = "https://www.neoskola.com/";
-        const proxyUrl = "https://api.codetabs.com/v1/proxy/?quest=" + baseUrl + kategori;
-  
-        const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error("HTTP Hatası: " + response.status);
-  
-        const html = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-  
-        const container = doc.querySelector('.css-te3jdc');
-        if (!container) {
-          egitimlerDiv.textContent = "css-te3jdc sınıfı bulunamadı.";
-          return;
-        }
-  
-        const links = container.querySelectorAll('.chakra-link');
-        egitimlerDiv.innerHTML = ''; // Temizle
-  
-        links.forEach(link => {
-          const href = link.getAttribute('href') || '#';
-          const fullHref = href.startsWith('http') ? href : baseUrl + href;
-          const img = link.querySelector('.chakra-image');
-          const text = link.querySelector('.chakra-text');
-  
-          const imgSrc = img?.src || '';
-          const label = text?.textContent?.trim() || '';
-  
-          const cardHTML = `
-            <div class="card" onclick="fetchSourceCode('${fullHref}')">
-              <img src="${imgSrc}" alt="Resim">
-              <div class="card-text">${label}</div>
+            body.dark{background:linear-gradient(135deg,#121212,#000,#121212);color:#f0f0f0}
+            body.dark .container{background:linear-gradient(to bottom right,rgba(30,30,30,.95),rgba(20,20,20,.95));color:#f0f0f0}
+            body.dark header{background:rgba(30,30,30,.95);border-bottom:1px solid rgba(255,255,255,.1)}
+            body.dark header h1{color:var(--light);}
+            body.dark header h1:hover {background-color:#ffffff1f}
+            body.dark .nav-button{background:var(--dark)}
+            body.dark .nav-button:hover{background:var(--secondary)}
+            body.dark .dropdown-content{background-color:#333;border:1px solid #555}
+            body.dark .dropdown-content a{color:#f0f0f0}
+            body.dark .dropdown-content a:hover{background-color:#555}
+            body.dark .video-list,body.dark .video-player{background-color:#1f1f1f;border:1px solid #444}
+            body.dark .video-item{border:1px solid #444}
+            body.dark .video-item:hover{background-color:#2c2c2c}
+            body.dark .video-item.active{background-color:#3c3c3c}
+            body.dark .video-title{color:#f0f0f0}
+            body.dark .video-info p{background:#2c2c2c;color:#ddd}
+            body.dark .quality-selector{background:#2c2c2c}
+            body.dark .quality-selector select{background:#444;color:#fff}
+            body.dark .url-input,body.dark textarea{background:#333;color:#fff;border:1px solid #555}
+            body.dark footer{color:#ccc}
+            body.dark .category-text{background-color:#444;color:#fff}
+            body.dark .page-title {color:#f0f0f0;border-bottom:2px solid #434343;}
+            body.dark .video-info h2{color:#f0f0f0;}
+        </style>
+    </head>
+    <body>
+
+        <header>
+            <a onclick="fonk();" style="text-decoration: none;">
+                <h1>🎞️ Eğitim Serisi</h1>
+            </a>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button> <!-- YENİ -->
+            <nav class="main-nav">
+                <button class="nav-button" onclick="fonk('kategoriler/yeni-eklenenler')">Yeni Eklenenler</button>
+                <button class="nav-button" onclick="fonk('kategoriler/tum-egitimler')">Tüm Eğitimler</button>
+                <button class="nav-button" onclick="fonk('kategoriler/en-cok-izlenenler')">En Çok İzlenenler</button>
+                
+                <div class="dropdown">
+                    <button class="nav-button">Success</button>
+                    <div class="dropdown-content">
+                        <a onclick="fonk('kategoriler/success/finans')">Finans</a>
+                        <a onclick="fonk('kategoriler/success/girisimcilik')">Girişimcilik</a>
+                        <a onclick="fonk('kategoriler/success/satis')">Satış</a>
+                        <a onclick="fonk('kategoriler/success/pazarlama')">Pazarlama</a>
+                        <a onclick="fonk('kategoriler/success/liderlik')">Liderlik</a>
+                        <a onclick="fonk('kategoriler/success/yetkinlik-gelisimi')">Yetkinlik</a>
+                        <a onclick="fonk('kategoriler/success/surdurulebilirlik')">Sürdürülebilirlik</a>
+                    </div>
+                </div>
+                
+                <div class="dropdown">
+                    <button class="nav-button">Culture</button>
+                    <div class="dropdown-content">
+                        <a onclick="fonk('kategoriler/culture/sinema')">Sinema</a>
+                        <a onclick="fonk('kategoriler/culture/tarih')">Tarih</a>
+                        <a onclick="fonk('kategoriler/culture/saglik')">Sağlık</a>
+                        <a onclick="fonk('kategoriler/culture/muzik')">Müzik</a>
+                        <a onclick="fonk('kategoriler/culture/gastronomi')">Gastronomi</a>
+                        <a onclick="fonk('kategoriler/culture/yasam-kulturu')">Yaşam</a>
+                        <a onclick="fonk('kategoriler/culture/sanat')">Sanat</a>
+                        <a onclick="fonk('kategoriler/culture/bilim')">Bilim</a>
+                        <a onclick="fonk('kategoriler/culture/surdurulebilirlik')">Sürdürülebilirlik</a>
+                        <a onclick="fonk('kategoriler/culture/cocuk-gelisimi')">Çocuk</a>
+                    </div>
+                </div>
+            </nav>
+            <button id="themeToggleBtn" onclick="toggleDarkMode()" class="nav-button">🌙</button>
+        </header>
+
+        <div class="container">
+
+            <div id="giris-panel" class="w-100">
+                <div id="kategori-div" class="category-div">
+                    <div id="kategori-text" class="category-text">kategoriler/yeni-eklenenler</div>
+                </div>
+                <div class="egitimler mt0" id="egitimler">eğitimler yükleniyor...</div>
             </div>
-          `;
-          egitimlerDiv.insertAdjacentHTML('beforeend', cardHTML);
-        });
-  
-        if (!links.length) {
-          egitimlerDiv.textContent = "Hiç .chakra-link bulunamadı.";
-        }
-  
-      } catch (error) {
-        egitimlerDiv.textContent = "Hata: " + error.message;
-      }
-    }
-  
-    window.onload = () => fonk(); // Sayfa yüklenince varsayılan "kategoriler/yeni-eklenenler"
-</script>
+
+            <div class="video-container" id="videoContainer">
+                <div class="page-title" id="pageTitle"></div>
+                <div class="video-panel">
+                    <div class="video-list" id="videoList"></div>
+                    <div class="video-player" id="videoPlayer">
+                        <video class="current-video" id="currentVideo" controls autoplay></video>
+                        <div class="video-info" id="videoInfo"></div>
+                        <div class="quality-selector" id="qualitySelector"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="controls">
+            <button id="resetBtn" style="display: none;">eğitimi kapat</button>
+        </div>
+        <div id="top-btn-wrapper">
+            <button onclick="topFunction()" id="top-btn" title="Yukarı çık">yukarı</button>
+        </div>
+        
+        <footer>
+            <p>Hayatın Her Alanından En İyi Eğitim Video Serileri &copy; <script>document.write(new Date().getFullYear());</script> | by <strong><u>ckoglu</u></strong></p>
+        </footer>
+        <textarea id="sourceCodeInput" style="display: none;"></textarea><button id="generateBtn" style="display: none;"></button>
+
 
         <script>
             async function fetchSourceCode(url) {
-            if (!url) {
-                alert('URL geçersiz!');
-                return;
+            alert("fetchSourceCode çalıştı:\n" + url);
             }
         
-            try {
-                const proxyUrl = `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(url)}`;
-                const response = await fetch(proxyUrl);
-                if (!response.ok) {
-                throw new Error(`HTTP Hatası! Durum: ${response.status}`);
-                }
-        
-                const html = await response.text();
-                document.getElementById('sourceCodeInput').value = html;
-                document.getElementById("generateBtn").click();
-            } catch (error) {
-                alert(`Hata: ${error.message}`);
-            }
-            }
-        </script>
-        
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sourceCodeInput = document.getElementById('sourceCodeInput');
-            const generateBtn = document.getElementById('generateBtn');
-            const videoContainer = document.getElementById('videoContainer');
-            const videoList = document.getElementById('videoList');
-            const currentVideo = document.getElementById('currentVideo');
-            const videoInfo = document.getElementById('videoInfo');
-            const qualitySelector = document.getElementById('qualitySelector');
-            const resetBtn = document.getElementById('resetBtn');
-            const showSourceBtn = document.getElementById('showSourceBtn');
-            const sourceCodeDisplay = document.getElementById('sourceCodeDisplay');
-            const sourceCodeTextarea = document.getElementById('sourceCodeTextarea');
-            const copySourceBtn = document.getElementById('copySourceBtn');
-            const hideSourceBtn = document.getElementById('hideSourceBtn');
-            const pageTitle = document.getElementById('pageTitle');
-            
-            let videosData = [];
-            let currentVideoIndex = -1;
-            let pageTitleText = '';
-            
-            generateBtn.addEventListener('click', function() {
-                try {
-                    const sourceCode = sourceCodeInput.value.trim();
-                    if (!sourceCode) {
-                        alert('Lütfen önce kaynak kodunu yapıştırın!');
-                        return;
-                    }
-                    
-                    // Extract page title from <title> tags
-                    const titleMatch = sourceCode.match(/<title>(.*?)<\/title>/i);
-                    pageTitleText = titleMatch ? titleMatch[1] : 'Video Paneli';
-                    pageTitle.textContent = pageTitleText;
-                    
-                    // "content":[ ile "title":"Sertifika Testi" arasındaki kodu çek
-                    const contentStart = sourceCode.indexOf('"content":[');
-                    const contentEnd = sourceCode.indexOf('"title":"Sertifika Testi"');
-                    
-                    if (contentStart === -1 || contentEnd === -1) {
-                        alert('Kaynak kodunda gerekli işaretleyiciler bulunamadı!');
-                        return;
-                    }
-                    
-                    const contentSection = sourceCode.substring(contentStart + 10, contentEnd - 1);
-                    
-                    // Videoları içerik bölümünden çıkar
-                    videosData = [];
-                    let currentPos = 0;
-                    
-                    while (currentPos < contentSection.length) {
-                        const idStart = contentSection.indexOf('"_id":', currentPos);
-                        const titleStart = contentSection.indexOf('"title":', idStart);
-                        const bodyStart = contentSection.indexOf('"body":', titleStart);
-                        const detailStart = contentSection.indexOf('"detail":', bodyStart);
-                        const thumbStart = contentSection.indexOf('"thumbnail":', currentPos);
+            async function fonk(kategori = "kategoriler/yeni-eklenenler") {
 
-                        // Gerekli verilerden biri bulunamazsa döngüyü bitir
-                        if (idStart === -1 || titleStart === -1 || bodyStart === -1 || detailStart === -1) break;
-
-                        // title verisini al
-                        const titleValueStart = contentSection.indexOf('"', titleStart + 8) + 1;
-                        const titleValueEnd = contentSection.indexOf('"', titleValueStart);
-                        const title = contentSection.substring(titleValueStart, titleValueEnd);
-
-                        if (title.includes('Ara Test')) {
-                            // currentPos'u titleValueEnd sonrası yap, yani atlayalım
-                            currentPos = titleValueEnd + 1;
-                            continue; // döngünün başına dön
-                        }
-
-                        // body verisini al
-                        const bodyValueStart = contentSection.indexOf('"', bodyStart + 7) + 1;
-                        const bodyValueEnd = contentSection.indexOf('"', bodyValueStart);
-                        let body = contentSection.substring(bodyValueStart, bodyValueEnd).replace(/\\n/g, '');
-
-                        // detail verisini al (artık thumbnail gibi kullanılacak)
-                        const detailValueStart = contentSection.indexOf('"', detailStart + 9) + 1;
-                        const detailValueEnd = contentSection.indexOf('"', detailValueStart);
-                        const detail = contentSection.substring(detailValueStart, detailValueEnd);
-
-                        body = body + detail;
-                        // Thumbnail verisini çıkar
-                        const thumbValueStart = contentSection.indexOf('"', thumbStart + 12) + 1;
-                        const thumbValueEnd = contentSection.indexOf('"', thumbValueStart);
-                        const thumbnail = contentSection.substring(thumbValueStart, thumbValueEnd);
-
-                        // URL'leri çıkar
-                        const url360p = extractUrl(contentSection, thumbValueEnd, '"url360p":');
-                        const url540p = extractUrl(contentSection, thumbValueEnd, '"url540p":');
-                        const url720p = extractUrl(contentSection, thumbValueEnd, '"url720p":');
-                        const url1080p = extractUrl(contentSection, thumbValueEnd, '"url1080p":');
-
-                        // Video nesnesi oluştur
-                        videosData.push({
-                            title,
-                            body,
-                            thumbnail,
-                            url360p,
-                            url540p,
-                            url720p,
-                            url1080p
-                        });
-
-                        // Sonraki döngü için pozisyonu güncelle
-                        currentPos = Math.max(titleValueEnd, bodyValueEnd, detailValueEnd) + 1;
-                    }
-                    
-                    
-                    if (videosData.length === 0) {
-                        alert('Belirtilen işaretleyiciler arasında video verisi bulunamadı!');
-                        return;
-                    }
-                    
-                    renderVideoList();
-                    document.getElementById('giris-panel').style.display = 'none';
-                    videoContainer.style.display = 'block';
-                    
-                } catch (error) {
-                    alert('Kaynak kodu işlenirken hata oluştu: ' + error.message);
-                    console.error(error);
-                }
-            });
-            
-            function extractUrl(content, startPos, key) {
-                const keyStart = content.indexOf(key, startPos);
-                if (keyStart === -1) return '';
-                
-                const urlStart = content.indexOf('"', keyStart + key.length) + 1;
-                const urlEnd = content.indexOf('"', urlStart);
-                return content.substring(urlStart, urlEnd);
-            }
-            
-            function renderVideoList() {
-                videoList.innerHTML = '';
-                
-                videosData.forEach((video, index) => {
-                    const videoItem = document.createElement('div');
-                    videoItem.className = 'video-item';
-                    videoItem.dataset.index = index;
-                    
-                    videoItem.innerHTML = `
-                        <img src="${video.thumbnail}" alt="Thumbnail" class="video-thumbnail" onerror="this.src='https://via.placeholder.com/80x45?text=No+Thumbnail'">
-                        <span class="video-title">${index + 1}. ${video.title}</span>
-                    `;
-                    
-                    videoItem.addEventListener('click', function() {
-                        selectVideo(index);
-                    });
-                    
-                    videoList.appendChild(videoItem);
-                });
-                
-                if (videosData.length > 0) {
-                    selectVideo(0);
-                }
-            }
-            
-            function selectVideo(index) {
-                currentVideoIndex = index;
-                const video = videosData[index];
-                
-                // Listede aktif durumu güncelle
-                document.querySelectorAll('.video-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-                document.querySelector(`.video-item[data-index="${index}"]`).classList.add('active');
-                
-                // Oynatıcıyı güncelle
-                const defaultUrl = video.url1080p || video.url720p || video.url540p || video.url360p;
-                if (defaultUrl) {
-                    currentVideo.innerHTML = `
-                        <iframe src="${getEmbedUrl(defaultUrl)}" allowfullscreen></iframe>
-                    `;
-                } else {
-                    currentVideo.innerHTML = `<p>Bu video için URL bulunamadı</p>`;
-                }
-                
-                videoInfo.innerHTML = `
-                    <h2>${index + 1}. ${video.title}</h2>
-                    <p>${video.body}</p>
-                `;
-                
-                renderQualitySelector(video);
-            }
-            
-            function getEmbedUrl(url) {
-                if (!url) return '';
-                
-                // YouTube URL'leri
-                if (url.includes('youtube.com') || url.includes('youtu.be')) {
-                    let videoId = '';
-                    if (url.includes('v=')) {
-                        videoId = url.split('v=')[1].split('&')[0];
-                    } else if (url.includes('youtu.be/')) {
-                        videoId = url.split('youtu.be/')[1].split('?')[0];
-                    }
-                    return `https://www.youtube.com/embed/${videoId}`;
-                }
-                
-                // Vimeo URL'leri
-                if (url.includes('vimeo.com')) {
-                    const videoId = url.split('vimeo.com/')[1].split('?')[0];
-                    return `https://player.vimeo.com/video/${videoId}`;
-                }
-                
-                // Diğer URL'ler doğrudan kullanılır
-                return url;
-            }
-            
-            function renderQualitySelector(video) {
-                qualitySelector.innerHTML = '';
-                
-                const select = document.createElement('select');
-                select.id = 'qualitySelect';
-                
-                const qualities = [
-                    { name: '1080p', url: video.url1080p },
-                    { name: '720p', url: video.url720p },
-                    { name: '540p', url: video.url540p },
-                    { name: '360p', url: video.url360p }
-                ];
-                
-                let hasQuality = false;
-                let defaultSelected = false;
-                
-                qualities.forEach(quality => {
-                    if (quality.url) {
-                        hasQuality = true;
-                        const option = document.createElement('option');
-                        option.value = quality.url;
-                        option.textContent = quality.name;
-                        
-                        // Set 1080p as default if available
-                        if (quality.name === '1080p' && video.url1080p && !defaultSelected) {
-                            option.selected = true;
-                            defaultSelected = true;
-                        }
-                        
-                        select.appendChild(option);
-                    }
-                });
-                
-                if (hasQuality) {
-                    select.addEventListener('change', function() {
-                        currentVideo.innerHTML = `
-                            <iframe src="${getEmbedUrl(this.value)}" allowfullscreen></iframe>
-                        `;
-                    });
-                    
-                    qualitySelector.appendChild(select);
-                    
-
-                } else {
-                    qualitySelector.innerHTML += '<p>Mevcut çözünürlük seçeneği yok</p>';
-                }
-            }
-            
-            function showSourceCode() {
-                sourceCodeTextarea.value = document.documentElement.outerHTML;
-                sourceCodeDisplay.style.display = 'block';
-                videoContainer.querySelector('.video-panel').style.display = 'none';
-                videoContainer.querySelector('.controls').style.display = 'none';
-            }
-            
-            function hideSourceCode() {
-                sourceCodeDisplay.style.display = 'none';
-                videoContainer.querySelector('.video-panel').style.display = 'flex';
-                videoContainer.querySelector('.controls').style.display = 'flex';
-            }
-            
-            resetBtn.addEventListener('click', function() {
+                const egitimlerDiv = document.getElementById('egitimler');
+                document.getElementById('resetBtn').style.display = 'none';
+                egitimlerDiv.innerHTML ="eğitimler yükleniyor...";
                 document.getElementById('giris-panel').style.display = 'block';
                 videoContainer.style.display = 'none';
-                sourceCodeDisplay.style.display = 'none';
                 videosData = [];
                 pageTitle.textContent = '';
-            });
+                document.querySelector('video').pause();
+
+                const kategoriEncoded = encodeURIComponent(kategori).replace(/%2F/g, '/');
+                const newUrl = window.location.pathname + '?k=' + kategoriEncoded;
+                history.pushState({}, '', newUrl);
+                document.getElementById("kategori-text").innerHTML = kategori;
+
+                try {
+                    const baseUrl = "https://www.neoskola.com/";
+                    const proxyUrl = "https://api.codetabs.com/v1/proxy/?quest=" + baseUrl + kategori;
             
-            showSourceBtn.addEventListener('click', function() {
-                showSourceCode();
-            });
+                    const response = await fetch(proxyUrl);
+                    if (!response.ok) throw new Error("HTTP Hatası: " + response.status);
             
-            hideSourceBtn.addEventListener('click', function() {
-                hideSourceCode();
-            });
+                    const html = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, "text/html");
             
-            copySourceBtn.addEventListener('click', function() {
-                sourceCodeTextarea.select();
-                document.execCommand('copy');
-                alert('Kaynak kodu kopyalandı!');
+                    const container = doc.querySelector('.css-te3jdc');
+                    if (!container) {
+                    egitimlerDiv.textContent = "css-te3jdc sınıfı bulunamadı.";
+                    return;
+                    }
+            
+                    const links = container.querySelectorAll('.chakra-link');
+                    egitimlerDiv.innerHTML = ''; // Temizle
+            
+                    links.forEach(link => {
+                        const href = link.getAttribute('href') || '';
+                        const fullHref = href.startsWith('http') ? href : baseUrl + href;
+                        const img = link.querySelector('.chakra-image');
+                        const text = link.querySelector('.chakra-text');
+                
+                        const imgSrc = img?.src || '';
+                        const label = text?.textContent?.trim() || '';
+                
+                        const cardHTML = `
+                            <div class="card" onclick="fetchSourceCode('${fullHref}')">
+                            <img src="${imgSrc}" alt="Resim">
+                            <div class="card-text">${label}</div>
+                            </div>
+                        `;
+                        egitimlerDiv.insertAdjacentHTML('beforeend', cardHTML);
+                    });
+            
+                    if (!links.length) {
+                    egitimlerDiv.textContent = "Hiç .chakra-link bulunamadı.";
+                    }
+                            
+                } catch (error) {
+                    egitimlerDiv.textContent = "Hata: " + error.message;
+                }
+            }
+        </script>
+
+        <script>
+            async function fetchSourceCode(url, videoIndex = 0) {
+                if (!url) {
+                    alert('URL geçersiz!');
+                    return;
+                }
+
+                try {
+                    const egitimSlug = url.split('/').filter(Boolean).pop();
+                    const newUrl = window.location.pathname + '?e=' + encodeURIComponent(egitimSlug) + '--' + (videoIndex + 1);
+                    history.pushState({}, '', newUrl);
+
+                    const proxyUrl = `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(url)}`;
+                    const response = await fetch(proxyUrl);
+                    if (!response.ok) {
+                        throw new Error(`HTTP Hatası! Durum: ${response.status}`);
+                    }
+
+                    const html = await response.text();
+                    document.getElementById('sourceCodeInput').value = html;
+
+                    // Store the target video index
+                    window.targetVideoIndex = videoIndex;
+
+                    // Manually trigger the generateBtn click event
+                    const event = new Event('click');
+                    document.getElementById("generateBtn").dispatchEvent(event);
+                    
+                } catch (error) {
+                    alert(`Hata: ${error.message}`);
+                }
+            }
+        </script>
+
+        <script>
+            window.onload = function () {
+                const params = new URLSearchParams(window.location.search);
+                const egitimParam = params.get('e');
+                const kategori = params.get('k');
+
+                if (egitimParam && egitimParam.trim() !== "") {
+                    // Eğer parametrede -- işareti varsa index yakala
+                    let slug = egitimParam;
+                    let videoIndex = 0;
+
+                    if (egitimParam.includes('--')) {
+                        const split = egitimParam.split('--');
+                        slug = split[0];
+                        videoIndex = parseInt(split[1]) - 1; // çünkü array index'i 0'dan başlar
+                    }
+
+                    const fullUrl = `https://www.neoskola.com/egitimler/${slug}`;
+                    fetchSourceCode(fullUrl, videoIndex);
+                } else if (kategori && kategori.trim() !== "") {
+                    fonk(kategori);
+                } else {
+                    fonk();
+                }
+            }
+        </script>
+
+        
+        <script>
+            window.onscroll = function() {
+                const btn = document.getElementById("top-btn");
+                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                    btn.style.display = "block";
+                } else {
+                    btn.style.display = "none";
+                }
+            };
+            function topFunction() {window.scrollTo({ top: 0, behavior: 'smooth' });}
+
+            function toggleMenu() {
+                const nav = document.querySelector('.main-nav');
+                nav.classList.toggle('show');
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+            // Sadece dropdown-content içindeki bağlantılara tıklanınca menüyü kapat
+                const dropdownLinks = document.querySelectorAll('.dropdown-content a, .main-nav > button');
+                dropdownLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 900) {
+                            document.querySelector('.main-nav').classList.remove('show');
+                        }
+                    });
+                });
             });
-        });
-    </script>
-</body>
+
+            // Sayfa açılışında temayı yükle
+            function updateToggleIcon() {
+                const btn = document.getElementById('themeToggleBtn');
+                if (document.body.classList.contains('dark')) {
+                    btn.textContent = '☀️';  // Koyu temadaysa güneş simgesi (aydınlık butonu)
+                } else {
+                    btn.textContent = '🌙';  // Açık temadaysa ay simgesi (koyu temaya geçiş)
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                if (localStorage.getItem('theme') === 'dark') {
+                    document.body.classList.add('dark');
+                }
+                updateToggleIcon();
+            });
+
+            function toggleDarkMode() {
+                document.body.classList.toggle('dark');
+                if (document.body.classList.contains('dark')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+                updateToggleIcon();
+            }
+        </script>
+            
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const sourceCodeInput = document.getElementById('sourceCodeInput');
+                const generateBtn = document.getElementById('generateBtn');
+                const videoContainer = document.getElementById('videoContainer');
+                const videoList = document.getElementById('videoList');
+                const currentVideo = document.getElementById('currentVideo');
+                const videoInfo = document.getElementById('videoInfo');
+                const qualitySelector = document.getElementById('qualitySelector');
+                const resetBtn = document.getElementById('resetBtn');
+                const showSourceBtn = document.getElementById('showSourceBtn');
+                const pageTitle = document.getElementById('pageTitle');
+                
+                let videosData = [];
+                let currentVideoIndex = -1;
+                let pageTitleText = '';
+                
+                generateBtn.addEventListener('click', function() {
+                    try {
+                        const sourceCode = sourceCodeInput.value.trim();
+                        if (!sourceCode) {
+                            alert('Lütfen önce kaynak kodunu yapıştırın!');
+                            return;
+                        }
+                        
+                        // Extract page title from <title> tags
+                        const titleMatch = sourceCode.match(/<title>(.*?)<\/title>/i);
+                        pageTitleText = titleMatch ? titleMatch[1] : 'Video Paneli';
+                        pageTitle.textContent = pageTitleText + "";
+                        
+                        // "content":[ ile "title":"Sertifika Testi" arasındaki kodu çek
+                        const contentStart = sourceCode.indexOf('"content":[');
+                        const contentEnd = sourceCode.indexOf('"title":"Sertifika Testi"');
+                        
+                        if (contentStart === -1 || contentEnd === -1) {
+                            alert('Kaynak kodunda gerekli işaretleyiciler bulunamadı!');
+                            document.getElementById('resetBtn').click();
+                            return;
+                            
+                        }
+                        
+                        const contentSection = sourceCode.substring(contentStart + 10, contentEnd - 1);
+                        
+                        // Videoları içerik bölümünden çıkar
+                        videosData = [];
+                        let currentPos = 0;
+                        
+                        while (currentPos < contentSection.length) {
+                            const idStart = contentSection.indexOf('"_id":', currentPos);
+                            const titleStart = contentSection.indexOf('"title":', idStart);
+                            const bodyStart = contentSection.indexOf('"body":', titleStart);
+                            const detailStart = contentSection.indexOf('"detail":', bodyStart);
+                            const thumbStart = contentSection.indexOf('"thumbnail":', currentPos);
+
+                            // Gerekli verilerden biri bulunamazsa döngüyü bitir
+                            if (idStart === -1 || titleStart === -1 || bodyStart === -1 || detailStart === -1) break;
+
+                            // title verisini al
+                            const titleValueStart = contentSection.indexOf('"', titleStart + 8) + 1;
+                            const titleValueEnd = contentSection.indexOf('"', titleValueStart);
+                            const title = contentSection.substring(titleValueStart, titleValueEnd);
+
+                            if (title.includes('Ara Test')) {// currentPos'u titleValueEnd sonrası yap, yani atlayalım
+                                currentPos = titleValueEnd + 1;
+                                continue; // döngünün başına dön
+                            }
+
+                            // body verisini al
+                            const bodyValueStart = contentSection.indexOf('"', bodyStart + 7) + 1;
+                            const bodyValueEnd = contentSection.indexOf('"', bodyValueStart);
+                            let body = contentSection.substring(bodyValueStart, bodyValueEnd).replace(/\\n/g, '');
+
+                            // detail verisini al (artık thumbnail gibi kullanılacak)
+                            const detailValueStart = contentSection.indexOf('"', detailStart + 9) + 1;
+                            const detailValueEnd = contentSection.indexOf('"', detailValueStart);
+                            const detail = contentSection.substring(detailValueStart, detailValueEnd);
+
+                            body = body + detail;
+                            // Thumbnail verisini çıkar
+                            const thumbValueStart = contentSection.indexOf('"', thumbStart + 12) + 1;
+                            const thumbValueEnd = contentSection.indexOf('"', thumbValueStart);
+                            const thumbnail = contentSection.substring(thumbValueStart, thumbValueEnd);
+
+                            // URL'leri çıkar
+                            const url360p = extractUrl(contentSection, thumbValueEnd, '"url360p":');
+                            const url540p = extractUrl(contentSection, thumbValueEnd, '"url540p":');
+                            const url720p = extractUrl(contentSection, thumbValueEnd, '"url720p":');
+                            const url1080p = extractUrl(contentSection, thumbValueEnd, '"url1080p":');
+
+                            // Video nesnesi oluştur
+                            videosData.push({
+                                title,
+                                body,
+                                thumbnail,
+                                url360p,
+                                url540p,
+                                url720p,
+                                url1080p
+                            });
+
+                            // Sonraki döngü için pozisyonu güncelle
+                            currentPos = Math.max(titleValueEnd, bodyValueEnd, detailValueEnd) + 1;
+                        }
+                        
+                        
+                        if (videosData.length === 0) {
+                            alert('Belirtilen işaretleyiciler arasında video verisi bulunamadı!');
+                            return;
+                        }
+                        
+                        renderVideoList();
+                        document.getElementById('giris-panel').style.display = 'none';
+                        videoContainer.style.display = 'block';
+                        document.getElementById('resetBtn').style.display = 'block';
+
+                        if (typeof window.targetVideoIndex !== 'undefined' && window.targetVideoIndex >= 0 && window.targetVideoIndex < videosData.length) {
+                            selectVideo(window.targetVideoIndex);
+                        }
+                        
+                    } catch (error) {
+                        alert('Kaynak kodu işlenirken hata oluştu: ' + error.message);
+                        console.error(error);
+                    }
+                });
+                
+                function extractUrl(content, startPos, key) {
+                    const keyStart = content.indexOf(key, startPos);
+                    if (keyStart === -1) return '';
+                    
+                    const urlStart = content.indexOf('"', keyStart + key.length) + 1;
+                    const urlEnd = content.indexOf('"', urlStart);
+                    return content.substring(urlStart, urlEnd);
+                }
+                
+                function renderVideoList() {
+                    videoList.innerHTML = '';
+                    
+                    videosData.forEach((video, index) => {
+                        const videoItem = document.createElement('div');
+                        videoItem.className = 'video-item';
+                        videoItem.dataset.index = index;
+                        
+                        videoItem.innerHTML = `<img src="${video.thumbnail}" alt="Thumbnail" class="video-thumbnail" onerror="this.src='https://via.placeholder.com/80x45?text=No+Thumbnail'">
+                            <span class="video-title">${index + 1}. ${video.title}</span>`;
+                        
+                        videoItem.addEventListener('click', function() {
+                            selectVideo(index);
+
+                            const params = new URLSearchParams(window.location.search);
+                            const egitimParam = params.get('e');
+
+                            let slug = egitimParam;
+                            if (egitimParam && egitimParam.includes('--')) {
+                                slug = egitimParam.split('--')[0]; // sadece slug'ı al
+                            }
+
+                            const newUrl = `${window.location.pathname}?e=${slug}--${index + 1}`;
+                            history.pushState({}, '', newUrl);
+                            
+                        });
+                        
+                        videoList.appendChild(videoItem);
+
+                    });
+                    
+                    if (videosData.length > 0) {
+                        selectVideo(0);
+                    }
+                }
+                
+                function selectVideo(index) {
+                    currentVideoIndex = index;
+                    const video = videosData[index];
+                    
+                    // Listede aktif durumu güncelle
+                    document.querySelectorAll('.video-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    document.querySelector(`.video-item[data-index="${index}"]`).classList.add('active');
+                    
+                    // Oynatıcıyı güncelle - FIXED: Use load() after setting source
+                    const defaultUrl = video.url1080p || video.url720p || video.url540p || video.url360p;
+                    if (defaultUrl) {
+                        currentVideo.innerHTML = `<source src="${getEmbedUrl(defaultUrl)}" type="video/mp4">`;
+                        currentVideo.load(); // Add this line to force video load
+                    } else {
+                        currentVideo.innerHTML = `<p>Bu video için URL bulunamadı</p>`;
+                    }
+                    
+                    videoInfo.innerHTML = `<h2>${index + 1}. ${video.title}</h2><p>${video.body}</p>`;
+                    renderQualitySelector(video);
+                    topFunction();
+                    
+                }
+                
+                function getEmbedUrl(url) {
+                    if (!url) return '';
+                    
+                    if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                        let videoId = '';
+                        if (url.includes('v=')) {
+                            videoId = url.split('v=')[1].split('&')[0];
+                        } else if (url.includes('youtu.be/')) {
+                            videoId = url.split('youtu.be/')[1].split('?')[0];
+                        }
+                        return `https://www.youtube.com/embed/${videoId}`;
+                    }
+
+                    if (url.includes('vimeo.com')) {
+                        const videoId = url.split('vimeo.com/')[1].split('?')[0];
+                        return `https://player.vimeo.com/video/${videoId}`;
+                    }
+                    return url;
+                }
+                
+                function renderQualitySelector(video) {
+                    qualitySelector.innerHTML = '';
+                    const select = document.createElement('select');
+                    select.id = 'qualitySelect';
+                    const qualities = [
+                        { name: '1080p', url: video.url1080p },
+                        { name: '720p', url: video.url720p },
+                        { name: '540p', url: video.url540p },
+                        { name: '360p', url: video.url360p }
+                    ];
+                    let hasQuality = false;
+                    let defaultSelected = false;
+                    
+                    qualities.forEach(quality => {
+                        if (quality.url) {
+                            hasQuality = true;
+                            const option = document.createElement('option');
+                            option.value = quality.url;
+                            option.textContent = quality.name;
+                            if (quality.name === '1080p' && video.url1080p && !defaultSelected) {
+                                option.selected = true;
+                                defaultSelected = true;
+                            }
+                            select.appendChild(option);
+                        }
+                    });
+                    
+                    if (hasQuality) {
+                        select.addEventListener('change', function() {
+                            currentVideo.innerHTML = `<source src="${getEmbedUrl(this.value)}" type="video/mp4">`;
+                        });
+                        qualitySelector.appendChild(select);
+                        
+                    } else {
+                        qualitySelector.innerHTML += '<p>Mevcut çözünürlük seçeneği yok</p>';
+                    }
+                }
+                
+                resetBtn.addEventListener('click', function() {
+                    fonk('kategoriler/yeni-eklenenler');
+                    document.getElementById('egitimler').innerHTML ="eğitimler yükleniyor...";
+                    document.getElementById('giris-panel').style.display = 'block';
+                    videoContainer.style.display = 'none';
+                    document.getElementById('resetBtn').style.display = 'none';
+                    videosData = [];
+                    pageTitle.textContent = '';
+                    document.querySelector('video').pause();
+                    
+                });
+                
+            });
+        </script>
+    </body>
 </html>
