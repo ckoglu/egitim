@@ -77,7 +77,7 @@
             .video-info p{color:#555;line-height:1.6;white-space:pre-line;font-size:16px;background:#f9f9f9;padding:20px;border-radius:0;border-left:4px solid #4caf50}
             .quality-selector{margin-top:10px;margin-bottom:10px;display:flex;align-items:center;gap:15px;background:#f0f7ff;padding:15px;border-radius: 4px}
             .quality-selector label{font-weight:600;color:#2c3e50}
-            .quality-selector select{padding:10px 32px 10px 10px;border-radius: 7px;height: 40px;border:none;font-size:15px;line-height: 1.6;outline: 0;background:var(--slate);box-shadow: #00000025;transition:all .3s ease;background-position: 100%;background-repeat: no-repeat;-webkit-appearance: none !important;appearance: none !important;-moz-appearance: none !important;background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAdVBMVEUAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhMdQaAAAAJ3RSTlMAAAECAwQGBwsOFBwkJTg5RUZ4eYCHkJefpaytrsXGy8zW3+Do8vNn0bsyAAAAYElEQVR42tXROwJDQAAA0Ymw1p9kiT+L5P5HVEi3qJn2lcPjtIuzUIJ/rhIGy762N3XaThqMN1ZPALsZPEzG1x8LrFL77DHBnEMxBewz0fJ6LyFHTPL7xhwzWYrJ9z22AqmQBV757MHfAAAAAElFTkSuQmCC);}
+            .quality-selector select{padding:10px 32px 10px 10px;border-radius: 7px;height: 40px;border:none;font-size:15px;line-height: 1.6;outline: 0;background:var(--slate);box-shadow: #00000025;transition:all .3s ease;}
             .quality-selector select:focus{outline: 0;box-shadow:0 6px 20px rgba(111, 137, 255, 0.4)}
             .quality-selector select:hover{box-shadow:0 6px 20px rgba(0, 0, 0, 0.4)}
             .page-title{font-size:18px;margin-bottom:25px;text-align:left;font-weight:600;color:#2c3e50;display:flex;align-items:center;gap:15px;padding-bottom:15px;border-bottom:2px solid #eee}
@@ -98,7 +98,7 @@
             #top-btn{display:none;border:none;cursor:pointer}
             .menu-toggle{display:none;background:var(--primary);color:#fff;padding:8px 14px;border:none;cursor:pointer;transition:all .3s ease;z-index:1001}
             .hidden {display: none;}
-            .nav-mobil{display: none;position:fixed;border-top-left-radius: 4px;border-top-right-radius: 4px;bottom:0;left:0;width:100%;max-height:85%;background-color:#fff;overflow-y:auto;transition:transform .3s ease-in-out;transform:translateY(100%);z-index:9999;padding:30px 25px;display:flex;flex-direction:column;gap:5px}
+            .nav-mobil{display: none;position:fixed;border-top-left-radius: 4px;border-top-right-radius: 4px;bottom:0;left:0;width:100%;max-height: calc(100vh - 60px);background-color:#fff;overflow-y:auto;transition:transform .3s ease-in-out;transform:translateY(100%);z-index:9999;padding:30px 25px;display:flex;flex-direction:column;gap:5px}
             .nav-mobil::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(to right,#4caf50,#2196f3,#9c27b0)}
             .gray-button {background: var(--ldark);padding: 5px;font-weight: 500;}
             .nav-mobil.show{transform:translateY(0)}
@@ -1352,31 +1352,31 @@
                     document.querySelector('video').pause();
                 });
 
-                // Klavye kısayolları
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape' && videoContainer.style.display === 'block') {
-                        document.getElementById('resetBtn').click();
-                        showAlert("eğitim serisini kapattınız", "bilgi");
-                    }
-
-                    if (e.key === 'Enter' && videoContainer.style.display === 'block') {
-                        const video = document.querySelector('video');
-                        if (video.paused) {
-                            video.focus();
-                            video.play();
-                        } else {
-                            video.focus();
-                            video.pause();
+                document.addEventListener("keydown", function (e) {
+                    const video = document.getElementById('currentVideo');
+                    if (e.code === 'Space' || e.key === ' ' || e.key === 'Spacebar') {
+                        if (videoContainer.style.display === 'block') {
+                            e.preventDefault();
+                            if (video.paused) {
+                                video.play();
+                            } else {
+                                video.pause();
+                            }
                         }
-                    }
 
-                    if (videoContainer.style.display === 'block') {
-                        if (e.key === 'ArrowLeft') {
+                    } else if (e.code === 'Backspace') {
+                        // Backspace işlemi
+                    } else if (e.code === 'Delete') {
+                        // Delete işlemi
+                    } else if (e.key === 'ArrowLeft') {
+                        if (videoContainer.style.display === 'block') {
                             document.getElementById('onceki-video').click();
-                            showAlert("bir önceki videoya geçtiniz", "basari");
-                        } else if (e.key === 'ArrowRight') {
+                            showAlert("Bir önceki videoya geçtiniz", "basari");
+                        }
+                    } else if (e.key === 'ArrowRight') {
+                        if (videoContainer.style.display === 'block') {
                             document.getElementById('sonraki-video').click();
-                            showAlert("bir sonraki videoya geçtiniz", "basari");
+                            showAlert("Bir sonraki videoya geçtiniz", "basari");
                         }
                     }
                 });
@@ -1390,9 +1390,7 @@
                 if (videosData.length === 0) return;
                 
                 let newIndex = currentVideoIndex - 1;
-                if (newIndex < 0) {
-                    newIndex = videosData.length - 1; // Son videoya git
-                }
+                if (newIndex < 0) {newIndex = videosData.length - 1;} // Son videoya git
                 
                 // URL'yi güncelle
                 const params = new URLSearchParams(window.location.search);
@@ -1438,11 +1436,8 @@
                 const video = videosData[index];
                 
                 // Listede aktif durumu güncelle
-                document.querySelectorAll('.video-item').forEach(item => {
-                    item.classList.remove('active');
-                });
+                document.querySelectorAll('.video-item').forEach(item => {item.classList.remove('active');});
                 document.querySelector(`.video-item[data-index="${index}"]`).classList.add('active');
-                
                 // Önce kalite seçiciyi oluştur (böylece varsayılan kalite seçili gelecek)
                 renderQualitySelector(video);
                 
@@ -1452,8 +1447,7 @@
                 
                 if (qualitySelect) {
                     videoUrl = qualitySelect.value;
-                } else {
-                    // Kalite seçici yoksa, ayarlardaki kaliteye göre URL seç
+                } else {// Kalite seçici yoksa, ayarlardaki kaliteye göre URL seç
                     const settings = loadSettings();
                     switch(settings.videoQuality) {
                         case '1080p': videoUrl = video.url1080p; break;
@@ -1500,7 +1494,6 @@
                         const option = document.createElement('option');
                         option.value = quality.url;
                         option.textContent = quality.name;
-                        
                         // Ayarlardaki video kalitesi ile eşleşen seçeneği seçili yap
                         if (quality.name === settings.videoQuality && !defaultSelected) {
                             option.selected = true;
@@ -1513,19 +1506,15 @@
                 if (hasQuality) {
                     select.addEventListener('change', function() {
                         const selectedUrl = this.value;
-                        if (selectedUrl) {
-                            // Video elementini tamamen yeniden oluşturmak yerine src özelliğini değiştir
+                        if (selectedUrl) {// Video elementini tamamen yeniden oluşturmak yerine src özelliğini değiştir
                             const videoElement = document.getElementById('currentVideo');
                             videoElement.innerHTML = '';
-                            
                             const sourceElement = document.createElement('source');
                             sourceElement.src = getEmbedUrl(selectedUrl);
                             sourceElement.type = 'video/mp4';
-                            
                             videoElement.appendChild(sourceElement);
                             videoElement.load();
                             videoElement.play().catch(e => console.log("Video oynatma hatası:", e));
-                            
                             // Seçilen kaliteyi ayarlara kaydet
                             const selectedQuality = this.options[this.selectedIndex].text;
                             changeSetting('videoQuality', selectedQuality);
