@@ -21,7 +21,7 @@
         <meta name="theme-color" content="#3498db">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic,600&subset=latin,latin-ext">
         <style>
-            :root{--primary:#4361ee;--secondary:#3f37c9;--success:#4cc9f0;--danger:#f72585;--warning:#f8961e;--dark:#1d3557;--ldark:#48494b;--light:#f8f9fa;--gray:#6c757d;--transparent:transparent;}
+            :root{--primary:#4361ee;--secondary:#3f37c9;--success:#4cc9f0;--danger:#f72585;--warning:#f8961e;--dark:#1d3557;--ldark:#48494b;--light:#f8f9fa;--gray:#6c757d;--slate:#cbd5e1;--transparent:transparent;}
             *{box-sizing:border-box;margin:0;padding:0;font-family: 'Source Sans Pro', sans-serif;font-size: 16px; font-weight: normal;font-display: swap;line-height: 1.618;letter-spacing: .0125rem;}
             body{text-transform:lowercase;background:#f1f5f9;min-height:100vh;padding-top:70px;display:flex;flex-direction:column;align-items:center;color:#333}
             .container{display:flex;flex-direction:column;align-items:center;margin:0 auto;width:100%;max-width:1080px;background:#fff;border-radius: 7px;box-shadow: 0 4px 15px rgba(0, 0, 0, .1);padding:30px;margin-top:20px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);position:relative;overflow:hidden}        
@@ -42,7 +42,7 @@
             .dropdown-content a:hover{background-color:#ddd}
             .dropdown:hover .dropdown-content{display:block}
             .egitimler{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;margin-top:30px}
-            .card{width:300px;height:160px;position:relative;border-radius: 7px;overflow:hidden;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.2);transition:transform .2s;background:#000}
+            .card{width:300px;height:160px;position:relative;border-radius: 7px;border: 1px solid rgba(255, 255, 255, .3);overflow:hidden;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.2);transition:transform .2s;background:#000}
             .card:hover{transform:scale(1.03)}
             .card img{width:100%;height:100%;object-fit:cover;display:block}
             .card-text{position:absolute;bottom:0;width:100%;padding:10px;color:#fff;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);font-size:18px;background:#00000091;font-weight:600;text-shadow:1px 1px 4px rgba(0,0,0,.9);box-sizing:border-box}
@@ -50,8 +50,8 @@
             textarea:focus{border-color:#4caf50;box-shadow:0 4px 15px rgba(76,175,80,.2);outline:0}
             .url-input{flex:1;padding:16px 20px;border:2px solid #e0e0e0;border-radius: 7px;font-size:17px;transition:all .3s;box-shadow:inset 0 1px 3px rgba(0,0,0,.1);width:97%;margin:20px 0}
             .url-input:focus{border-color:var(--primary);outline:0;box-shadow:0 0 0 3px rgba(67,97,238,.2)}
-            button{padding:0px 10px;height: 40px;font-size:15px;text-transform:lowercase;background:linear-gradient(135deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius: 6px;cursor:pointer;transition:all .3s ease;box-shadow:0 4px 15px rgba(76,175,80,.3);display:flex;align-items:center;}
-            button:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(76,175,80,.4)}
+            button{padding:0px 10px;height: 40px;font-size:15px;text-transform:lowercase;color:#fff;background: var(--gray);border:none;border-radius: 6px;cursor:pointer;transition:all .3s ease;box-shadow: 0 4px 15px #00000025;display:flex;align-items:center;}
+            button:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0, 0, 0, 0.4)}
             .video-container{display:none;width:100%;animation:fadeIn .5s ease}
             .br-full {border-radius: 9999px;}
             @keyframes fadeIn{
@@ -61,22 +61,26 @@
             .video-panel{display:flex;width:100%;gap:25px}
             .video-list{flex:1;min-width:350px;max-width: 500px;padding-right:20px;overflow-y:auto;}
             .video-player{flex:3;}
-            .video-item{background-color:#0000000c;display:flex;align-items:center;margin-bottom:15px;padding:5px;border-radius: 7px;cursor:pointer;transition:all .3s ease;border:1px solid #f0f0f0}
+            .video-item{background-color:#0000000c;display:flex;align-items:center;margin-bottom:10px;padding:5px;border-radius: 7px;cursor:pointer;transition:all .3s ease;border:1px solid #f0f0f0}
             .video-item:hover{background-color:#00000015;transform:translateX(5px);border-color:#4caf50}
             .video-item.active{background-color:#4caf5010;border-left:4px solid #4caf50}
+            .video-item-info {display:flex;flex-direction:row;width: 100%;}
+            .video-duration {font-size: 13px;color: #666;width: fit-content;padding: 0px 5px;}
             .video-thumbnail{width:100px;height:60px;object-fit:cover;border-radius: 7px;margin-right:15px;box-shadow:0 3px 6px rgba(0,0,0,.1)}
-            .video-title{font-weight:500;font-size:16px;line-height: 1.1;flex-grow:1;color:#2c3e50}
+            .video-title{font-weight:500;font-size:15px;line-height: 1.1;flex-grow:1;color:#2c3e50}
+            .video-title-no{font-weight:600;font-size:15px;line-height: 1.1;color:#2c3e50}
             .current-video{border-radius: 7px;overflow:hidden;width:100%}
             .current-video iframe,.current-video video{width:100%;height:465px;border:none;border-radius: 7px;display:block;object-fit:cover}
             .current-video source{width:100%;height:465px;border:none;border-radius: 4px}
-            .video-info h2{font-weight:700;font-size:18px;margin-top:0;color:#2c3e50;border-bottom:2px solid #4caf50;padding-bottom:10px;margin-bottom:20px}
+            .video-info {display:flex;flex-direction:column;width: 100%;}
+            .video-info h2{font-weight:600;font-size:17px;margin-top:0;color:#2c3e50;border-bottom:2px solid #4caf50;padding-bottom:10px;margin-bottom:20px}
             .video-info p{color:#555;line-height:1.6;white-space:pre-line;font-size:16px;background:#f9f9f9;padding:20px;border-radius:0;border-left:4px solid #4caf50}
             .quality-selector{margin-top:10px;margin-bottom:10px;display:flex;align-items:center;gap:15px;background:#f0f7ff;padding:15px;border-radius: 4px}
             .quality-selector label{font-weight:600;color:#2c3e50}
-            .quality-selector select{padding:10px 15px;border-radius: 7px;border:2px solid #ddd;font-size:16px;background:#fff;box-shadow:0 3px 6px rgba(0,0,0,.05);transition:all .3s ease}
-            .quality-selector select:focus{border-color:#2196f3;outline:0}
-            .controls{display: flex;flex-direction: column;align-items: flex-end;position: fixed;bottom: 90px;right: 30px;z-index: 99;gap: 10px;max-width:100%}
-            .page-title{font-size:19px;margin-bottom:25px;text-align:left;font-weight:600;color:#2c3e50;display:flex;align-items:center;gap:15px;padding-bottom:15px;border-bottom:2px solid #eee}
+            .quality-selector select{padding:10px 32px 10px 10px;border-radius: 7px;height: 40px;border:none;font-size:15px;line-height: 1.6;outline: 0;background:var(--slate);box-shadow: #00000025;transition:all .3s ease;background-position: 100%;background-repeat: no-repeat;-webkit-appearance: none !important;appearance: none !important;-moz-appearance: none !important;background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAdVBMVEUAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhMdQaAAAAJ3RSTlMAAAECAwQGBwsOFBwkJTg5RUZ4eYCHkJefpaytrsXGy8zW3+Do8vNn0bsyAAAAYElEQVR42tXROwJDQAAA0Ymw1p9kiT+L5P5HVEi3qJn2lcPjtIuzUIJ/rhIGy762N3XaThqMN1ZPALsZPEzG1x8LrFL77DHBnEMxBewz0fJ6LyFHTPL7xhwzWYrJ9z22AqmQBV757MHfAAAAAElFTkSuQmCC);}
+            .quality-selector select:focus{outline: 0;box-shadow:0 6px 20px rgba(111, 137, 255, 0.4)}
+            .quality-selector select:hover{box-shadow:0 6px 20px rgba(0, 0, 0, 0.4)}
+            .page-title{font-size:18px;margin-bottom:25px;text-align:left;font-weight:600;color:#2c3e50;display:flex;align-items:center;gap:15px;padding-bottom:15px;border-bottom:2px solid #eee}
             .w-100{width:100%}
             .mt0{margin-top:0}
             .mr10{margin-right:10px}
@@ -109,16 +113,17 @@
             .alert-info    { background: var(--primary); }
             .alert-dark    { background: var(--dark); }
             /* Background renk sınıfları */
-            .bg-primary   { background-color: var(--primary) !important; }
-            .bg-secondary { background-color: var(--secondary) !important; }
-            .bg-success   { background-color: var(--success) !important; }
-            .bg-danger    { background-color: var(--danger) !important; }
-            .bg-warning   { background-color: var(--warning) !important; }
-            .bg-dark      { background-color: var(--dark) !important; }
-            .bg-ldark     { background-color: var(--ldark) !important; }
-            .bg-light     { background-color: var(--light) !important; }
-            .bg-gray      { background-color: var(--gray) !important; }
-            .bg-transparent      { background-color: var(--transparent) !important; }
+            .bg-primary   { background: var(--primary) !important; }
+            .bg-secondary { background: var(--secondary) !important; }
+            .bg-success   { background: var(--success) !important; }
+            .bg-danger    { background: var(--danger) !important; }
+            .bg-warning   { background: var(--warning) !important; }
+            .bg-dark      { background: var(--dark) !important; }
+            .bg-ldark     { background: var(--ldark) !important; }
+            .bg-light     { background: var(--light) !important; }
+            .bg-gray      { background: var(--gray) !important; }
+            .bg-slate      { background: var(--slate) !important; }
+            .bg-transparent      { background: var(--transparent) !important; }
             /* Yazı rengi sınıfları */
             .c-primary   { color: var(--primary) !important; }
             .c-secondary { color: var(--secondary) !important; }
@@ -130,7 +135,7 @@
             .c-light     { color: var(--light) !important; }
             .c-gray      { color: var(--gray) !important; }
             .c-transparent      { color: var(--transparent) !important; }
-            .about-me-container {max-width: 800px;}
+            .maxw800 {max-width: 800px;}
             .about-me{background:rgba(0, 0, 0, 0.027);backdrop-filter:blur(10px);box-shadow:0 2px 6px rgba(0,0,0,.1);padding:30px;border-radius: 7px;display:flex;flex-direction:row;gap:20px}
             .about-avatar img{width:130px;height:130px;border-radius:4px;border:3px solid var(--primary);box-shadow:0 0 10px rgba(0,0,0,.2)}
             .about-info h2{margin:0;font-size:24px;color:var(--dark)}
@@ -161,12 +166,25 @@
             .no-results{text-align:center;width:100%;padding:30px;font-size:18px;color:var(--gray)}
             .card.hidden{display:none}
 
+            .setting-card{padding:15px;margin-bottom:15px;background: rgba(0, 0, 0, 0.027);backdrop-filter: blur(10px);box-shadow: 0 2px 6px rgba(0, 0, 0, .1);border-radius: 7px;width: 100%;}
+            .setting-card h4{margin-top:0;margin-bottom:10px;color:var(--text-color)}
+            .setting-options{display:flex;flex-wrap:wrap;gap:8px}
+            .setting-option{background:var(--gray);border:none;border-radius:4px;padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s}
+            .setting-option.active{background:var(--primary);color:#fff}
+            .setting-reset{background:var(--danger);color:#fff;border:none;border-radius:4px;padding:10px 15px;cursor:pointer;display:flex;align-items:center;gap:5px;width:fit-content;justify-content:center;transition:all .2s}
+
+            .flex {display: flex;}
+            .row{flex-direction: row;}
+            .col {flex-direction: column;}
+            .center {align-items: center;justify-content: center;}
+
             @media (min-width:900px){
                 .nav-mobil{display: none;}
                 .alert{top:90px;right:20px;transform:translateY(-20px)}
                 .alert.show{opacity:1;transform:translateY(0);pointer-events:auto}
                 .mr5-w{margin-right:5px}
                 .hidden-w {display: none;}
+                .w40-w {width: 40px;}
             }
 
             @media (max-width:899px){
@@ -179,10 +197,8 @@
                 .page-title{font-size:15px;margin-bottom: 5px;width: 100%;text-align:center;padding-top: 10px;padding-bottom: 5px;justify-content:center;border-bottom: 0px solid #eee;}
                 .video-info h2{font-size:16px;margin-bottom: 10px;}
                 .video-info p{font-size:15px}
-                .video-item {margin-bottom: 10px;}
                 .container{padding:5px;}
                 .current-video source{height:200px}
-                .controls{flex-direction:row;gap:0;position:initial;margin:0;margin-top:10px;width:100%;margin-left:20px;margin-right:20px;justify-content:space-between;padding-left:10px;padding-right:10px}
                 button{width:100%;justify-content:center}
                 .quality-selector{width:100%;flex-direction:column;align-items:stretch;}
                 .quality-selector select{width:100%}
@@ -204,7 +220,6 @@
                 .mt10-m {margin-top: 10px;}
                 .w40-m {width: 40px;}
                 .delete-favorite{opacity: 1;width: fit-content;}
-             
             }
             /* DARK */
             body.dark{background:linear-gradient(135deg,#121212,#000,#121212);color:#f0f0f0}
@@ -219,17 +234,18 @@
             body.dark .video-item{border:1px solid #ffffff1e}
             body.dark .video-item:hover{background-color:#00000015;transform:translateX(5px);border-color:#4caf50}
             body.dark .video-item.active{background-color:#4caf5010;border-left:4px solid #4caf50}
-            body.dark .video-title{color:#f0f0f0}
+            body.dark .video-title, body.dark .video-title-no {color:#f0f0f0}
+            body.dark .video-duration{color:#adadad}
             body.dark .video-info p{background:#2c2c2c;color:#ddd}
             body.dark .quality-selector{background:#2c2c2c}
-            body.dark .quality-selector select{background:#444;color:#fff}
+            body.dark .quality-selector select{background:#475569;color:#fff}
             body.dark .url-input,body.dark textarea{background:#333;color:#fff;border:1px solid #555}
             body.dark footer{color:#ccc}
             body.dark .category-text{background-color:#444;color:#fff}
             body.dark .page-title {color:#f0f0f0;border-bottom:2px solid #434343;}
             body.dark .video-info h2{color:#f0f0f0;}
             body.dark #top-btn{background:#999999;color:#000}
-            body.dark .nav-mobil{background-color:#444;color:#fff}
+            body.dark .nav-mobil{background-color:#171717;color:#fff}
             body.dark .alert{background:var(--ldark);color:var(--light)}
             body.dark .about-me {background: rgb(255 255 255 / 13%);color: #f0f0f0;}
             body.dark .about-info p, body.dark .about-info h2, body.dark .commit-list h3{color: #f0f0f0;}
@@ -237,13 +253,15 @@
             body.dark .extended-commit-description-container {color: #aaa;border-color: #555;}
             body.dark .favorites-header button:hover{background-color:rgba(255,255,255,.1)}
             body.dark .commit-list li strong {color: #8eb5ff;}
+            body.dark .bg-slate { background: #475569!important; }
+            body.dark .setting-card {background: rgb(255 255 255 / 13%);color: #f0f0f0;}
             /* ICON */
-            .gg-chevron-double-right{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:22px;height:22px}
-            .gg-chevron-double-right::after,.gg-chevron-double-right::before{content:"";display:block;box-sizing:border-box;position:absolute;width:8px;height:8px;border-right:2px solid;border-top:2px solid;transform:rotate(45deg);top:7px;right:6px}
-            .gg-chevron-double-right::after{right:11px}
-            .gg-chevron-double-left{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:22px;height:22px}
-            .gg-chevron-double-left::after,.gg-chevron-double-left::before{content:"";display:block;box-sizing:border-box;position:absolute;width:8px;height:8px;border-left:2px solid;border-bottom:2px solid;transform:rotate(45deg);top:7px;left:6px}
-            .gg-chevron-double-left::after{left:11px}
+            .gg-play-backwards{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:3px;height:10px;background:#000;transform: translateX(2px);}
+            .gg-play-backwards::after,.gg-play-backwards::before{content:"";display:block;box-sizing:border-box;position:absolute;width:0;height:10px;border-top:5px solid transparent;border-bottom:5px solid transparent;border-right:6px solid #000;right:-7px}
+            .gg-play-backwards::before{right:-14px}
+            .gg-play-forwards{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:3px;height:10px;background:#000;transform: translateX(15px);}
+            .gg-play-forwards::after,.gg-play-forwards::before{content:"";display:block;box-sizing:border-box;position:absolute;width:0;height:10px;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:6px solid #000;left:-7px}
+            .gg-play-forwards::before{left:-14px}
             .gg-flag-alt{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:22px;height:20px;border-left:2px solid;transform: translateX(4px);}
             .gg-flag-alt::after,.gg-flag-alt::before{content:"";display:block;box-sizing:border-box;position:absolute;border-bottom:2px solid}
             .gg-flag-alt::before{width:12px;height:10px;border-top:2px solid;border-right:2px solid transparent}
@@ -259,15 +277,9 @@
             .gg-sun::after,.gg-sun::before{content:"";display:block;box-sizing:border-box;position:absolute;width:24px;height:2px;border-right:4px solid;border-left:4px solid;left:-6px;top:5px}
             .gg-sun::before{transform:rotate(-45deg)}
             .gg-sun::after{transform:rotate(45deg)}
-            .gg-block{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:22px;height:22px;border:2px solid;border-radius:100%}
-            .gg-block::before{content:"";display:block;box-sizing:border-box;position:absolute;width:14px;height:2px;background:currentColor;border-radius:5px;transform:rotate(-45deg);top:8px;left:2px}
-            .gg-check{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:22px;height:22px;border:2px solid transparent;border-radius:100px}
-            .gg-check::after{content:"";display:block;box-sizing:border-box;position:absolute;left:3px;top:-1px;width:6px;height:10px;border-width:0 2px 2px 0;border-style:solid;transform-origin:bottom left;transform:rotate(45deg)}
             .gg-close{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:22px;height:22px;border:2px solid transparent;border-radius:40px}
-            .gg-close::after,.gg-close::before{content:"";display:block;box-sizing:border-box;position:absolute;width:16px;height:2px;background:currentColor;transform:rotate(45deg);border-radius:5px;top:8px;left:1px}
+            .gg-close::after,.gg-close::before{content:"";display:block;box-sizing:border-box;position:absolute;width:16px;height:2px;background:#000;transform:rotate(45deg);border-radius:5px;top:8px;left:1px}
             .gg-close::after{transform:rotate(-45deg)}
-            .gg-log-off{box-sizing:border-box;position:relative;display:block;border-radius:16px;border:2.5px solid;transform:scale(var(--ggs,1));width:22px;height:22px;border-top:2px solid transparent;padding:6px}
-            .gg-log-off::before{content: "";display: block;box-sizing: border-box;position: absolute;border-radius: 3px;height: 8px;width: 2px;background: currentColor;left: 8px;top: 0px;}
             .gg-arrow-up{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:22px;height:22px}
             .gg-arrow-up::after,.gg-arrow-up::before{content:"";display:block;box-sizing:border-box;position:absolute;top:4px}
             .gg-arrow-up::after{width:8px;height:8px;border-top:2px solid;border-left:2px solid;transform:rotate(45deg);left:7px}
@@ -282,7 +294,22 @@
             .gg-menu::after{top:6px}
             .gg-search{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:16px;height:16px;border:2px solid;border-radius:100%;margin-left:-4px;margin-top:-4px;transform: translateX(28px);}
             .gg-search::after{content:"";display:block;box-sizing:border-box;position:absolute;border-radius:3px;width:2px;height:8px;background:currentColor;transform:rotate(-45deg);top:10px;left:12px}
-
+            .gg-heart,.gg-heart::after{border:2px solid #000;border-top-left-radius:100px;border-top-right-radius:100px;width:10px;height:8px;border-bottom:0}
+            .gg-heart{box-sizing:border-box;position:relative;transform: rotate(-45deg) translateX(1.5px) translateY(-2.7px);display:block}
+            .gg-heart::after,.gg-heart::before{content:"";display:block;box-sizing:border-box;position:absolute;}
+            .gg-heart::after{right:-9px;transform:rotate(90deg);top:5px}
+            .gg-heart::before{width:10px;height:11px;border-left:2px solid #000;border-bottom:2px solid #000;left:-2px;top:3px}
+            .gg-heart-red,.gg-heart-red::after,.gg-heart-red::before {background: var(--danger);border-color: var(--danger);}
+            .gg-options{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:10px;height:2px;box-shadow:-3px 4px 0 0,3px -4px 0 0;transform: translateX(4px);}
+            .gg-options::after,.gg-options::before{content:"";display:block;box-sizing:border-box;position:absolute;width:8px;height:8px;border:2px solid;border-radius:100%}
+            .gg-options::before{top:-7px;left:-4px}
+            .gg-options::after{bottom:-7px;right:-4px}
+            /* ICON-DARK */
+            body.dark .gg-heart,  body.dark .gg-heart::after{border-color:#fff;}
+            body.dark .gg-heart::before{border-left-color:#fff;border-bottom-color:#fff;}
+            body.dark .gg-play-backwards, body.dark .gg-play-forwards,  body.dark .gg-close::after, body.dark .gg-close::before{background: #fff;}
+            body.dark .gg-play-backwards::after, body.dark .gg-play-backwards::before {border-right-color:#fff;}
+            body.dark .gg-play-forwards::after, body.dark .gg-play-forwards::before {border-left-color:#fff;}
         </style>
     </head>
     <body>
@@ -296,7 +323,7 @@
                 <button class="nav-button" onclick="fonk('kategoriler/yeni-eklenenler')">Yeni</button>
                 <button class="nav-button" onclick="fonk('kategoriler/en-cok-izlenenler')">Popüler</button>
                 <button class="nav-button" onclick="fonk('egitimler')">Hepsi</button>
-                
+                <button class="nav-button" onclick="fonk('kategoriler/cok-yakinda')">Yakında</button>
                 <div class="dropdown">
                     <button id="success-button" onclick="toggleS()" class="nav-button">Success</button>
                     <div class="dropdown-content" id="success-drop">
@@ -329,7 +356,7 @@
             <div class="head-sag">
                 <button class="mr10 w40 hidden-w" onclick="toggleMenu()"><span class="gg-menu"></span></button>
                 <button class="mr10" id="favBtn" onclick="favMode()"><span class="gg-flag-alt"></span></button>
-                <button class="mr10" id="themeToggleBtn" onclick="toggleDarkMode()"><span class="gg-moon"></span></button>
+                <button class="mr10 w40" id="ayarBtn" onclick="ayarMode()"><span class="gg-options"></span></button>
                 <button class="mr10" id="meBtn" onclick="meMode()"><span class="gg-info"></span></button>
             </div>
 
@@ -356,10 +383,10 @@
                         <video class="current-video" id="currentVideo" controls autoplay></video>
                         <div class="quality-selector">
                             <div id="qualitySelector"></div>
-                            <button class="alert-warning" id="starBtn">favorilere ekle</button>
-                            <button class="" id="onceki-video">önceki</button>
-                            <button class="" id="sonraki-video">sonraki</button>
-                            <button class="alert-danger" id="resetBtn">kapat</button>
+                            <button class="w40-w bg-slate" id="starBtn"><span class="gg-heart"></span></button>
+                            <button class="w40-w bg-slate" id="onceki-video"><span class="gg-play-backwards"></span></button>
+                            <button class="w40-w bg-slate" id="sonraki-video"><span class="gg-play-forwards"></span></button>
+                            <button class="bg-slate" id="resetBtn"><span class="gg-close"></span></button>
                         </div>
                         <div class="video-info" id="videoInfo"></div>
 
@@ -367,7 +394,7 @@
                 </div>
             </div>
 
-            <div id="about-me-container" style="display: none;" class="mt20 about-me-container">
+            <div id="about-me-container" style="display: none;" class="mt20 maxw800">
                 <div class="about-me">
                     <div class="about-avatar">
                     <img src="https://github.com/ckoglu.png" alt="ckoglu GitHub Avatarı">
@@ -393,12 +420,56 @@
                 <div class="egitimler" id="favorites-list"></div>
             </div>
 
+            <div id="settings-container" class="w-100 flex col center" style="display:none">
+                <div class="favorites-header">
+                    <h3 class="category-text mt0 mt10-m">ayarlarım</h3>
+                </div>
+                <div class="maxw800 flex center col" id="settings-list">
+                    <div class="setting-card">
+                        <h4>Tema Ayarları</h4>
+                        <div class="setting-options">
+                            <button class="setting-option" onclick="changeSetting('theme', 'light')"><span class="gg-sun"></span> Açık Tema</button>
+                            <button class="setting-option" onclick="changeSetting('theme', 'dark')"><span class="gg-moon"></span> Koyu Tema</button>
+                        </div>
+                    </div>
+                    <div class="setting-card">
+                        <h4>Başlangıç Sayfası</h4>
+                        <div class="setting-options">
+                            <button class="setting-option" onclick="changeSetting('startPage', 'kategoriler/yeni-eklenenler')">Yeni Eklenenler</button>
+                            <button class="setting-option" onclick="changeSetting('startPage', 'kategoriler/en-cok-izlenenler')">En Çok İzlenenler</button>
+                            <button class="setting-option" onclick="changeSetting('startPage', 'egitimler')">Tüm Eğitimler</button>
+                            <button class="setting-option" onclick="changeSetting('startPage', 'kategoriler/cok-yakinda')">Çok Yakında</button>
+                        </div>
+                    </div>
+                    <div class="setting-card">
+                        <h4>Video Kalitesi</h4>
+                        <div class="setting-options">
+                            <button class="setting-option" onclick="changeSetting('videoQuality', '1080p')">1080p (Full HD)</button>
+                            <button class="setting-option" onclick="changeSetting('videoQuality', '720p')">720p (HD)</button>
+                            <button class="setting-option" onclick="changeSetting('videoQuality', '540p')">540p</button>
+                            <button class="setting-option" onclick="changeSetting('videoQuality', '360p')">360p</button>
+                        </div>
+                    </div>
+                    <div class="setting-card">
+                        <h4>Otomatik Geçiş</h4>
+                        <div class="setting-options">
+                            <button class="setting-option" onclick="changeSetting('autoNext', 'true')">açık</button>
+                            <button class="setting-option" onclick="changeSetting('autoNext', 'false')">kapalı</button>
+                        </div>
+                    </div>
+               
+                    <button class="setting-reset" onclick="resetSettings()">Ayarları Sıfırla</button>
+             
+                </div>
+            </div>
+
         </div>
 
         <div class="nav-mobil hidden" id="nav-mobil">
             <button class="nav-button" onclick="fonk('kategoriler/yeni-eklenenler');">Yeni Eklenenler</button>
             <button class="nav-button" onclick="fonk('kategoriler/en-cok-izlenenler');">En Çok İzlenenler</button>
             <button class="nav-button" onclick="fonk('egitimler');">Tüm Eğitimler</button>
+            <button class="nav-button" onclick="fonk('kategoriler/cok-yakinda');">Çok yakında</button>
                 <hr>
             <button class="gray-button" onclick="fonk('kategoriler/culture/sinema');">Sinema</button>
             <button class="gray-button" onclick="fonk('kategoriler/culture/tarih');">Tarih</button>
@@ -421,24 +492,91 @@
 
         </div>
 
-        <div class="controls" id="controls">
-           
-        </div>
-
-        <div id="top-btn-wrapper">
-            <button class="alert-info br-full" id="top-btn" onclick="topFunction()" ><span class="gg-arrow-up"></span></button>
-        </div>
-        
-        <footer>
-            <p>Hayatın Her Alanından En İyi Eğitim Video Serileri &copy; <script>document.write(new Date().getFullYear());</script> | by <strong><u>ckoglu</u></strong></p>
-        </footer>
-
+        <div id="top-btn-wrapper"><button class="bg-gray" id="top-btn" onclick="topFunction()" ><span class="gg-arrow-up"></span></button></div>
+        <footer><p>Hayatın Her Alanından En İyi Eğitim Video Serileri &copy; <script>document.write(new Date().getFullYear());</script> | by <strong><u>ckoglu</u></strong></p></footer>
         <textarea id="sourceCodeInput" class="hidden"></textarea><button id="generateBtn" class="hidden"></button>
-        
-        <div id="alert" class="alert hidden">
-            <span id="alertIcon"></span>
-            <span id="alertMessage"></span>
-        </div>
+        <div id="alert" class="alert hidden"><span id="alertIcon"></span><span id="alertMessage"></span></div>
+
+        <script>
+            // Ayarları yönetmek için yardımcı fonksiyonlar
+            const defaultSettings = {
+                theme: 'light',
+                startPage: 'kategoriler/yeni-eklenenler',
+                videoQuality: '720p',
+                autoNext: 'false'
+            };
+
+            // Ayarları yükle
+            function loadSettings() {
+                let settings = localStorage.getItem('appSettings');
+                if (!settings) {
+                    settings = defaultSettings;
+                    localStorage.setItem('appSettings', JSON.stringify(settings));
+                } else {
+                    settings = JSON.parse(settings);
+                    // Eksik ayarları default ile tamamla
+                    settings = {...defaultSettings, ...settings};
+                }
+                return settings;
+            }
+
+            // Ayar değiştirme fonksiyonu
+            function changeSetting(key, value) {
+                const settings = loadSettings();
+                settings[key] = value;
+                localStorage.setItem('appSettings', JSON.stringify(settings));
+                applySettings();
+                showAlert(`Ayar güncellendi: ${key} = ${value}`, "basari");
+            }
+
+            // Ayarları uygula
+            function applySettings() {
+                const settings = loadSettings();
+                // Tema ayarı
+                if (settings.theme === 'dark') {
+                    document.body.classList.add('dark');
+                } else {
+                    document.body.classList.remove('dark');
+                }
+                // Video kalitesi ayarı (selectVideo fonksiyonunda kullanılacak)
+                window.defaultVideoQuality = settings.videoQuality;
+                // Otomatik geçiş ayarı
+                window.autoNextVideo = settings.autoNext === 'true';
+                // Ayarlar panelinde aktif butonları güncelle
+                updateActiveSettings();
+            }
+
+            // Ayarlar panelindeki aktif seçenekleri güncelle
+            function updateActiveSettings() {
+                const settings = loadSettings();
+                // Tüm ayar butonlarını temizle
+                document.querySelectorAll('.setting-option').forEach(btn => {btn.classList.remove('active');});
+                // Aktif ayarları işaretle
+                document.querySelectorAll(`.setting-option[onclick*="'theme', '${settings.theme}'"]`).forEach(btn => {btn.classList.add('active');});
+                document.querySelectorAll(`.setting-option[onclick*="'startPage', '${settings.startPage}'"]`).forEach(btn => {btn.classList.add('active');});
+                document.querySelectorAll(`.setting-option[onclick*="'videoQuality', '${settings.videoQuality}'"]`).forEach(btn => {btn.classList.add('active');});
+                document.querySelectorAll(`.setting-option[onclick*="'autoNext', '${settings.autoNext}'"]`).forEach(btn => {btn.classList.add('active');});
+            }
+
+            // Ayarları sıfırla
+            function resetSettings() {
+                localStorage.setItem('appSettings', JSON.stringify(defaultSettings));
+                applySettings();
+                showAlert("Tüm ayarlar varsayılan değerlere sıfırlandı", "bilgi");
+            }
+
+            // Sayfa yüklendiğinde ayarları uygula
+            document.addEventListener('DOMContentLoaded', () => {
+                applySettings();
+                
+                // Video bitişinde otomatik geçiş kontrolü
+                document.getElementById('currentVideo').addEventListener('ended', function() {
+                    if (window.autoNextVideo && videosData.length > 0) {
+                        document.getElementById('sonraki-video').click();
+                    }
+                });
+            });
+        </script>
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -504,13 +642,28 @@
         </script>
 
         <script>
+            async function ayarMode() {
+                document.getElementById('giris-panel').style.display = 'none';
+                document.getElementById('videoContainer').style.display = 'none';
+                document.getElementById('about-me-container').style.display = 'none';
+                document.getElementById('favorites-container').classList.add('hidden');
+                document.getElementById('nav-mobil').classList.remove('show');
+                document.getElementById('settings-container').style.display = 'flex';
+                pageTitle.textContent = '';
+                videosData = [];
+                document.querySelector('video').pause();
+
+                const newUrl = window.location.pathname + '?s=ayar';
+                history.pushState({}, '', newUrl);
+
+            }
             async function meMode() {
                 document.getElementById('giris-panel').style.display = 'none';
                 document.getElementById('videoContainer').style.display = 'none';
                 document.getElementById('about-me-container').style.display = 'block';
-                document.getElementById('controls').style.display = 'none';
                 document.getElementById('favorites-container').classList.add('hidden');
                 document.getElementById('nav-mobil').classList.remove('show');
+               document.getElementById('settings-container').style.display = 'none';
                 pageTitle.textContent = '';
                 videosData = [];
                 document.querySelector('video').pause();
@@ -640,17 +793,15 @@
             function favMode() {
                 const newUrl = window.location.pathname + '?s=fav';
                 history.pushState({}, '', newUrl);
-                
                 // Hide all other containers
                 document.getElementById('giris-panel').style.display = 'none';
                 document.getElementById('videoContainer').style.display = 'none';
                 document.getElementById('about-me-container').style.display = 'none';
-                document.getElementById('controls').style.display = 'none';
                 document.getElementById('nav-mobil').classList.remove('show');
-
+               document.getElementById('settings-container').style.display = 'none';
+                document.querySelector('video').pause();
                 // Show favorites container
                 document.getElementById('favorites-container').classList.remove('hidden');
-                
                 // Load favorites
                 displayFavorites();
             }
@@ -723,8 +874,8 @@
                 document.getElementById('favorites-container').classList.add('hidden');
                 document.getElementById('giris-panel').style.display = 'none';
                 document.getElementById('videoContainer').style.display = 'block';
-                document.getElementById('controls').style.display = 'flex';
                 document.getElementById('nav-mobil').classList.remove('show');
+               document.getElementById('settings-container').style.display = 'none';
             }
 
             // Update Star Button Appearance
@@ -744,7 +895,7 @@
                 const favorites = JSON.parse(localStorage.getItem('videoFavorites')) || [];
                 const isFavorited = favorites.some(fav => fav.id === videoId);
                 
-                document.getElementById('starBtn').textContent = isFavorited ? 'favorilerden çıkart' : 'favorilere ekle';
+                document.getElementById('starBtn').innerHTML = isFavorited ? '<span class="gg-heart gg-heart-red"></span>' : '<span class="gg-heart"></span>';
             }
 
             // Close Favorites View
@@ -766,12 +917,12 @@
             async function fonk(kategori = "kategoriler/yeni-eklenenler") {
 
                 const egitimlerDiv = document.getElementById('egitimler');
-                document.getElementById('controls').style.display = 'none';
                 document.getElementById('about-me-container').style.display = 'none';
                 egitimlerDiv.innerHTML = "yükleniyor...";
                 document.getElementById('giris-panel').style.display = 'block';
                 videoContainer.style.display = 'none';
                 document.getElementById('favorites-container').classList.add('hidden');
+               document.getElementById('settings-container').style.display = 'none';
                 videosData = [];
                 pageTitle.textContent = '';
                 document.querySelector('video').pause();
@@ -800,48 +951,91 @@
                     } else if (doc.querySelector('.css-14nqx6m')) {
                         container = doc.querySelector('.css-14nqx6m');
                         container.classList.add('bulunan-14nqx6m'); // örnek ek sınıf
-                    } else if (doc.querySelector('.css-te3jdc')) {
-                        container = doc.querySelector('.css-te3jdc');
-                        container.classList.add('bulunan-te3jdc'); // örnek ek sınıf
                     } else {
-                        showAlert("Uygun container bulunamadı!", "kritik");
+                        showAlert("uygun container bulunamadı!", "kritik");
                         document.getElementById('resetBtn').click();
                         return;
                     }
 
-                    const links = container.querySelectorAll('.chakra-link');
-                    egitimlerDiv.innerHTML = ''; // Temizle
+                    // ### COK YAKINDA ####
+                    if (kategori == "kategoriler/cok-yakinda"){
+                        const images = container.querySelectorAll('.chakra-image');
+                        egitimlerDiv.innerHTML = ''; // Temizle
 
-                    links.forEach(link => {
-                        const href = link.getAttribute('href') || '';
-                        const fullHref = href.startsWith('http') ? href : baseUrl + href;
-                        const img = link.querySelector('.chakra-image');
-                        const text = link.querySelector('.chakra-text');
-
-                        let imgAlt = '';
-                        if (text?.parentElement) {
-                            const nearbyImg = text.parentElement.querySelector('img');
-                            if (nearbyImg && nearbyImg !== img) {
-                                imgAlt = nearbyImg.getAttribute('alt')?.trim() || '';
+                        images.forEach(img => {
+                            if (!img?.src) return; // Görseli olmayanları atla
+                            const link = img.closest('.chakra-link');
+                            const wrapper = img.closest('.css-4uz8qn') || img.closest('div'); // daha geniş kapsam
+                            const textElements = wrapper?.querySelectorAll('.chakra-text') || [];
+                            let imgAlt = '';
+                            let label = '';
+                            if (textElements.length >= 2) {
+                                imgAlt = textElements[0].textContent.trim();
+                                label = textElements[1].textContent.trim();
+                            } else if (textElements.length === 1) {
+                                imgAlt = textElements[0].textContent.trim();
                             }
+                            const cardHTML = `<div class="card">
+                                <img src="${img.src}" alt="${imgAlt}">
+                                <div class="card-text">
+                                    <div style="font-weight: bold;">${label}</div>
+                                    ${imgAlt ? `<div style="font-size: 0.9em;">${imgAlt}</div>` : ''}
+                                </div>
+                            </div>`;
+                            egitimlerDiv.insertAdjacentHTML('beforeend', cardHTML);
+                        });
+                        // Hiç kart oluşturulmamışsa uyarı ver
+                        if (egitimlerDiv.innerHTML.trim() === '') {
+                            showAlert("Hiç uygun görsel bulunamadı!", "hata");
+                            document.getElementById('resetBtn').click();
                         }
+                        
+                    } else { // ### DIGER ULRLER ####
+                        
+                        const links = container.querySelectorAll('.chakra-link');
+                        egitimlerDiv.innerHTML = ''; // Temizle
 
-                        const imgSrc = img?.src || '';
-                        const label = text?.textContent?.trim() || '';
+                        const uniqueUrls = new Set(); // Benzersiz URL'leri takip etmek için
 
-                        const cardHTML = `<div class="card" onclick="fetchSourceCode('${fullHref}')">
-                            <img src="${imgSrc}" alt="${imgAlt}">
-                            <div class="card-text">
-                                <div style="font-weight: bold;">${label}</div>
-                                ${imgAlt ? `<div style="font-size: 0.9em;">${imgAlt}</div>` : ''}
-                            </div>
-                        </div>`;
-                        egitimlerDiv.insertAdjacentHTML('beforeend', cardHTML);
-                    });
+                        links.forEach(link => {
+                            const href = link.getAttribute('href') || '';
+                            const fullHref = href.startsWith('http') ? href : baseUrl + href;
+                            
+                            // Eğer bu URL daha önce eklendiyse atla
+                            if (uniqueUrls.has(fullHref)) {
+                                return;
+                            }
+                            uniqueUrls.add(fullHref); // URL'yi benzersizler listesine ekle
 
-                    if (!links.length) {
-                        showAlert("Hiç .chakra-link bulunamadı!", "hata");
-                        document.getElementById('resetBtn').click();
+                            const img = link.querySelector('.chakra-image');
+                            const text = link.querySelector('.chakra-text');
+                            let imgAlt = '';
+
+                            if (text?.parentElement) {
+                                const nearbyImg = text.parentElement.querySelector('img');
+                                if (nearbyImg && nearbyImg !== img) {
+                                    imgAlt = nearbyImg.getAttribute('alt')?.trim() || '';
+                                }
+                            }
+                            
+                            const imgSrc = img?.src || '';
+                            const label = text?.textContent?.trim() || '';
+                            
+                            const cardHTML = `<div class="card" onclick="fetchSourceCode('${fullHref}')" title="${label} | ${imgAlt}">
+                                <img src="${imgSrc}" alt="${imgAlt}">
+                                <div class="card-text">
+                                    <div style="font-weight: bold;">${label}</div>
+                                    ${imgAlt ? `<div style="font-size: 0.9em;">${imgAlt}</div>` : ''}
+                                </div>
+                            </div>`;
+                            
+                            egitimlerDiv.insertAdjacentHTML('beforeend', cardHTML);
+                        });
+
+                        if (!uniqueUrls.size) {
+                            showAlert("Hiç .chakra-link bulunamadı veya tüm linkler tekrar ediyor!", "hata");
+                            document.getElementById('resetBtn').click();
+                        }
                     }
 
                 } catch (error) {
@@ -890,32 +1084,36 @@
         </script>
 
         <script>
-            window.onload = function () {
+            window.onload = urlDegisimi;
+            window.addEventListener('popstate', urlDegisimi);
+
+            function urlDegisimi() {
                 const params = new URLSearchParams(window.location.search);
                 const egitimParam = params.get('e');
                 const kategori = params.get('k');
                 const sayfa = params.get('s');
+                const settings = loadSettings();
+                
                 if (egitimParam && egitimParam.trim() !== "") {
-                    // Eğer parametrede -- işareti varsa index yakala
+                    // Eğitim detay sayfası
                     let slug = egitimParam;
                     let videoIndex = 0;
                     if (egitimParam.includes('--')) {
                         const split = egitimParam.split('--');
                         slug = split[0];
-                        videoIndex = parseInt(split[1]) - 1; // çünkü array index'i 0'dan başlar
+                        videoIndex = parseInt(split[1]) - 1;
                     }
                     const fullUrl = `https://www.neoskola.com/egitimler/${slug}`;
                     fetchSourceCode(fullUrl, videoIndex);
                 } else if (kategori && kategori.trim() !== "") {
                     fonk(kategori);
                 } else if (sayfa && sayfa.trim() !== "") {
-                    if (sayfa === 'me') {
-                        meMode();
-                    } else if (sayfa === 'fav') {
-                        favMode();
-                    }
+                    if (sayfa === 'me') meMode();
+                    else if (sayfa === 'fav') favMode();
+                    else if (sayfa === 'ayar') ayarMode();
                 } else {
-                    fonk();
+                    // Varsayılan başlangıç sayfasını yükle
+                    fonk(settings.startPage);
                 }
             }
         </script>
@@ -963,9 +1161,9 @@
                 
                 const btn = document.getElementById('themeToggleBtn');
                 if (document.body.classList.contains('dark')) {
-                    btn.innerHTML = '<span class="gg-moon"></span>';  // Koyu temadaysa güneş simgesi (aydınlık butonu)
+                    // Koyu temadaysa güneş simgesi (aydınlık butonu)
                 } else {
-                    btn.innerHTML = '<span class="gg-sun"></span>';  // Açık temadaysa ay simgesi (koyu temaya geçiş) 
+                    // Açık temadaysa ay simgesi (koyu temaya geçiş) 
                 }
             }
 
@@ -1046,65 +1244,36 @@
                         
                         while (currentPos < contentSection.length) {
                             const idStart = contentSection.indexOf('"_id":', currentPos);
-                            const titleStart = contentSection.indexOf('"title":', idStart);
-                            const bodyStart = contentSection.indexOf('"body":', titleStart);
-                            const detailStart = contentSection.indexOf('"detail":', bodyStart);
-                            const thumbStart = contentSection.indexOf('"thumbnail":', currentPos);
+                            if (idStart === -1) break;
+                            const nextIdStart = contentSection.indexOf('"_id":', idStart + 1);
+                            const videoBlockEnd = nextIdStart !== -1 ? nextIdStart : contentSection.length;
+                            // Burada sadece idStart ile videoBlockEnd arasındaki substring ile çalış
+                            const videoBlock = contentSection.substring(idStart, videoBlockEnd);
+                            // Şimdi videoBlock içinde title, body, detail gibi alanları al
+                            const titleMatch = videoBlock.match(/"title":"(.*?)"/);
+                            const bodyMatch = videoBlock.match(/"body":"(.*?)"/);
+                            const detailMatch = videoBlock.match(/"detail":"(.*?)"/);
+                            const durationMatch = videoBlock.match(/"duration":"(.*?)"/);
+                            const thumbnailMatch = videoBlock.match(/"thumbnail":"(.*?)"/);
 
-                            // Gerekli verilerden biri bulunamazsa döngüyü bitir
-                            if (idStart === -1 || titleStart === -1) break;
+                            if(!titleMatch) break;
 
-                            if (bodyStart === -1) {
-                                const bodyStart = contentSection.indexOf('"keyTakes":', titleStart);
+                            const title = titleMatch[1];
+                            const body = (bodyMatch ? bodyMatch[1].replace(/\\n/g,'') : '') + (detailMatch ? detailMatch[1] : '');
+                            const duration = durationMatch ? durationMatch[1] : '';
+                            const thumbnail = thumbnailMatch ? thumbnailMatch[1] : '';
+                            // URL'leri videoBlock içinde ara
+                            const url360p = extractUrl(videoBlock, 0, '"url360p":');
+                            const url540p = extractUrl(videoBlock, 0, '"url540p":');
+                            const url720p = extractUrl(videoBlock, 0, '"url720p":');
+                            const url1080p = extractUrl(videoBlock, 0, '"url1080p":');
+
+                            if (title.includes('Ara Test')) {
+                                currentPos = videoBlockEnd;
+                                continue;
                             }
-
-                            // title verisini al
-                            const titleValueStart = contentSection.indexOf('"', titleStart + 8) + 1;
-                            const titleValueEnd = contentSection.indexOf('"', titleValueStart);
-                            const title = contentSection.substring(titleValueStart, titleValueEnd);
-
-                            if (title.includes('Ara Test')) {// currentPos'u titleValueEnd sonrası yap, yani atlayalım
-                                currentPos = titleValueEnd + 1;
-                                continue; // döngünün başına dön
-                            }
-
-                            // body verisini al
-                            const bodyValueStart = contentSection.indexOf('"', bodyStart + 7) + 1;
-                            const bodyValueEnd = contentSection.indexOf('"', bodyValueStart);
-                            let body = contentSection.substring(bodyValueStart, bodyValueEnd).replace(/\\n/g, '');
-
-                            // detail verisini al (artık thumbnail gibi kullanılacak)
-                            const detailValueStart = contentSection.indexOf('"', detailStart + 9) + 1;
-                            const detailValueEnd = contentSection.indexOf('"', detailValueStart);
-                            const detail = contentSection.substring(detailValueStart, detailValueEnd);
-
-                            body = body + detail;
-                            // Thumbnail verisini çıkar
-                            const thumbValueStart = contentSection.indexOf('"', thumbStart + 12) + 1;
-                            const thumbValueEnd = contentSection.indexOf('"', thumbValueStart);
-                            const thumbnail = contentSection.substring(thumbValueStart, thumbValueEnd);
-
-                            // URL'leri çıkar
-                            const url360p = extractUrl(contentSection, thumbValueEnd, '"url360p":');
-                            const url540p = extractUrl(contentSection, thumbValueEnd, '"url540p":');
-                            const url720p = extractUrl(contentSection, thumbValueEnd, '"url720p":');
-                            const url1080p = extractUrl(contentSection, thumbValueEnd, '"url1080p":');
-
-                            if (thumbStart === -1) break;
-                            // Video nesnesi oluştur
-                            videosData.push({
-                                title,
-                                body,
-                                thumbnail,
-                                url360p,
-                                url540p,
-                                url720p,
-                                url1080p
-                            });
-
-                            // Sonraki döngü için pozisyonu güncelle
-                            currentPos = Math.max(titleValueEnd, bodyValueEnd, detailValueEnd) + 1;
-                            
+                            videosData.push({ title, body, duration, thumbnail, url360p, url540p, url720p, url1080p });
+                            currentPos = videoBlockEnd;
                         }
                         
                         if (videosData.length === 0) {
@@ -1116,8 +1285,6 @@
                         renderVideoList();
                         document.getElementById('giris-panel').style.display = 'none';
                         videoContainer.style.display = 'block';
-                        document.getElementById('controls').style.display = 'flex';
-
                         if (typeof window.targetVideoIndex !== 'undefined' && window.targetVideoIndex >= 0 && window.targetVideoIndex < videosData.length) {
                             selectVideo(window.targetVideoIndex);
                         }
@@ -1132,12 +1299,14 @@
                 function extractUrl(content, startPos, key) {
                     const keyStart = content.indexOf(key, startPos);
                     if (keyStart === -1) return '';
-                    
-                    const urlStart = content.indexOf('"', keyStart + key.length) + 1;
-                    const urlEnd = content.indexOf('"', urlStart);
-                    return content.substring(urlStart, urlEnd);
+
+                    const urlStart = content.indexOf('"', keyStart + key.length);
+                    const urlEnd = content.indexOf('"', urlStart + 1);
+                    if (urlStart === -1 || urlEnd === -1) return '';
+
+                    return content.substring(urlStart + 1, urlEnd);
                 }
-                
+
                 function renderVideoList() {
                     videoList.innerHTML = '';
                     
@@ -1146,32 +1315,27 @@
                         videoItem.className = 'video-item';
                         videoItem.dataset.index = index;
                         
-                        videoItem.innerHTML = `<img src="${video.thumbnail}" alt="Thumbnail" class="video-thumbnail" onerror="this.src='https://via.placeholder.com/80x45?text=No+Thumbnail'">
-                            <span class="video-title">${index + 1}. ${video.title}</span>`;
-                        
+                         videoItem.innerHTML = `<img src="${video.thumbnail}" alt="Thumbnail" class="video-thumbnail"  onerror="this.src='https://via.placeholder.com/80x45?text=No+Thumbnail'">
+                                                <div class="video-item-info">
+                                                    <span class="video-title"><span class="video-title-no">${index + 1}.</span> ${video.title}</span><span class="video-duration">${video.duration}</span>
+                                                </div>`;
                         videoItem.addEventListener('click', function() {
                             selectVideo(index);
-
                             const params = new URLSearchParams(window.location.search);
                             const egitimParam = params.get('e');
-
                             let slug = egitimParam;
                             if (egitimParam && egitimParam.includes('--')) {
                                 slug = egitimParam.split('--')[0]; // sadece slug'ı al
                             }
-
                             const newUrl = `${window.location.pathname}?e=${slug}--${index + 1}`;
                             history.pushState({}, '', newUrl);
                             
                         });
-                        
                         videoList.appendChild(videoItem);
-
                     });
                     
-                    if (videosData.length > 0) {
-                        selectVideo(0);
-                    }
+                    if (videosData.length > 0) {selectVideo(0);}
+                    // console.log(videosData.map((v, i) => `${i} - ${v.title} - ${v.url720p}`));
                 }
                 
                 resetBtn.addEventListener('click', function() {
@@ -1179,9 +1343,10 @@
                     document.getElementById('egitimler').innerHTML ="yükleniyor...";
                     document.getElementById('giris-panel').style.display = 'block';
                     videoContainer.style.display = 'none';
-                    document.getElementById('controls').style.display = 'none';
                     document.getElementById('about-me-container').style.display = 'none';
                     document.getElementById('favorites-container').classList.add('hidden');
+                    document.getElementById('settings-container').classList.remove('show');
+                    document.getElementById('settings-container').classList.add('hidden');
                     videosData = [];
                     pageTitle.textContent = '';
                     document.querySelector('video').pause();
@@ -1267,7 +1432,7 @@
                 selectVideo(newIndex);
             });
 
-            // selectVideo fonksiyonunu da global yap
+            // selectVideo fonksiyonunu güncelle (video kalitesi seçimi için)
             function selectVideo(index) {
                 currentVideoIndex = index;
                 const video = videosData[index];
@@ -1278,10 +1443,29 @@
                 });
                 document.querySelector(`.video-item[data-index="${index}"]`).classList.add('active');
                 
-                // Oynatıcıyı güncelle
-                const defaultUrl = video.url1080p || video.url720p || video.url540p || video.url360p;
-                if (defaultUrl) {
-                    document.getElementById('currentVideo').innerHTML = `<source src="${getEmbedUrl(defaultUrl)}" type="video/mp4">`;
+                // Önce kalite seçiciyi oluştur (böylece varsayılan kalite seçili gelecek)
+                renderQualitySelector(video);
+                
+                // Seçili kaliteye göre video yükle
+                const qualitySelect = document.getElementById('qualitySelect');
+                let videoUrl;
+                
+                if (qualitySelect) {
+                    videoUrl = qualitySelect.value;
+                } else {
+                    // Kalite seçici yoksa, ayarlardaki kaliteye göre URL seç
+                    const settings = loadSettings();
+                    switch(settings.videoQuality) {
+                        case '1080p': videoUrl = video.url1080p; break;
+                        case '720p': videoUrl = video.url720p; break;
+                        case '540p': videoUrl = video.url540p; break;
+                        case '360p': videoUrl = video.url360p; break;
+                        default: videoUrl = video.url720p || video.url540p || video.url360p;
+                    }
+                }
+                
+                if (videoUrl) {
+                    document.getElementById('currentVideo').innerHTML = `<source src="${getEmbedUrl(videoUrl)}" type="video/mp4">`;
                     document.getElementById('currentVideo').load();
                     document.getElementById('currentVideo').play().catch(e => console.log("Otomatik oynatma engellendi:", e));
                 } else {
@@ -1289,10 +1473,8 @@
                 }
                 
                 document.getElementById('videoInfo').innerHTML = `<h2>${index + 1}. ${video.title}</h2><p>${video.body}</p>`;
-                renderQualitySelector(video);
                 updateStarButton();
                 topFunction();
-               
             }
 
             function renderQualitySelector(video) {
@@ -1300,12 +1482,15 @@
                 qualitySelector.innerHTML = '';
                 const select = document.createElement('select');
                 select.id = 'qualitySelect';
+                
+                const settings = loadSettings();
                 const qualities = [
                     { name: '1080p', url: video.url1080p },
                     { name: '720p', url: video.url720p },
                     { name: '540p', url: video.url540p },
                     { name: '360p', url: video.url360p }
                 ];
+                
                 let hasQuality = false;
                 let defaultSelected = false;
                 
@@ -1315,7 +1500,9 @@
                         const option = document.createElement('option');
                         option.value = quality.url;
                         option.textContent = quality.name;
-                        if (quality.name === '1080p' && video.url1080p && !defaultSelected) {
+                        
+                        // Ayarlardaki video kalitesi ile eşleşen seçeneği seçili yap
+                        if (quality.name === settings.videoQuality && !defaultSelected) {
                             option.selected = true;
                             defaultSelected = true;
                         }
@@ -1338,6 +1525,10 @@
                             videoElement.appendChild(sourceElement);
                             videoElement.load();
                             videoElement.play().catch(e => console.log("Video oynatma hatası:", e));
+                            
+                            // Seçilen kaliteyi ayarlara kaydet
+                            const selectedQuality = this.options[this.selectedIndex].text;
+                            changeSetting('videoQuality', selectedQuality);
                         }
                     });
                     qualitySelector.appendChild(select);
@@ -1348,7 +1539,6 @@
 
             function getEmbedUrl(url) {
                 if (!url) return '';
-                
                 // YouTube URL'leri için embed formatına çevir
                 if (url.includes('youtube.com') || url.includes('youtu.be')) {
                     let videoId = '';
@@ -1359,13 +1549,11 @@
                     }
                     return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
                 }
-                
                 // Vimeo URL'leri için embed formatına çevir
                 if (url.includes('vimeo.com')) {
                     const videoId = url.split('vimeo.com/')[1].split('?')[0];
                     return `https://player.vimeo.com/video/${videoId}?autoplay=1`;
                 }
-                
                 return url;
             }
 
