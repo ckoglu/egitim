@@ -15,10 +15,10 @@
         <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f39e.png">
         <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f39e.png">
         <!-- Using a simple film reel emoji as mask icon -->
-        <link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f39e.svg" color="#3498db">
+        <link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f39e.svg" color="#cbd5e1">
         <!-- Fallback for older browsers -->
-        <meta name="msapplication-TileColor" content="#3498db">
-        <meta name="theme-color" content="#3498db">
+        <meta name="msapplication-TileColor" content="#cbd5e1">
+        <meta name="theme-color" content="#cbd5e1">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic,600&subset=latin,latin-ext">
         <style>
             :root{--primary:#4361ee;--secondary:#3f37c9;--success:#4cc9f0;--danger:#f72585;--warning:#f8961e;--dark:#1d3557;--ldark:#48494b;--light:#f8f9fa;--gray:#6c757d;--slate:#cbd5e1;--transparent:transparent;}
@@ -200,7 +200,7 @@
                 .container{padding:5px;}
                 .current-video source{height:200px}
                 button{width:100%;justify-content:center}
-                .quality-selector{width:100%;flex-direction:column;align-items:stretch;}
+                .quality-selector{width:100%;flex-direction:row;align-items:stretch;}
                 .quality-selector select{width:100%}
                 #top-btn-wrapper{position:relative;width:100%;right:0;margin:0;bottom:-10px;justify-content:center}
                 #top-btn{margin-left:10px;margin-right:10px}
@@ -300,10 +300,10 @@
             .gg-heart::after{right:-9px;transform:rotate(90deg);top:5px}
             .gg-heart::before{width:10px;height:11px;border-left:2px solid #000;border-bottom:2px solid #000;left:-2px;top:3px}
             .gg-heart-red,.gg-heart-red::after,.gg-heart-red::before {background: var(--danger);border-color: var(--danger);}
-            .gg-options{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:10px;height:2px;box-shadow:-3px 4px 0 0,3px -4px 0 0;transform: translateX(4px);}
+            .gg-options{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:20px;height:2px;box-shadow:-3px 4px 0 0,3px -4px 0 0;transform: translateX(0px);}
             .gg-options::after,.gg-options::before{content:"";display:block;box-sizing:border-box;position:absolute;width:8px;height:8px;border:2px solid;border-radius:100%}
-            .gg-options::before{top:-7px;left:-4px}
-            .gg-options::after{bottom:-7px;right:-4px}
+            .gg-options::before{top:-7px;left:-3px}
+            .gg-options::after{bottom:-7px;right:-3px}
             /* ICON-DARK */
             body.dark .gg-heart,  body.dark .gg-heart::after{border-color:#fff;}
             body.dark .gg-heart::before{border-left-color:#fff;border-bottom-color:#fff;}
@@ -354,9 +354,9 @@
                 </div>
             </nav>
             <div class="head-sag">
-                <button class="mr10 w40 hidden-w" onclick="toggleMenu()"><span class="gg-menu"></span></button>
+                <button class="mr10 hidden-w" onclick="toggleMenu()"><span class="gg-menu"></span></button>
                 <button class="mr10" id="favBtn" onclick="favMode()"><span class="gg-flag-alt"></span></button>
-                <button class="mr10 w40" id="ayarBtn" onclick="ayarMode()"><span class="gg-options"></span></button>
+                <button class="mr10" id="ayarBtn" onclick="ayarMode()"><span class="gg-options"></span></button>
                 <button class="mr10" id="meBtn" onclick="meMode()"><span class="gg-info"></span></button>
             </div>
 
