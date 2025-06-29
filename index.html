@@ -21,7 +21,7 @@
         <meta name="theme-color" content="#cbd5e1">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic,600&subset=latin,latin-ext">
         <style>
-            :root{--primary:#4361ee;--secondary:#3f37c9;--success:#4cc9f0;--danger:#f72585;--warning:#f8961e;--dark:#1d3557;--ldark:#48494b;--light:#f8f9fa;--gray:#6c757d;--slate:#cbd5e1;--transparent:transparent;}
+            :root{--primary:#4361ee;--secondary:#3f37c9;--success:#218352;--danger:#ce4a4a;--warning:#dd8e2c;--dark:#1d3557;--ldark:#48494b;--light:#f8f9fa;--gray:#6c757d;--slate:#cbd5e1;--transparent:transparent;}
             *{box-sizing:border-box;margin:0;padding:0;font-family: 'Source Sans Pro', sans-serif;font-size: 16px; font-weight: normal;font-display: swap;line-height: 1.618;letter-spacing: .0125rem;}
             body{text-transform:lowercase;background:#f1f5f9;min-height:100vh;padding-top:70px;display:flex;flex-direction:column;align-items:center;color:#333}
             .container{display:flex;flex-direction:column;align-items:center;margin:0 auto;width:100%;max-width:1080px;background:#fff;border-radius: 7px;box-shadow: 0 4px 15px rgba(0, 0, 0, .1);padding:30px;margin-top:20px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);position:relative;overflow:hidden}        
@@ -31,7 +31,6 @@
             header h1:hover {background-color:#0000001f}
             header h1 span{color:var(--dark);font-size:20px;font-weight:600;}
             b {font-weight: 600;}
-            .emoji-icon {text-decoration: none;font-size:20px;cursor: pointer;display: flex;justify-content: center;align-items: center;background-color: #646464;box-shadow: 0 0px 10px rgba(0, 0, 0, .4);border: none;padding: 6px;border-radius: 7px;width: 45px;height: 45px;}
             .main-nav{display:flex;align-items:center;gap:15px}
             .nav-button{background:var(--primary);color:#fff;border:none;font-weight:500;cursor:pointer;transition:all .3s ease}
             .nav-button:hover{background:var(--secondary);transform:translateY(-2px)}
@@ -54,10 +53,7 @@
             button:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0, 0, 0, 0.4)}
             .video-container{display:none;width:100%;animation:fadeIn .5s ease}
             .br-full {border-radius: 9999px;}
-            @keyframes fadeIn{
-            from{opacity:0;transform:translateY(20px)}
-            to{opacity:1;transform:translateY(0)}
-            }
+            @keyframes fadeIn{from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)}}
             .video-panel{display:flex;width:100%;gap:25px}
             .video-list{flex:1;min-width:350px;max-width: 500px;padding-right:20px;overflow-y:auto;}
             .video-player{flex:3;}
@@ -75,22 +71,12 @@
             .video-info {display:flex;flex-direction:column;width: 100%;}
             .video-info h2{font-weight:600;font-size:17px;margin-top:0;color:#2c3e50;border-bottom:2px solid #4caf50;padding-bottom:10px;margin-bottom:20px}
             .video-info p{color:#555;line-height:1.6;white-space:pre-line;font-size:16px;background:#f9f9f9;padding:20px;border-radius:0;border-left:4px solid #4caf50}
-            .quality-selector{margin-top:10px;margin-bottom:10px;display:flex;align-items:center;gap:15px;background:#f0f7ff;padding:15px;border-radius: 4px}
+            .quality-selector{margin-top:10px;margin-bottom:10px;display:flex;align-items:center;gap:15px;background:#f0f7ff;padding:15px;border-radius: 7px}
             .quality-selector label{font-weight:600;color:#2c3e50}
             .quality-selector select{padding:10px 32px 10px 10px;border-radius: 7px;height: 40px;border:none;font-size:15px;line-height: 1.6;outline: 0;background:var(--slate);box-shadow: #00000025;transition:all .3s ease;}
             .quality-selector select:focus{outline: 0;box-shadow:0 6px 20px rgba(111, 137, 255, 0.4)}
             .quality-selector select:hover{box-shadow:0 6px 20px rgba(0, 0, 0, 0.4)}
             .page-title{font-size:18px;margin-bottom:25px;text-align:left;font-weight:600;color:#2c3e50;display:flex;align-items:center;gap:15px;padding-bottom:15px;border-bottom:2px solid #eee}
-            .w-100{width:100%}
-            .mt0{margin-top:0}
-            .mr10{margin-right:10px}
-            .mb10{margin-bottom:10px}
-            .mb5{margin-bottom:5px}
-            .mr5{margin-right:5px}
-            .mt5{margin-top:5px}
-            .mt20{margin-top:20px}
-            .h40 {height: 40px;}
-            .w40 {width: 40px;}
             .category-div{margin-top:0;margin-bottom:25px;display:flex;justify-content:center}
             .category-text{width:fit-content;text-align:center;font-size:1rem;font-weight:500;color:#333;padding:5px 15px;border-radius: 7px;background-color:#0000001f}
             footer{text-align:center;color:#333;font-size:.9rem;padding:20px;width:100%}
@@ -98,20 +84,17 @@
             #top-btn{display:none;border:none;cursor:pointer}
             .menu-toggle{display:none;background:var(--primary);color:#fff;padding:8px 14px;border:none;cursor:pointer;transition:all .3s ease;z-index:1001}
             .hidden {display: none;}
-            .nav-mobil{display: none;position:fixed;border-top-left-radius: 4px;border-top-right-radius: 4px;bottom:0;left:0;width:100%;max-height: calc(100vh - 60px);background-color:#fff;overflow-y:auto;transition:transform .3s ease-in-out;transform:translateY(100%);z-index:9999;padding:30px 25px;display:flex;flex-direction:column;gap:5px}
+            .nav-mobil{display: none;position:fixed;border-top-left-radius: 4px;border-top-right-radius: 4px;bottom:0;left:0;width:100%;max-height: 50%;background-color:#fff;overflow-y:auto;transition:transform .3s ease-in-out;transform:translateY(100%);z-index:9999;padding:30px 25px;display:flex;flex-direction:column;gap:5px}
             .nav-mobil::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(to right,#4caf50,#2196f3,#9c27b0)}
             .gray-button {background: var(--ldark);padding: 5px;font-weight: 500;}
             .nav-mobil.show{transform:translateY(0)}
             .nav-button{padding:5px 22px;color:#fff;border:none;cursor:pointer}
             hr {margin-top: 20px;margin-bottom: 20px;height: 0px;border: none;border-top: 0.5px solid #00000025;}
             .head-sag {display: flex;align-items: center;flex-direction: row;}
-            .alert{position:fixed;display:flex;align-items:center;gap:10px;background:var(--primary);color:#fff;padding:9px 11px;border-radius: 7px;box-shadow:0 4px 15px rgba(0,0,0,.2);z-index:9999;font-size:18px;font-weight:600;line-height:1.4;max-width:95%;width:fit-content;opacity:0;pointer-events:none;transition:all .4s ease}
-            .alert span#alertIcon{font-size:15px;border-radius: 7px;background: var(--gray);padding: 6px;width: 30px;height: 30px;display: flex;justify-content: center;align-items: center;}
-            .alert-success { background: var(--success); }
-            .alert-danger  { background: var(--danger); }
-            .alert-warning { background: var(--warning); }
-            .alert-info    { background: var(--primary); }
-            .alert-dark    { background: var(--dark); }
+            .alert{position:fixed;display:flex;align-items:center;gap:10px;background:var(--primary);color:#fff;padding:5px 5px;border-radius: 7px;box-shadow:0 4px 15px rgba(0,0,0,.5);border: 1px solid rgba(255, 255, 255, .3);z-index:9999;font-size:18px;font-weight:700;line-height:1.1;max-width:95%;width:fit-content;opacity:0;pointer-events:none;transition:all .4s ease}
+            .alert div#alertIcon{font-size:15px;border-radius: 7px;background: #ffffff60;padding: 6px;width: 40px;height: 40px;display: flex;justify-content: center;align-items: center;}
+            .alert div#alertMessage {padding:3px 10px 3px 3px;}
+            
             /* Background renk sınıfları */
             .bg-primary   { background: var(--primary) !important; }
             .bg-secondary { background: var(--secondary) !important; }
@@ -135,9 +118,9 @@
             .c-light     { color: var(--light) !important; }
             .c-gray      { color: var(--gray) !important; }
             .c-transparent      { color: var(--transparent) !important; }
-            .maxw800 {max-width: 800px;}
+
             .about-me{background:rgba(0, 0, 0, 0.027);backdrop-filter:blur(10px);box-shadow:0 2px 6px rgba(0,0,0,.1);padding:30px;border-radius: 7px;display:flex;flex-direction:row;gap:20px}
-            .about-avatar img{width:130px;height:130px;border-radius:4px;border:3px solid var(--primary);box-shadow:0 0 10px rgba(0,0,0,.2)}
+            .about-avatar img{width:130px;height:130px;border-radius:9999px;border:3px solid var(--primary);box-shadow:0 0 10px rgba(0,0,0,.2)}
             .about-info h2{margin:0;font-size:24px;color:var(--dark)}
             .about-info p{margin-top:10px;font-size:16px;color:#444}
             .about-info a{display:inline-block;margin-top:15px;background:var(--primary);color:#fff;padding:10px 20px;border-radius: 7px;text-decoration:none;transition:all .3s ease}
@@ -148,35 +131,53 @@
             .commit-list li{margin-bottom:20px;padding:0px 0px;}
             .commit-list li strong{color:var(--primary)}
             .extended-commit-description-container{margin-top:2px;padding-left:15px;font-size:17px;color:#555;border-left:2px solid var(--gray)}
-            #favorites-container{padding:0px;}
-            .favorite-card{width:320px;height:170px;position:relative;border-radius: 7px;overflow:hidden;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.2);transition:transform .2s;background:#000}
-            .favorite-card:hover{transform:scale(1.03)}
-            .favorite-card img{width:100%;height:100%;object-fit:cover;display:block}
-            .favorite-card-text{position:absolute;bottom:0;width:100%;padding:10px;color:#fff;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);font-size:18px;background:#00000091;font-weight:600;text-shadow:1px 1px 4px rgba(0,0,0,.9);box-sizing:border-box}
-            .favorites-header {display: flex; justify-content: center; align-items: center; margin-bottom: 15px;width: 100%;}
-            .favorites-header button{background:0 0;border:none;font-size:20px;cursor:pointer;padding:5px;border-radius: 7px;width:35px;height:35px;display:flex;align-items:center;justify-content:center}
-            .favorites-header button:hover{background-color:rgba(0,0,0,.1)}
-            .delete-favorite{    width: fit-content;position: absolute;top: 5px;right: 5px;background: #ff1100e6;color: #fff;border: none;height: 30px;font-size: 14px;cursor: pointer;display: flex;align-items: center;justify-content: center;opacity: 0;transition: opacity .2s;z-index: 1;padding: 0 13px;}
-            .card:hover .delete-favorite{opacity:1}
-            .delete-favorite:hover{background:#ff1100d5;transform:scale(1.1)}
             .search-container{margin:20px auto;max-width:500px;position:relative;display: flex;align-items: center;}
             #searchInput{width:100%;padding:6px 6px 6px 40px;border:2px solid #ddd;border-radius: 999px;font-size:16px;outline:0;transition:all .3s ease;background-color:rgba(255,255,255,.9)}
             #searchInput:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(67,97,238,.2)}
             body.dark #searchInput{background-color:rgba(30,30,30,.9);color:#fff;border-color:#555}
             .no-results{text-align:center;width:100%;padding:30px;font-size:18px;color:var(--gray)}
             .card.hidden{display:none}
-
             .setting-card{padding:15px;margin-bottom:15px;background: rgba(0, 0, 0, 0.027);backdrop-filter: blur(10px);box-shadow: 0 2px 6px rgba(0, 0, 0, .1);border-radius: 7px;width: 100%;}
-            .setting-card h4{margin-top:0;margin-bottom:10px;color:var(--text-color)}
+            .setting-card h4{margin-top:0;margin-bottom:10px;color:var(--dark)}
             .setting-options{display:flex;flex-wrap:wrap;gap:8px}
             .setting-option{background:var(--gray);border:none;border-radius:4px;padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s}
             .setting-option.active{background:var(--primary);color:#fff}
             .setting-reset{background:var(--danger);color:#fff;border:none;border-radius:4px;padding:10px 15px;cursor:pointer;display:flex;align-items:center;gap:5px;width:fit-content;justify-content:center;transition:all .2s}
-
+            .history-header, .favorites-header{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid #eee;flex-direction:column;gap:10px}
+            .clear-history-btn, .clear-fav-btn {background:var(--danger);color:#fff;border:none;border-radius:4px;padding:8px 15px;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s;width:100%;justify-content:center}
+            .favorites-list, .history-list {display:flex; flex-direction:column; gap:15px; width:100%; padding:15px;}
+            .favorite-item, .history-item {display:flex; align-items:center; background:rgba(0, 0, 0, 0.027); backdrop-filter:blur(10px); box-shadow:0 2px 6px rgba(0, 0, 0, .1); border-radius:7px; padding:10px; transition:all .2s; position:relative; overflow:hidden; cursor:pointer; border:1px solid rgba(0, 0, 0, 0.1);}
+            .favorite-item:hover, .history-item:hover {transform:translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,.1);}
+            .favorite-thumbnail, .history-thumbnail {width:110px; height:70px; object-fit:cover; border-radius:4px; margin-right:15px; flex-shrink:0;}
+            .favorite-info, .history-info {flex:1; display:flex; flex-direction:column; gap:0px;}
+            .favorite-main-title, .history-main-title {font-weight:600; font-size:17px; color:var(--dark);}
+            .favorite-sub-title, .history-sub-title {font-size:15px; color:var(--gray);font-weight:500;}
+            .favorite-meta, .history-meta {display:flex; justify-content:start;gap:15px}
+            .favorite-meta span, .history-meta span { font-size:13px; color:var(--gray); }
+            .favorite-delete, .history-delete {opacity:0; transition:opacity .2s; background:var(--danger); color:white; border:none; border-radius:4px;cursor:pointer; flex-shrink:0; width: 25px; height: 25px;}
+            .favorite-delete .\-ileft, .history-delete .\-ileft { left: -8px}
+            .favorite-item:hover .favorite-delete, .history-item:hover .history-delete {opacity:1;}
+            
+            .maxw800 {max-width: 800px;}
+            .maxw200 {max-width: 200px;}
             .flex {display: flex;}
             .row{flex-direction: row;}
             .col {flex-direction: column;}
             .center {align-items: center;justify-content: center;}
+            .w-100{width:100%}
+            .mt0{margin-top:0}
+            .mr10{margin-right:10px}
+            .mb10{margin-bottom:10px}
+            .mb5{margin-bottom:5px}
+            .mr5{margin-right:5px}
+            .mt5{margin-top:5px}
+            .mt20{margin-top:20px}
+            .h40 {height: 40px;}
+            .w40 {width: 40px;}
+            .\-l4 {left:-4px}
+            .\-l3 {left:-3px}
+            .bg {position: fixed;top: 0; left: 0;width: 100%; height: 100%;backdrop-filter: blur(10px);background: #0000003f;z-index: 8999;display: none;cursor: pointer;}
+            .bg-show {display: block;}
 
             @media (min-width:900px){
                 .nav-mobil{display: none;}
@@ -185,6 +186,7 @@
                 .mr5-w{margin-right:5px}
                 .hidden-w {display: none;}
                 .w40-w {width: 40px;}
+                .maxw250-w {max-width: 250px;}
             }
 
             @media (max-width:899px){
@@ -200,7 +202,8 @@
                 .container{padding:5px;}
                 .current-video source{height:200px}
                 button{width:100%;justify-content:center}
-                .quality-selector{width:100%;flex-direction:row;align-items:stretch;}
+                .quality-selector{width:100%;flex-direction:row;align-items:stretch;flex-wrap: wrap;}
+                .quality-selector button {width:40px;display: block;}
                 .quality-selector select{width:100%}
                 #top-btn-wrapper{position:relative;width:100%;right:0;margin:0;bottom:-10px;justify-content:center}
                 #top-btn{margin-left:10px;margin-right:10px}
@@ -219,7 +222,15 @@
                 .alert.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
                 .mt10-m {margin-top: 10px;}
                 .w40-m {width: 40px;}
-                .delete-favorite{opacity: 1;width: fit-content;}
+                .\-l4-m {left:-4px}
+                .history-thumbnail{width:100%;height:auto;aspect-ratio:16/9;margin-right:0;margin-bottom:10px}
+                .history-info{width:100%;flex-direction:column;align-items:flex-start;gap:5px}
+                .history-title{min-width:100%}
+                .favorite-item, .history-item {flex-direction:column; align-items:flex-start;}
+                .favorite-thumbnail, .history-thumbnail {width:100%; height:auto; aspect-ratio:16/6; margin-right:0; margin-bottom:10px;}
+                .favorite-delete, .history-delete {position:absolute; top:15px; right:15px; opacity:1; padding:5px;width: 25px; height: 25px;}
+                .favorite-delete .\-ileft, .history-delete .\-ileft { left: -3px}
+                
             }
             /* DARK */
             body.dark{background:linear-gradient(135deg,#121212,#000,#121212);color:#f0f0f0}
@@ -255,12 +266,18 @@
             body.dark .commit-list li strong {color: #8eb5ff;}
             body.dark .bg-slate { background: #475569!important; }
             body.dark .setting-card {background: rgb(255 255 255 / 13%);color: #f0f0f0;}
+            body.dark .setting-card h4 {color: #f0f0f0;}
+            body.dark .alert div#alertIcon{background: #00000060;}
+            body.dark .history-header{border-bottom-color:#444}
+            body.dark .favorite-item,  body.dark .history-item {background:rgba(255, 255, 255, 0.05); border-color:rgba(255, 255, 255, 0.1);}
+            body.dark .favorite-main-title,  body.dark .history-main-title {color:#f0f0f0;}
+
             /* ICON */
-            .gg-play-backwards{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:3px;height:10px;background:#000;transform: translateX(2px);}
-            .gg-play-backwards::after,.gg-play-backwards::before{content:"";display:block;box-sizing:border-box;position:absolute;width:0;height:10px;border-top:5px solid transparent;border-bottom:5px solid transparent;border-right:6px solid #000;right:-7px}
+            .gg-play-backwards{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:3px;height:10px;background:#fff;transform: translateX(2px);}
+            .gg-play-backwards::after,.gg-play-backwards::before{content:"";display:block;box-sizing:border-box;position:absolute;width:0;height:10px;border-top:5px solid transparent;border-bottom:5px solid transparent;border-right:6px solid #fff;right:-7px}
             .gg-play-backwards::before{right:-14px}
-            .gg-play-forwards{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:3px;height:10px;background:#000;transform: translateX(15px);}
-            .gg-play-forwards::after,.gg-play-forwards::before{content:"";display:block;box-sizing:border-box;position:absolute;width:0;height:10px;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:6px solid #000;left:-7px}
+            .gg-play-forwards{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:3px;height:10px;background:#fff;transform: translateX(15px);}
+            .gg-play-forwards::after,.gg-play-forwards::before{content:"";display:block;box-sizing:border-box;position:absolute;width:0;height:10px;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:6px solid #fff;left:-7px}
             .gg-play-forwards::before{left:-14px}
             .gg-flag-alt{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:22px;height:20px;border-left:2px solid;transform: translateX(4px);}
             .gg-flag-alt::after,.gg-flag-alt::before{content:"";display:block;box-sizing:border-box;position:absolute;border-bottom:2px solid}
@@ -278,7 +295,7 @@
             .gg-sun::before{transform:rotate(-45deg)}
             .gg-sun::after{transform:rotate(45deg)}
             .gg-close{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:22px;height:22px;border:2px solid transparent;border-radius:40px}
-            .gg-close::after,.gg-close::before{content:"";display:block;box-sizing:border-box;position:absolute;width:16px;height:2px;background:#000;transform:rotate(45deg);border-radius:5px;top:8px;left:1px}
+            .gg-close::after,.gg-close::before{content:"";display:block;box-sizing:border-box;position:absolute;width:16px;height:2px;background:#fff;transform:rotate(45deg);border-radius:5px;top:8px;left:1px}
             .gg-close::after{transform:rotate(-45deg)}
             .gg-arrow-up{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:22px;height:22px}
             .gg-arrow-up::after,.gg-arrow-up::before{content:"";display:block;box-sizing:border-box;position:absolute;top:4px}
@@ -294,26 +311,52 @@
             .gg-menu::after{top:6px}
             .gg-search{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:16px;height:16px;border:2px solid;border-radius:100%;margin-left:-4px;margin-top:-4px;transform: translateX(28px);}
             .gg-search::after{content:"";display:block;box-sizing:border-box;position:absolute;border-radius:3px;width:2px;height:8px;background:currentColor;transform:rotate(-45deg);top:10px;left:12px}
-            .gg-heart,.gg-heart::after{border:2px solid #000;border-top-left-radius:100px;border-top-right-radius:100px;width:10px;height:8px;border-bottom:0}
+            .gg-heart,.gg-heart::after{border:2px solid #fff;border-top-left-radius:100px;border-top-right-radius:100px;width:10px;height:8px;border-bottom:0}
             .gg-heart{box-sizing:border-box;position:relative;transform: rotate(-45deg) translateX(1.5px) translateY(-2.7px);display:block}
             .gg-heart::after,.gg-heart::before{content:"";display:block;box-sizing:border-box;position:absolute;}
             .gg-heart::after{right:-9px;transform:rotate(90deg);top:5px}
-            .gg-heart::before{width:10px;height:11px;border-left:2px solid #000;border-bottom:2px solid #000;left:-2px;top:3px}
+            .gg-heart::before{width:10px;height:11px;border-left:2px solid #fff;border-bottom:2px solid #fff;left:-2px;top:3px}
             .gg-heart-red,.gg-heart-red::after,.gg-heart-red::before {background: var(--danger);border-color: var(--danger);}
             .gg-options{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:20px;height:2px;box-shadow:-3px 4px 0 0,3px -4px 0 0;transform: translateX(0px);}
             .gg-options::after,.gg-options::before{content:"";display:block;box-sizing:border-box;position:absolute;width:8px;height:8px;border:2px solid;border-radius:100%}
             .gg-options::before{top:-7px;left:-3px}
             .gg-options::after{bottom:-7px;right:-3px}
+
+            .gg-danger{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:20px;height:20px;border:2px solid;border-radius:40px}
+            .gg-danger::after,.gg-danger::before{content:"";display:block;box-sizing:border-box;position:absolute;border-radius:3px;width:2px;background:currentColor;left:7px}
+            .gg-danger::after{top:2px;height:8px}
+            .gg-danger::before{height:2px;bottom:2px}
+
+            .gg-warning{position:relative;transform:scale(var(--ggs,1));width:22px;height:17px;border-left:3px solid transparent;border-bottom:3px solid}
+            .gg-warning,.gg-warning::before{display:block;box-sizing:border-box;border-right:3px solid transparent}
+            .gg-warning::before{content:"";position:absolute;width:20px;height:20px;border-left:3px solid;border-top:3px solid;border-bottom:3px solid transparent;transform:rotate(45deg) skew(10deg,10deg);left:-2px;bottom:-13px}
+
+            .gg-check{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:22px;height:22px;border:2px solid transparent;border-radius:100px}
+            .gg-check::after{content:"";display:block;box-sizing:border-box;position:absolute;left:3px;top:-1px;width:6px;height:10px;border-width:0 2px 2px 0;border-style:solid;transform-origin:bottom left;transform:rotate(45deg)}
+
+            .gg-time{box-sizing:border-box;position:relative;display:block;transform:scale(var(--ggs,1));width:18px;height:18px;border-radius:100%;border:2px solid transparent;box-shadow:0 0 0 2px currentColor}
+            .gg-time::after{content:"";display:block;box-sizing:border-box;position:absolute;width:7px;height:7px;border-left:2px solid;border-bottom:2px solid;top:1px;left:5px}
+
             /* ICON-DARK */
-            body.dark .gg-heart,  body.dark .gg-heart::after{border-color:#fff;}
-            body.dark .gg-heart::before{border-left-color:#fff;border-bottom-color:#fff;}
-            body.dark .gg-play-backwards, body.dark .gg-play-forwards,  body.dark .gg-close::after, body.dark .gg-close::before{background: #fff;}
-            body.dark .gg-play-backwards::after, body.dark .gg-play-backwards::before {border-right-color:#fff;}
-            body.dark .gg-play-forwards::after, body.dark .gg-play-forwards::before {border-left-color:#fff;}
+            .gg-heart, .gg-heart::after{border-color:#FFF;}
+            .gg-heart::before{border-left-color:#FFF;border-bottom-color:#FFF;}
+            .quality-selector .gg-heart,.quality-selector .gg-heart::after{border-color:#000;}
+            .quality-selector .gg-heart::before{border-left-color:#000;border-bottom-color:#000;}
+            .quality-selector .gg-play-backwards, .quality-selector .gg-play-forwards,  .quality-selector .gg-close::after, .quality-selector .gg-close::before{background: #000;}
+            .quality-selector .gg-play-backwards::after, .quality-selector .gg-play-backwards::before {border-right-color:#000;}
+            .quality-selector .gg-play-forwards::after, .quality-selector .gg-play-forwards::before {border-left-color:#000;}
+            
+            body.dark .quality-selector .gg-heart, body.dark .quality-selector .gg-heart::after{border-color:#FFF;}
+            body.dark .quality-selector .gg-heart::before{border-left-color:#FFF;border-bottom-color:#FFF;}
+            body.dark .quality-selector .gg-play-backwards, body.dark .quality-selector .gg-play-forwards,  body.dark .quality-selector .gg-close::after, body.dark .quality-selector .gg-close::before{background: #fff;}
+            body.dark .quality-selector .gg-play-backwards::after, body.dark .quality-selector .gg-play-backwards::before {border-right-color:#fff;}
+            body.dark .quality-selector .gg-play-forwards::after, body.dark .quality-selector .gg-play-forwards::before {border-left-color:#fff;}
+
+            .\!hidden{display: none;}
         </style>
     </head>
     <body>
-
+        <div id="nav-mobil-bg" class="bg hidden-w" onclick="closeMobilNav()"></div>
         <header>
             <a href="/egitim" style="text-decoration: none;">
                 <h1><span class="gg-clapper-board mr5-w bg-warning c-dark"></span> <span class="hidden-m">Eğitim</span></h1>
@@ -354,10 +397,11 @@
                 </div>
             </nav>
             <div class="head-sag">
-                <button class="mr10 hidden-w" onclick="toggleMenu()"><span class="gg-menu"></span></button>
-                <button class="mr10" id="favBtn" onclick="favMode()"><span class="gg-flag-alt"></span></button>
-                <button class="mr10" id="ayarBtn" onclick="ayarMode()"><span class="gg-options"></span></button>
-                <button class="mr10" id="meBtn" onclick="meMode()"><span class="gg-info"></span></button>
+                <button class="mr10 hidden-w w40" onclick="mobilMenu()"><span class="gg-menu"></span></button>
+                <button class="mr10 w40" id="favBtn" onclick="favMode()"><span class="gg-heart gg-heart-red -l4-m"></span></button>
+                <button class="mr10 w40" id="favBtn" onclick="historyMode()"><span class="gg-time"></span></button>
+                <button class="mr10 w40" id="ayarBtn" onclick="ayarMode()"><span class="gg-options"></span></button>
+                <button class="mr10 w40" id="meBtn" onclick="meMode()"><span class="gg-info"></span></button>
             </div>
 
         </header>
@@ -370,7 +414,7 @@
                 </div>
                 <div class="search-container">
                     <span class="gg-search c-gray"></span>
-                    <input type="text" id="searchInput" placeholder="ara...">
+                    <input type="text" id="searchInput" placeholder="arama yap...">
                 </div>
                 <div class="egitimler mt0" id="egitimler">yükleniyor...</div>
             </div>
@@ -396,29 +440,39 @@
 
             <div id="about-me-container" style="display: none;" class="mt20 maxw800">
                 <div class="about-me">
-                    <div class="about-avatar">
-                    <img src="https://github.com/ckoglu.png" alt="ckoglu GitHub Avatarı">
-                    </div>
+                    <div class="about-avatar"><img src="https://github.com/ckoglu.png" alt="ckoglu GitHub Avatarı"></div>
                     <div class="about-info">
-                    <h2>ckoglu</h2>
-                    <p>Web geliştirici. PHP, JavaScript, veri işleme ve video sistemleri üzerine çalışıyorum. Açık kaynak projelerimi GitHub üzerinde yayınlıyorum.</p>
-                    <a href="https://github.com/ckoglu" target="_blank">GitHub Profilim</a>
+                        <h2>ckoglu</h2>
+                        <p>Web geliştirici. PHP, JavaScript, veri işleme ve video sistemleri üzerine çalışıyorum. Açık kaynak projelerimi GitHub üzerinde yayınlıyorum.</p>
+                        <a href="https://github.com/ckoglu" target="_blank">GitHub Profilim</a>
                     </div> 
                 </div>
                 <div class="commit-list">
-                    <h3>en yeni commit'ler <code id="me-durum-bilgi"></code></h3>
-                    <ul id="commits">
-                        <li>yükleniyor...</li>
-                    </ul>
+                    <h3>en yeni commit'ler <code id="me-durum-info"></code></h3>
+                    <ul id="commits"><li>yükleniyor...</li></ul>
                 </div>
             </div>
 
             <div id="favorites-container" class="hidden w-100">
                 <div class="favorites-header">
                     <h3 class="category-text mt0 mt10-m">favorilerim</h3>
+                    <button class="clear-fav-btn maxw250-w" onclick="clearFav()">
+                        <span class="gg-trash"></span> Favorileri Temizle
+                    </button>
                 </div>
                 <div class="egitimler" id="favorites-list"></div>
             </div>
+
+            <div id="history-container" class="hidden w-100">
+                <div class="history-header">
+                    <h3 class="category-text mt0 mt10-m">izleme geçmişi</h3>
+                    <button class="clear-history-btn maxw250-w" onclick="clearHistory()">
+                        <span class="gg-trash"></span> Geçmişi Temizle
+                    </button>
+                </div>
+                <div class="history-list-container" id="history-list"></div>
+            </div>
+
 
             <div id="settings-container" class="w-100 flex col center" style="display:none">
                 <div class="favorites-header">
@@ -455,6 +509,14 @@
                         <div class="setting-options">
                             <button class="setting-option" onclick="changeSetting('autoNext', 'true')">açık</button>
                             <button class="setting-option" onclick="changeSetting('autoNext', 'false')">kapalı</button>
+                        </div>
+                    </div>
+
+                    <div class="setting-card">
+                        <h4>İzleme Geçmişi</h4>
+                        <div class="setting-options">
+                            <button class="setting-option" onclick="changeSetting('history', 'true')">açık</button>
+                            <button class="setting-option" onclick="changeSetting('history', 'false')">kapalı</button>
                         </div>
                     </div>
                
@@ -495,15 +557,19 @@
         <div id="top-btn-wrapper"><button class="bg-gray" id="top-btn" onclick="topFunction()" ><span class="gg-arrow-up"></span></button></div>
         <footer><p>Hayatın Her Alanından En İyi Eğitim Video Serileri &copy; <script>document.write(new Date().getFullYear());</script> | by <strong><u>ckoglu</u></strong></p></footer>
         <textarea id="sourceCodeInput" class="hidden"></textarea><button id="generateBtn" class="hidden"></button>
-        <div id="alert" class="alert hidden"><span id="alertIcon"></span><span id="alertMessage"></span></div>
+
+        <div id="alert" class="alert hidden">
+            <div id="alertIcon"></div>
+            <div id="alertMessage"></div>
+        </div>
 
         <script>
-            // Ayarları yönetmek için yardımcı fonksiyonlar
-            const defaultSettings = {
+            const defaultSettings = { // Ayarları yönetmek için yardımcı fonksiyonlar
                 theme: 'light',
                 startPage: 'kategoriler/yeni-eklenenler',
                 videoQuality: '720p',
-                autoNext: 'false'
+                autoNext: 'true',
+                history: 'true'
             };
 
             // Ayarları yükle
@@ -526,7 +592,20 @@
                 settings[key] = value;
                 localStorage.setItem('appSettings', JSON.stringify(settings));
                 applySettings();
-                showAlert(`Ayar güncellendi: ${key} = ${value}`, "basari");
+                if (value === "light" || value === "dark") {
+                    showAlert(`Ayar: ${key} = ${value}`, `${value}`);
+                } else if (key === "history" && value === "true") {
+                    showAlert(`Ayar: ${key} = ${value}`, `success`);
+                } else if (key === "history" && value === "false") {
+                    showAlert(`Ayar: ${key} = ${value}`, `warning`);
+                    clearHistory();
+                }  else if (key === "autoNext" && value === "true") {
+                    showAlert(`Ayar: ${key} = ${value}`, `success`);
+                } else if (key === "autoNext" && value === "false") {
+                    showAlert(`Ayar: ${key} = ${value}`, `warning`);
+                } else {
+                    showAlert(`Ayar: ${key} = ${value}`, "success");
+                }
             }
 
             // Ayarları uygula
@@ -542,6 +621,8 @@
                 window.defaultVideoQuality = settings.videoQuality;
                 // Otomatik geçiş ayarı
                 window.autoNextVideo = settings.autoNext === 'true';
+                // izleme gecmisi
+                window.historyVideo = settings.history === 'true';
                 // Ayarlar panelinde aktif butonları güncelle
                 updateActiveSettings();
             }
@@ -556,19 +637,19 @@
                 document.querySelectorAll(`.setting-option[onclick*="'startPage', '${settings.startPage}'"]`).forEach(btn => {btn.classList.add('active');});
                 document.querySelectorAll(`.setting-option[onclick*="'videoQuality', '${settings.videoQuality}'"]`).forEach(btn => {btn.classList.add('active');});
                 document.querySelectorAll(`.setting-option[onclick*="'autoNext', '${settings.autoNext}'"]`).forEach(btn => {btn.classList.add('active');});
+                document.querySelectorAll(`.setting-option[onclick*="'history', '${settings.history}'"]`).forEach(btn => {btn.classList.add('active');});
             }
 
             // Ayarları sıfırla
             function resetSettings() {
                 localStorage.setItem('appSettings', JSON.stringify(defaultSettings));
                 applySettings();
-                showAlert("Tüm ayarlar varsayılan değerlere sıfırlandı", "bilgi");
+                showAlert("Tüm ayarlar varsayılan değerlere sıfırlandı", "info");
             }
 
             // Sayfa yüklendiğinde ayarları uygula
             document.addEventListener('DOMContentLoaded', () => {
                 applySettings();
-                
                 // Video bitişinde otomatik geçiş kontrolü
                 document.getElementById('currentVideo').addEventListener('ended', function() {
                     if (window.autoNextVideo && videosData.length > 0) {
@@ -647,8 +728,10 @@
                 document.getElementById('videoContainer').style.display = 'none';
                 document.getElementById('about-me-container').style.display = 'none';
                 document.getElementById('favorites-container').classList.add('hidden');
+                document.getElementById('history-container').classList.add('hidden');
                 document.getElementById('nav-mobil').classList.remove('show');
                 document.getElementById('settings-container').style.display = 'flex';
+                
                 pageTitle.textContent = '';
                 videosData = [];
                 document.querySelector('video').pause();
@@ -662,6 +745,7 @@
                 document.getElementById('videoContainer').style.display = 'none';
                 document.getElementById('about-me-container').style.display = 'block';
                 document.getElementById('favorites-container').classList.add('hidden');
+                document.getElementById('history-container').classList.add('hidden');
                 document.getElementById('nav-mobil').classList.remove('show');
                document.getElementById('settings-container').style.display = 'none';
                 pageTitle.textContent = '';
@@ -674,7 +758,7 @@
                 const user = 'ckoglu';
                 const repo = 'egitim';
                 const ul = document.getElementById('commits');
-                const status = document.getElementById('me-durum-bilgi');
+                const status = document.getElementById('me-durum-info');
 
                 // Tarih kontrolü
                 const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
@@ -751,42 +835,64 @@
             document.getElementById('starBtn').addEventListener('click', function() {
                 document.getElementById('nav-mobil').classList.remove('show');
                 if (videosData.length === 0 || currentVideoIndex === -1) return;
-                
+
                 const currentVideo = videosData[currentVideoIndex];
                 const params = new URLSearchParams(window.location.search);
                 const egitimParam = params.get('e');
-                
+
                 if (!egitimParam) return;
-                
+
                 let slug = egitimParam;
                 if (egitimParam.includes('--')) {
                     slug = egitimParam.split('--')[0];
                 }
-                
-                const videoId = `${slug}--${currentVideoIndex + 1}`;
+
+                const pageTitle = document.getElementById("pageTitle").innerText;
+                const [egitim, egitmen] = pageTitle.split(' | ').map(s => s.trim());
+
+                const activeVideoItem = document.querySelector('.video-item.active .video-duration');
+                const duration = activeVideoItem ? activeVideoItem.innerText.trim() : '';
+
+                const activeVideoTitle = document.querySelector('.video-item.active .video-title');
+                const vTitle = activeVideoTitle ? activeVideoTitle.innerText.trim() : '';
+
+                const activeVideoTitleNo = document.querySelector('.video-item.active .video-title .video-title-no');
+                const vTitleNo = activeVideoTitleNo ? activeVideoTitleNo.innerText.trim() : '';
+
+                const videoURLno = `${slug}--${parseInt(vTitleNo.replace(".",""))}`;
+
+                // Türk formatında tarih ve saat
+                const now = new Date();
+                const time = now.toLocaleString('tr-TR').replace(',', '');
+
                 const favoriteData = {
-                    id: videoId,
-                    title: currentVideo.title,
+                    id: videoURLno,
+                    vid: vTitleNo.replace(".",""),
+                    title: vTitle.replace(vTitleNo + " ",""),
                     thumbnail: currentVideo.thumbnail,
                     url: window.location.href,
                     videoUrl: currentVideo.url720p || currentVideo.url540p || currentVideo.url360p,
-                    category: document.getElementById('kategori-text').textContent
+                    category: document.getElementById('kategori-text').textContent,
+                    egitim: egitim,
+                    egitmen: egitmen,
+                    duration: duration,
+                    time: time // Örnek: "28.06.2025 14:32"
                 };
-                
+
                 let favorites = JSON.parse(localStorage.getItem('videoFavorites')) || [];
-                const existingIndex = favorites.findIndex(fav => fav.id === videoId);
-                
+                const existingIndex = favorites.findIndex(fav => fav.id === videoURLno);
+
                 if (existingIndex >= 0) {
                     favorites.splice(existingIndex, 1);
-                    showAlert("Favorilerden kaldırıldı", "hata");
+                    showAlert("Favorilerden kaldırıldı", "nofav");
                 } else {
                     favorites.push(favoriteData);
-                    showAlert("Favorilere eklendi", "basari");
+                    showAlert("Favorilere eklendi", "fav");
                 }
-                
+
                 localStorage.setItem('videoFavorites', JSON.stringify(favorites));
                 updateStarButton();
-                displayFavorites(); // Update favorites list if it's open
+                displayFavorites();
             });
 
             // Toggle Favorites View
@@ -798,12 +904,22 @@
                 document.getElementById('videoContainer').style.display = 'none';
                 document.getElementById('about-me-container').style.display = 'none';
                 document.getElementById('nav-mobil').classList.remove('show');
-               document.getElementById('settings-container').style.display = 'none';
+                document.getElementById('settings-container').style.display = 'none';
                 document.querySelector('video').pause();
                 // Show favorites container
                 document.getElementById('favorites-container').classList.remove('hidden');
+                document.getElementById('history-container').classList.add('hidden');
                 // Load favorites
                 displayFavorites();
+            }
+
+            // Clear all fav
+            function clearFav() {
+                localStorage.removeItem('videoFavorites');
+                const clearFavBtn = document.querySelector('.clear-fav-btn');
+                clearFavBtn.classList.add("!hidden");
+                displayFavorites();
+                showAlert('Tüm favoriler temizlendi', 'error');
             }
 
             // Display Favorites with Delete Option
@@ -811,33 +927,58 @@
                 const favoritesList = document.getElementById('favorites-list');
                 const favorites = JSON.parse(localStorage.getItem('videoFavorites')) || [];
                 document.getElementById('nav-mobil').classList.remove('show');
-
+                const clearFavBtn = document.querySelector('.clear-fav-btn');
+                
                 if (favorites.length === 0) {
                     favoritesList.innerHTML = '<p style="text-align: center; width: 100%; padding: 20px;">favori video eklemediniz</p>';
+                    clearFavBtn.classList.add("!hidden");
                     return;
                 }
-                
+
+                clearFavBtn.classList.remove("!hidden");
                 favoritesList.innerHTML = '';
-                
-                favorites.forEach((fav, index) => {
+                favoritesList.className = 'favorites-list';
+
+                // 🔥 Zamanı büyükten küçüğe sıralama
+                favorites.sort((a, b) => {
+                    // gg.aa.yyyy ss:dd formatını Date nesnesine çeviriyoruz
+                    const parseDate = (dateString) => {
+                        const [day, month, yearAndTime] = dateString.split('.');
+                        const [year, time] = yearAndTime.trim().split(' ');
+                        let finalTime = time;
+                        if (time.split(':').length === 2) {
+                            finalTime += ':00';
+                        }
+                        return new Date(`${year}-${month}-${day}T${finalTime}`);
+                    };
+
+                    return parseDate(b.time) - parseDate(a.time); // En yeni en başa
+                });
+
+                favorites.forEach((fav) => {
                     const card = document.createElement('div');
-                    card.className = 'card';
-                    card.style.position = 'relative';
-                    
+                    card.className = 'favorite-item';
+
                     card.innerHTML = `
-                        <img src="${fav.thumbnail}" alt="${fav.title}" onerror="this.src='https://via.placeholder.com/320x170?text=No+Image'">
-                        <div class="card-text">
-                            <div>${fav.title}</div>
+                        <img src="${fav.thumbnail}" alt="${fav.title}" class="favorite-thumbnail" onerror="this.src='https://via.placeholder.com/120x70?text=No+Image'">
+                        <div class="favorite-info">
+                            <div class="favorite-main-title">${fav.vid}. ${fav.title}</div>
+                            <div class="favorite-sub-title">${fav.egitim}</div>
+                            <div class="favorite-meta">
+                                <span>🕒 ${fav.duration}</span>
+                                <span>📅 ${timeAgo(fav.time)}</span>
+                            </div>
                         </div>
-                        <button class="delete-favorite" onclick="removeFavorite('${fav.id}', event)">kaldır</button>
+                        <button class="favorite-delete" onclick="removeFavorite('${fav.id}', event)"><span class="gg-close -ileft"></span></button>
                     `;
-                    
+
                     card.onclick = (e) => {
-                        if (!e.target.classList.contains('delete-favorite')) {
+                        if (!e.target.classList.contains('favorite-delete') && !e.target.classList.contains('favorite-delete')) {
                             playFavorite(fav.id);
+                            console.log(fav.id); // fav id
                         }
                     };
-                    
+
                     favoritesList.appendChild(card);
                 });
             }
@@ -861,7 +1002,7 @@
                     updateStarButton();
                 }
                 
-                showAlert("Favori kaldırıldı", "hata");
+                showAlert("Favori kaldırıldı", "error");
             }
 
             // Play Favorite Video
@@ -869,13 +1010,14 @@
                 const [slug, index] = favoriteId.split('--');
                 const url = `https://www.neoskola.com/egitimler/${slug}`;
                 fetchSourceCode(url, parseInt(index) - 1);
-                
+
                 // Close favorites view and show video
                 document.getElementById('favorites-container').classList.add('hidden');
+                document.getElementById('history-container').classList.add('hidden');
                 document.getElementById('giris-panel').style.display = 'none';
                 document.getElementById('videoContainer').style.display = 'block';
                 document.getElementById('nav-mobil').classList.remove('show');
-               document.getElementById('settings-container').style.display = 'none';
+                document.getElementById('settings-container').style.display = 'none';
             }
 
             // Update Star Button Appearance
@@ -891,10 +1033,12 @@
                     slug = egitimParam.split('--')[0];
                 }
                 
-                const videoId = `${slug}--${currentVideoIndex + 1}`;
+                const activeVideoTitleNo = document.querySelector('.video-item.active .video-title .video-title-no');
+                const vTitleNo = activeVideoTitleNo ? activeVideoTitleNo.innerText.trim() : '';
+                const videoURLno = `${slug}--${parseInt(vTitleNo.replace(".",""))}`;
+
                 const favorites = JSON.parse(localStorage.getItem('videoFavorites')) || [];
-                const isFavorited = favorites.some(fav => fav.id === videoId);
-                
+                const isFavorited = favorites.some(fav => fav.id === videoURLno);
                 document.getElementById('starBtn').innerHTML = isFavorited ? '<span class="gg-heart gg-heart-red"></span>' : '<span class="gg-heart"></span>';
             }
 
@@ -907,26 +1051,23 @@
                     history.back();
                 }
             }
-            </script>
+        </script>
 
         <script>
-            async function fetchSourceCode(url) {
-                showAlert("fetchSourceCode çalıştı:\n" + url, "bilgi");
-            }
-
             async function fonk(kategori = "kategoriler/yeni-eklenenler") {
-
                 const egitimlerDiv = document.getElementById('egitimler');
                 document.getElementById('about-me-container').style.display = 'none';
                 egitimlerDiv.innerHTML = "yükleniyor...";
                 document.getElementById('giris-panel').style.display = 'block';
                 videoContainer.style.display = 'none';
                 document.getElementById('favorites-container').classList.add('hidden');
-               document.getElementById('settings-container').style.display = 'none';
+                document.getElementById('history-container').classList.add('hidden');
+                document.getElementById('settings-container').style.display = 'none';
                 videosData = [];
                 pageTitle.textContent = '';
                 document.querySelector('video').pause();
                 document.getElementById('nav-mobil').classList.remove('show');
+                document.getElementById('nav-mobil-bg').classList.remove('bg-show');
 
                 const kategoriEncoded = encodeURIComponent(kategori).replace(/%2F/g, '/');
                 const newUrl = window.location.pathname + '?k=' + kategoriEncoded;
@@ -952,7 +1093,7 @@
                         container = doc.querySelector('.css-14nqx6m');
                         container.classList.add('bulunan-14nqx6m'); // örnek ek sınıf
                     } else {
-                        showAlert("uygun container bulunamadı!", "kritik");
+                        showAlert("uygun container bulunamadı!", "warning");
                         document.getElementById('resetBtn').click();
                         return;
                     }
@@ -986,7 +1127,7 @@
                         });
                         // Hiç kart oluşturulmamışsa uyarı ver
                         if (egitimlerDiv.innerHTML.trim() === '') {
-                            showAlert("Hiç uygun görsel bulunamadı!", "hata");
+                            showAlert("Hiç uygun görsel bulunamadı!", "error");
                             document.getElementById('resetBtn').click();
                         }
                         
@@ -1020,8 +1161,8 @@
                             
                             const imgSrc = img?.src || '';
                             const label = text?.textContent?.trim() || '';
-                            
-                            const cardHTML = `<div class="card" onclick="fetchSourceCode('${fullHref}')" title="${label} | ${imgAlt}">
+                            const vidNO = parseInt(historyVid(fullHref));
+                            const cardHTML = `<div class="card" onclick="fetchSourceCode('${fullHref}', '${vidNO}')" title="${label} | ${imgAlt}">
                                 <img src="${imgSrc}" alt="${imgAlt}">
                                 <div class="card-text">
                                     <div style="font-weight: bold;">${label}</div>
@@ -1033,13 +1174,13 @@
                         });
 
                         if (!uniqueUrls.size) {
-                            showAlert("Hiç .chakra-link bulunamadı veya tüm linkler tekrar ediyor!", "hata");
+                            showAlert("Hiç .chakra-link bulunamadı veya tüm linkler tekrar ediyor!", "error");
                             document.getElementById('resetBtn').click();
                         }
                     }
 
                 } catch (error) {
-                    showAlert("Hata: " + error.message, "hata");
+                    showAlert("Hata [fonk(kategori)]: " + error.message, "error");
                     document.getElementById('resetBtn').click();
                 }
             }
@@ -1049,14 +1190,14 @@
         <script>
             async function fetchSourceCode(url, videoIndex = 0) {
                 if (!url) {
-                    showAlert("URL geçersiz!", "kritik");
+                    showAlert("URL geçersiz!", "warning");
                     document.getElementById('resetBtn').click();
                     return;
                 }
 
                 try {
                     const egitimSlug = url.split('/').filter(Boolean).pop();
-                    const newUrl = window.location.pathname + '?e=' + encodeURIComponent(egitimSlug) + '--' + (videoIndex + 1);
+                    const newUrl = window.location.pathname + '?e=' + encodeURIComponent(egitimSlug) + '--' + (parseInt(videoIndex) + 1);
                     history.pushState({}, '', newUrl);
 
                     const proxyUrl = `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(url)}`;
@@ -1074,19 +1215,262 @@
                     // Manually trigger the generateBtn click event
                     const event = new Event('click');
                     document.getElementById("generateBtn").dispatchEvent(event);
-                    setTimeout(updateStarButton, 500);
-                    
+                                        
                 } catch (error) {
-                    showAlert(`Hata: ${error.message}`, "kritik");
+                    showAlert(`Hata [fetchSourceCode]: ${error.message}`, "error");
                     document.getElementById('resetBtn').click();
                 }
             }
+        </script>
+
+        <script>// History Management Functions
+            function updateHistory() {
+                
+                // localde false ise durdur.
+                if (!window.historyVideo) return; 
+                // videoData yoksa durdur.
+                if (videosData.length === 0 || currentVideoIndex === -1) return;
+                
+                const params = new URLSearchParams(window.location.search);
+                const egitimParam = params.get('e');
+
+                if (!egitimParam) return;
+
+                let slug = egitimParam;
+                if (egitimParam.includes('--')) {
+                    slug = egitimParam.split('--')[0];
+                }
+
+                const currentVideo = videosData[currentVideoIndex];
+                const videoId = `${slug}--${currentVideoIndex}`;
+                currentVideoIndex = parseInt(currentVideoIndex) + 1
+                // Sayfa başlığını parçalara ayır
+                const pageTitle = document.getElementById("pageTitle")?.textContent || "";
+                const [titlePart, egitmenPart] = pageTitle.split(" | ").map(part => part.trim());
+
+                // Süre bilgisini aktif video item'ından al
+                const activeVideoItem = document.querySelector('.video-item.active');
+                let duration = "00:00";
+                if (activeVideoItem) {
+                    const durationElement = activeVideoItem.querySelector('.video-duration');
+                    if (durationElement) {
+                        duration = durationElement.textContent.trim();
+                    }
+                }
+
+                const historyData = {
+                    id: slug,
+                    vid: `--${currentVideoIndex}`,
+                    thumbnail: currentVideo.thumbnail,
+                    titleVid: currentVideo.title,  // Video başlığı (orijinal)
+                    title: titlePart || currentVideo.title,  // Sayfa başlığının | öncesi
+                    egitmen: egitmenPart || "",  // Sayfa başlığının | sonrası
+                    duration: duration,  // Doğru süre bilgisi
+                    url: `${window.location.pathname}?e=${videoId}`,
+                    videoUrl: currentVideo.url720p || currentVideo.url540p || currentVideo.url360p,
+                    time: new Date().toISOString()
+                };
+
+                // History'yi güncelle
+                let history = JSON.parse(localStorage.getItem('videoHistory')) || [];
+                // Aynı eğitimin eski kaydını bul ve sil
+                history = history.filter(item => item.id !== slug);
+                // Yeni kaydı en başa ekle
+                history.unshift(historyData);
+                // Son 50 kaydı sakla
+                if (history.length > 50) {history = history.slice(0, 50);}
+                localStorage.setItem('videoHistory', JSON.stringify(history));
+                displayHistory(); // Update history list if it's open
+            }
+
+            // Toggle History View
+            function historyMode() {
+
+                if (!window.historyVideo) {
+                    showAlert('İzleme geçmişi kapalı. Ayarlardan açabilirsiniz.', 'error');
+                    ayarMode();
+                    return;
+                }
+
+                const newUrl = window.location.pathname + '?s=history';
+                history.pushState({}, '', newUrl);
+                // Hide all other containers
+                document.getElementById('giris-panel').style.display = 'none';
+                document.getElementById('videoContainer').style.display = 'none';
+                document.getElementById('about-me-container').style.display = 'none';
+                document.getElementById('nav-mobil').classList.remove('show');
+                document.getElementById('settings-container').style.display = 'none';
+                document.getElementById('favorites-container').classList.add('hidden');
+                document.querySelector('video').pause();
+                // Show history container
+                document.getElementById('history-container').classList.remove('hidden');
+                // Load history
+                displayHistory();
+            }
+
+            // Display History with horizontal layout
+            function displayHistory() {
+
+                const clearHistoryBtn = document.querySelector('.clear-history-btn');
+
+                // AYARLARDA kapalı ise
+                if (!window.historyVideo) {
+                    document.getElementById('history-list').innerHTML = '<p style="text-align: center; width: 100%; padding: 20px;">İzleme geçmişi kapalı</p>';
+                    clearHistoryBtn.classList.add("!hidden");
+                    return;
+                }
+
+                const historyList = document.getElementById('history-list');
+                const history = JSON.parse(localStorage.getItem('videoHistory')) || [];
+                document.getElementById('nav-mobil').classList.remove('show');
+
+                if (history.length === 0) {
+                    historyList.innerHTML = '<p style="text-align: center; width: 100%; padding: 20px;">izleme geçmişi boş</p>';
+                    clearHistoryBtn.classList.add("!hidden");
+                    return;
+                }
+                
+                clearHistoryBtn.classList.remove("!hidden");
+                historyList.innerHTML = '';
+                historyList.className = 'history-list'; // Yeni class ekle
+                
+                history.forEach((item) => {
+                    const time = new Date(item.time).toLocaleString('tr-TR', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+
+                    const videoNumber = item.vid.replace('--', '');
+                    const duration = item.duration || '0:00';
+                    
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+                    
+                    historyItem.innerHTML = `
+                        <img src="${item.thumbnail}" alt="${item.title}" class="history-thumbnail" 
+                            onerror="this.src='https://via.placeholder.com/120x70?text=No+Image'">
+                        <div class="history-info">
+                            <div class="history-main-title">${item.titleVid} (${videoNumber}. ders)</div>
+                            <div class="history-sub-title">${item.title}</div>
+                            <div class="history-meta">
+                                <span>🕒 ${duration}</span>
+                                <span>📅 ${timeAgo(time)}</span>
+                            </div>
+                        </div>
+                        <button class="history-delete" onclick="removeHistory('${item.id}', event)"><span class="gg-close -ileft"></span></button>
+                    `;
+                    
+                    historyItem.onclick = (e) => {
+                        if (!e.target.classList.contains('history-delete') && 
+                            !e.target.classList.contains('history-delete')) {
+                            playHistory(item.id, item.vid);
+                        }
+                    };
+                    
+                    historyList.appendChild(historyItem);
+                });
+            }
+
+            function timeAgo(dateString) {
+                const [day, month, yearAndTime] = dateString.split('.');
+                const [year, time] = yearAndTime.trim().split(' ');
+
+                // Eğer saniye yoksa ekle
+                let finalTime = time;
+                if (time.split(':').length === 2) { // örn: 14:23 ise
+                    finalTime += ':00'; // saniye ekle
+                }
+
+                const isoString = `${year}-${month}-${day}T${finalTime}`;
+                const pastDate = new Date(isoString);
+                const now = new Date();
+                const diffInSeconds = Math.floor((now - pastDate) / 1000);
+
+                if (diffInSeconds < 60) return `${diffInSeconds} sn önce`;
+                const diffInMinutes = Math.floor(diffInSeconds / 60);
+                if (diffInMinutes < 60) return `${diffInMinutes} dk önce`;
+                const diffInHours = Math.floor(diffInMinutes / 60);
+                if (diffInHours < 24) return `${diffInHours} sa önce`;
+                const diffInDays = Math.floor(diffInHours / 24);
+                if (diffInDays < 7) return `${diffInDays} gün önce`;
+                const diffInWeeks = Math.floor(diffInDays / 7);
+                if (diffInWeeks < 4) return `${diffInWeeks} hf önce`;
+                const diffInMonths = Math.floor(diffInDays / 30);
+                if (diffInMonths < 12) return `${diffInMonths} ay önce`;
+                const diffInYears = Math.floor(diffInDays / 365);
+                return `${diffInYears} yıl önce`;
+            }
+
+            // Clear all history
+            function clearHistory() {
+                localStorage.removeItem('videoHistory');
+                const clearHistoryBtn = document.querySelector('.clear-history-btn');
+                clearHistoryBtn.classList.add("!hidden");
+                displayHistory();
+                if (window.historyVideo) {
+                    showAlert('Tüm izleme geçmişi temizlendi', 'error');
+                }
+                
+            }
+
+            // Remove single history item
+            function removeHistory(historyId, event) {
+                event.stopPropagation();
+                let history = JSON.parse(localStorage.getItem('videoHistory')) || [];
+                history = history.filter(item => item.id !== historyId);
+                localStorage.setItem('videoHistory', JSON.stringify(history));
+                displayHistory();
+                showAlert("Geçmişten kaldırıldı", "error");
+            }
+
+            // Play from History
+            function playHistory(slug, vid) {
+                const videoIndex = parseInt(vid.replace('--', '')) - 1;
+                const fullUrl = `https://www.neoskola.com/egitimler/${slug}`;
+                fetchSourceCode(fullUrl, videoIndex);
+                
+                // Close history view and show video
+                document.getElementById('history-container').classList.add('hidden');
+                document.getElementById('giris-panel').style.display = 'none';
+                document.getElementById('videoContainer').style.display = 'block';
+            }
+
+            // Video değiştiğinde history'i güncelle
+            document.getElementById('currentVideo').addEventListener('play', function() {
+                updateHistory();
+            });
         </script>
 
         <script>
             window.onload = urlDegisimi;
             window.addEventListener('popstate', urlDegisimi);
 
+            function historyVid(url) {
+                // URL'den slug çıkar
+                const slug = url.replace("https://www.neoskola.com//egitimler/", "");
+
+                const historyStr = localStorage.getItem('videoHistory');
+                if (!historyStr) return 0;
+
+                try {
+                    const historyArr = JSON.parse(historyStr);
+                    
+                    // Find the matching item in the history array
+                    const match = historyArr.find(item => item.id === slug);
+                    if (match) {
+                        const vid = match.vid.replace("--", "");
+                        return parseInt(vid) - 1;
+                    }
+                } catch (e) {
+                    console.error("videoHistory okunurken hata oluştu:", e);
+                }
+                return 0; // Eşleşme yoksa varsayılan olarak 1 döner
+            }
+
+            // URL değişim fonksiyonunu güncelle
             function urlDegisimi() {
                 const params = new URLSearchParams(window.location.search);
                 const egitimParam = params.get('e');
@@ -1098,21 +1482,30 @@
                     // Eğitim detay sayfası
                     let slug = egitimParam;
                     let videoIndex = 0;
-                    if (egitimParam.includes('--')) {
-                        const split = egitimParam.split('--');
-                        slug = split[0];
-                        videoIndex = parseInt(split[1]) - 1;
+
+                    const match = egitimParam.match(/^(.*?)(?:-*)--(\d+)$/);
+                    if (match) {
+                        slug = match[1];                  // slug: guzellik-kodlari-rutinler-ve-trendler
+                        videoIndex = parseInt(match[2]) - 1; // 4 -> index = 3
                     }
+
+                    const lastElement = document.getElementById('videoList').lastElementChild;
+                    const lastIndex = lastElement ? lastElement.getAttribute('data-index') : 0;
+                    if (lastIndex > videoIndex) {
+                        videoIndex = 0;
+                    }
+                    
                     const fullUrl = `https://www.neoskola.com/egitimler/${slug}`;
                     fetchSourceCode(fullUrl, videoIndex);
+                    
                 } else if (kategori && kategori.trim() !== "") {
                     fonk(kategori);
                 } else if (sayfa && sayfa.trim() !== "") {
                     if (sayfa === 'me') meMode();
                     else if (sayfa === 'fav') favMode();
                     else if (sayfa === 'ayar') ayarMode();
-                } else {
-                    // Varsayılan başlangıç sayfasını yükle
+                    else if (sayfa === 'history') historyMode();
+                } else {// Varsayılan başlangıç sayfasını yükle
                     fonk(settings.startPage);
                 }
             }
@@ -1131,18 +1524,45 @@
             function topFunction() {window.scrollTo({ top: 0, behavior: 'smooth' });}
 
             //alert
-            function showAlert(message, type = 'bilgi', duration = 3000) {
+            function showAlert(message, type = 'info', duration = 3000) {
                 const alertBox = document.getElementById('alert');
                 const messageBox = document.getElementById('alertMessage');
                 const iconBox = document.getElementById('alertIcon');
-                // Türüne göre ikonlar
-                const icons = {basari: "✅", hata: "❌", kritik: "⚠️", bilgi: "ℹ️", zil: "🔔", koyu: "🌙", acik: "☀️", fav: "⭐"};
+
+                const icons = {
+                    success: '<span class="gg-check"></span>',
+                    error: '<span class="gg-close"></span>',
+                    warning: '<span class="gg-danger"></span>',
+                    info: '<span class="gg-info"></span>',
+                    dark: '<span class="gg-moon"></span>',
+                    light: '<span class="gg-sun"></span>',
+                    fav: '<span class="gg-heart gg-heart-red -l4"></span>',
+                    nofav: '<span class="gg-heart -l4"></span>'
+                };
+
+                const bgColors = {
+                    success: 'bg-success',
+                    error: 'bg-danger',
+                    warning: 'bg-warning',
+                    info: 'bg-info',
+                    dark: 'bg-dark',
+                    light: 'bg-slate c-dark',
+                    fav: 'bg-danger',
+                    nofav: 'bg-dark'
+                };
+
+                // ikon ve mesajı yerleştir
                 messageBox.textContent = message;
-                iconBox.textContent = icons[type] || "ℹ️";
-                // Sınıfları ayarla
-                alertBox.className = `alert alert-${type} show`;
+                iconBox.innerHTML = icons[type] || '<span class="gg-info"></span>';
+
+                // Arka plan sınıfını al, yoksa varsayılan kullan
+                const bgClass = bgColors[type] || 'bg-info';
+
+                // Tüm sınıfları ayarla (birden fazla class varsa sorun olmaz)
+                alertBox.className = `alert show ${bgClass}`;
+
                 clearTimeout(window.alertTimeout);
-                window.alertTimeout = setTimeout(() => {hideAlert();}, duration);
+                window.alertTimeout = setTimeout(hideAlert, duration);
             }
 
             function hideAlert() {
@@ -1152,40 +1572,16 @@
             }
 
             //toggle menu
-            function toggleMenu() {
+            function mobilMenu() {
                 document.getElementById('nav-mobil').classList.toggle('show');
+                document.getElementById('nav-mobil-bg').classList.toggle('bg-show');
             }
 
-            // Sayfa açılışında temayı yükle
-            function updateToggleIcon() {
-                
-                const btn = document.getElementById('themeToggleBtn');
-                if (document.body.classList.contains('dark')) {
-                    // Koyu temadaysa güneş simgesi (aydınlık butonu)
-                } else {
-                    // Açık temadaysa ay simgesi (koyu temaya geçiş) 
-                }
-            }
-
-            document.addEventListener('DOMContentLoaded', () => {
-                if (localStorage.getItem('theme') === 'dark') {
-                    document.body.classList.add('dark');
-                }
-                updateToggleIcon();
-            });
-
-            function toggleDarkMode() {
+            function closeMobilNav(){
                 document.getElementById('nav-mobil').classList.remove('show');
-                document.body.classList.toggle('dark');
-                if (document.body.classList.contains('dark')) {
-                    localStorage.setItem('theme', 'dark');
-                    showAlert("koyu tema uygulandı", "koyu");
-                } else {
-                    localStorage.setItem('theme', 'light');
-                    showAlert("açık tema uygulandı", "acik");
-                }
-                updateToggleIcon();
+                document.getElementById('nav-mobil-bg').classList.remove('bg-show');
             }
+
         </script>
             
         <script>
@@ -1210,7 +1606,7 @@
                     try {
                         const sourceCode = sourceCodeInput.value.trim();
                         if (!sourceCode) {
-                            showAlert("Lütfen önce kaynak kodunu yapıştırın!", "kritik");
+                            showAlert("Lütfen önce kaynak kodunu yapıştırın!", "warning");
                             document.getElementById('resetBtn').click();
                             return;
                         }
@@ -1224,7 +1620,7 @@
                         const contentEnd = sourceCode.indexOf('"title":"Sertifika Testi');
 
                         if (contentStart === -1) {
-                            showAlert("content bulunamadı!", "hata");
+                            showAlert("content bulunamadı!", "error");
                             document.getElementById('resetBtn').click();
                             return;
                         }
@@ -1232,7 +1628,7 @@
                         let contentSection = '';
 
                         if (contentEnd === -1) {
-                            showAlert("sertifika testi bulunamadı, devam ediliyor", "kritik");
+                            showAlert("sertifika testi bulunamadı, devam ediliyor", "warning");
                             contentSection = sourceCode.substring(contentStart + 10); // +10 çünkü '"content":[' uzunluğu 10 karakter
                         } else {
                             contentSection = sourceCode.substring(contentStart + 10, contentEnd - 1);
@@ -1277,7 +1673,7 @@
                         }
                         
                         if (videosData.length === 0) {
-                            showAlert("Belirtilen işaretleyiciler arasında video verisi bulunamadı!", "kritik");
+                            showAlert("Belirtilen işaretleyiciler arasında video verisi bulunamadı!", "warning");
                             document.getElementById('resetBtn').click();
                             return;
                         }
@@ -1290,7 +1686,7 @@
                         }
                         
                     } catch (error) {
-                        showAlert('Kaynak kodu işlenirken hata oluştu: ' + error.message, "kritik");
+                        showAlert('Kaynak kodu işlenirken hata oluştu: ' + error.message, "error");
                         document.getElementById('resetBtn').click();
                         console.error(error);
                     }
@@ -1315,7 +1711,7 @@
                         videoItem.className = 'video-item';
                         videoItem.dataset.index = index;
                         
-                         videoItem.innerHTML = `<img src="${video.thumbnail}" alt="Thumbnail" class="video-thumbnail"  onerror="this.src='https://via.placeholder.com/80x45?text=No+Thumbnail'">
+                        videoItem.innerHTML = `<img src="${video.thumbnail}" alt="Thumbnail" class="video-thumbnail"  onerror="this.src='https://via.placeholder.com/80x45?text=No+Thumbnail'">
                                                 <div class="video-item-info">
                                                     <span class="video-title"><span class="video-title-no">${index + 1}.</span> ${video.title}</span><span class="video-duration">${video.duration}</span>
                                                 </div>`;
@@ -1345,6 +1741,7 @@
                     videoContainer.style.display = 'none';
                     document.getElementById('about-me-container').style.display = 'none';
                     document.getElementById('favorites-container').classList.add('hidden');
+                    document.getElementById('history-container').classList.add('hidden');
                     document.getElementById('settings-container').classList.remove('show');
                     document.getElementById('settings-container').classList.add('hidden');
                     videosData = [];
@@ -1352,6 +1749,7 @@
                     document.querySelector('video').pause();
                 });
 
+                // Klavye Kısayılları
                 document.addEventListener("keydown", function (e) {
                     const video = document.getElementById('currentVideo');
                     if (e.code === 'Space' || e.key === ' ' || e.key === 'Spacebar') {
@@ -1371,14 +1769,21 @@
                     } else if (e.key === 'ArrowLeft') {
                         if (videoContainer.style.display === 'block') {
                             document.getElementById('onceki-video').click();
-                            showAlert("Bir önceki videoya geçtiniz", "basari");
+                            showAlert("Bir önceki videoya geçtiniz", "success");
                         }
                     } else if (e.key === 'ArrowRight') {
                         if (videoContainer.style.display === 'block') {
                             document.getElementById('sonraki-video').click();
-                            showAlert("Bir sonraki videoya geçtiniz", "basari");
+                            showAlert("Bir sonraki videoya geçtiniz", "success");
                         }
-                    }
+                    } else if (e.key === 'Escape') {
+                        if (document.getElementById("nav-mobil").classList.contains("show") || document.getElementById("nav-mobil-bg").classList.contains("bg-show")) {
+                            closeMobilNav()
+                        } else if (videoContainer.style.display === 'block') {
+                            document.getElementById('resetBtn').click();
+                            showAlert("eğitimi kapattınız", "error");
+                        }
+                    } 
                 });
                 
             });
@@ -1388,10 +1793,7 @@
             // Önceki ve sonraki video butonları için fonksiyonlar
             document.getElementById('onceki-video').addEventListener('click', function() {
                 if (videosData.length === 0) return;
-                
-                let newIndex = currentVideoIndex - 1;
-                if (newIndex < 0) {newIndex = videosData.length - 1;} // Son videoya git
-                
+ 
                 // URL'yi güncelle
                 const params = new URLSearchParams(window.location.search);
                 const egitimParam = params.get('e');
@@ -1400,21 +1802,43 @@
                     slug = egitimParam.split('--')[0]; // sadece slug'ı al
                 }
                 
-                const newUrl = `${window.location.pathname}?e=${slug}--${newIndex + 1}`;
-                history.pushState({}, '', newUrl);
+                const activeVideoTitleNo = document.querySelector('.video-item.active .video-title .video-title-no');
+                let vTitleNo = activeVideoTitleNo ? activeVideoTitleNo.innerText.trim() : '';
+
+                let newIndex = parseInt(vTitleNo.replace('.', '')) - 1;
                 
-                // Videoyu seç
-                selectVideo(newIndex);
+                if (newIndex < 1) {
+                    
+                    newIndex = document.getElementById('videoList').lastElementChild.getAttribute('data-index');
+                    const lastElement = document.getElementById('videoList').lastElementChild.getAttribute('data-index');
+                    const vTitleNo = lastElement ? lastElement + "." : "0.";
+
+                    if (vTitleNo.includes('.')) {
+                        const newUrl = `${window.location.pathname}?e=${slug}--${parseInt(newIndex) + 1}`;
+                        history.pushState({}, '', newUrl);
+                    }
+                                
+                    // Videoyu seç
+                    selectVideo(newIndex);
+                    
+                } else {
+
+                    if (vTitleNo.includes('.')) {
+                        const newUrl = `${window.location.pathname}?e=${slug}--${parseInt(vTitleNo.replace('.', '')) - 1}`;
+                        history.pushState({}, '', newUrl);
+                    }
+                                
+                    // Videoyu seç
+                    selectVideo(parseInt(vTitleNo.replace(".", "")) - 2);
+
+                }
+                
+
             });
 
             document.getElementById('sonraki-video').addEventListener('click', function() {
                 if (videosData.length === 0) return;
-                
-                let newIndex = currentVideoIndex + 1;
-                if (newIndex >= videosData.length) {
-                    newIndex = 0; // İlk videoya dön
-                }
-                
+ 
                 // URL'yi güncelle
                 const params = new URLSearchParams(window.location.search);
                 const egitimParam = params.get('e');
@@ -1423,21 +1847,34 @@
                     slug = egitimParam.split('--')[0]; // sadece slug'ı al
                 }
                 
-                const newUrl = `${window.location.pathname}?e=${slug}--${newIndex + 1}`;
-                history.pushState({}, '', newUrl);
-                
+                const activeVideoTitleNo = document.querySelector('.video-item.active .video-title .video-title-no');
+                let vTitleNo = activeVideoTitleNo ? activeVideoTitleNo.innerText.trim() : '';
+
+                let newIndex = currentVideoIndex;
+                if (newIndex >= videosData.length) {
+                    newIndex = 0; // İlk videoya dön
+                    vTitleNo = "0.";
+                }
+
+                if (vTitleNo.includes('.')) {
+                    const newUrl = `${window.location.pathname}?e=${slug}--${parseInt(vTitleNo.replace('.', '')) + 1}`;
+                    history.pushState({}, '', newUrl);
+                }
+                    
                 // Videoyu seç
-                selectVideo(newIndex);
+                selectVideo(parseInt(vTitleNo.replace(".", "")));
             });
 
             // selectVideo fonksiyonunu güncelle (video kalitesi seçimi için)
             function selectVideo(index) {
+
                 currentVideoIndex = index;
                 const video = videosData[index];
-                
+
                 // Listede aktif durumu güncelle
                 document.querySelectorAll('.video-item').forEach(item => {item.classList.remove('active');});
                 document.querySelector(`.video-item[data-index="${index}"]`).classList.add('active');
+
                 // Önce kalite seçiciyi oluştur (böylece varsayılan kalite seçili gelecek)
                 renderQualitySelector(video);
                 
@@ -1466,7 +1903,7 @@
                     document.getElementById('currentVideo').innerHTML = `<p>Bu video için URL bulunamadı</p>`;
                 }
                 
-                document.getElementById('videoInfo').innerHTML = `<h2>${index + 1}. ${video.title}</h2><p>${video.body}</p>`;
+                document.getElementById('videoInfo').innerHTML = `<h2>${parseInt(index) + 1}. ${video.title}</h2><p>${video.body}</p>`;
                 updateStarButton();
                 topFunction();
             }
